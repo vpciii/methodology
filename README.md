@@ -23,21 +23,26 @@ to your shell profile for terminal use.
 
 | Path | What |
 |---|---|
-| `methodology.md` | The canonical methodology (8 practices + the reasoning). |
+| `methodology.md` | The canonical methodology (11 practices + the reasoning + a decision guide). |
 | `templates/adr/_template.md` | Architecture Decision Record template. |
 | `templates/spec/{spec,plan,tasks}.md` | Spec-first feature templates. |
 | `templates/glossary.md` | Ubiquitous-language glossary seed. |
 | `templates/twelve-factor.md` | Twelve-Factor status checklist (deployable services). |
 | `templates/project-CLAUDE.md` | Drop-in `CLAUDE.md` for a new project (AI orientation pointer). |
-| `templates/project-CONTRIBUTING.md` | Drop-in `CONTRIBUTING.md` (PR flow, commit labels, DoD, review scope). |
+| `templates/project-CONTRIBUTING.md` | Drop-in `CONTRIBUTING.md` (PR flow, commit labels, DoR/DoD, review scope). |
+| `templates/methodology.mdc` | Cursor rule — paste into Cursor User Rules (global) or drop into a project's `.cursor/rules/`. |
 | `adr/NNNN-*.md` | Decisions about *this methodology itself*. |
 
 ## How it's wired in globally
 
-`~/.claude/CLAUDE.md` (global Claude memory, loaded in every project)
-contains the hard rules inline and points here for the full document.
-So every Claude session — in any repo — already knows the methodology
-and where to read the detail.
+- **Claude:** `~/.claude/CLAUDE.md` (global memory, loaded in every
+  project) contains the hard rules inline and points here for the full
+  document, plus `$METHODOLOGY_HOME` is set in `~/.claude/settings.json`
+  `env`. Every Claude session, in any repo, already knows the methodology.
+- **Cursor:** paste `templates/methodology.mdc` into **Cursor →
+  Settings → Rules → User Rules** for the global equivalent. (Cursor has
+  no global rules *file*; User Rules is its only always-on mechanism.)
+  For per-project, drop the same file into `<project>/.cursor/rules/`.
 
 ## Adopting it in a project
 

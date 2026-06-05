@@ -1,0 +1,53 @@
+---
+description: Global development methodology — practices, decision guide, and hard rules for all projects
+globs: **/*
+alwaysApply: true
+---
+
+# Development methodology
+
+These are the standing development practices for all projects, followed
+by humans and AI agents alike. Full canonical document:
+`~/Developer/methodology/methodology.md`
+(private mirror: github.com/vpciii/methodology). **For substantial or
+long-lived work, read it first.** A project's own `.cursor/rules/` and
+its ADRs add project-specific rules and take precedence.
+
+## Scope — apply judgment
+
+These earn their keep on **substantial** (more than a function/bugfix)
+or **long-lived** work. For throwaway scripts and five-minute fixes,
+skip the ceremony — a good commit message is enough.
+
+## Decision guide — which artifact, when
+
+| About to… | Produce… |
+|---|---|
+| Do substantial/long-lived work | a spec → plan → tasks in `specs/<slug>/` |
+| Make a decision expensive to reverse / cross-component / future-constraining | an ADR in `docs/adr/` |
+| Add or change behavior | a test that fails before, passes after |
+| Use an undefined domain term | a `docs/glossary.md` entry (don't invent synonyms) |
+| Add/upgrade a dependency | weigh it; ADR for non-trivial ones |
+| Resolve an incident | ≥1 of: regression test, ADR, spec update |
+| Trivial / throwaway change | nothing but a clear commit message |
+
+## Hard rules
+
+- **Spec-first for non-trivial work:** `spec.md` → `plan.md` → `tasks.md`, sign-off between stages.
+- **Decisions get ADRs** (expensive to reverse / multi-component / future-constraining).
+- **Small PRs, trunk-based;** split past ~300 lines of diff.
+- **Reversible by default:** flags / expand-contract migrations / backward-compatible APIs; call out and ADR anything irreversible.
+- **Tests as specification:** new behavior ships with tests; fixes ship a regression test (fails before, passes after). Test behavior, not implementation.
+- **Security & secrets:** secrets never in the repo (env / secret manager); rotate leaks; trust boundaries & authz are ADR-worthy; security bugs ship a regression test.
+- **Dependencies are decisions:** weigh maintenance/license/supply-chain; commit lockfiles; ADR non-trivial deps.
+- **Ubiquitous language:** use the project's domain terms exactly.
+- **Conventional Commits + SemVer** (`feat: fix: docs: refactor: test: chore: perf: build: ci:`; `!` for breaking).
+- **Keep artifacts honest:** docs change in the same PR as the behavior; ADRs append-only; enforce machine-checkable rules in CI.
+
+## Author of record
+
+Read before you write (methodology → ADRs → glossary → active spec).
+Produce artifacts, not just code. Stop and ask on undefined terms or
+hard-to-reverse decisions. **The human accepts every diff and runs the
+tests.** Workflow frameworks are disposable orchestration over the
+canonical artifacts, not a replacement for them.
