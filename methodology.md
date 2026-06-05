@@ -7,9 +7,15 @@ every modern toolchain (and every replacement that comes next) reads
 and writes.
 
 This document is **global**: it is the shared methodology for all
-projects. It lives in its own repository (`~/Developer/methodology`)
+projects, followed by **both humans and AI agents**. It lives in its
+own repository (`$METHODOLOGY_HOME`, default `~/Developer/methodology`)
 so it outlives any single project, and each project points at it from
 its own `CLAUDE.md`.
+
+> **`$METHODOLOGY_HOME`** is this repository's location. It defaults to
+> `~/Developer/methodology` and is set in `~/.claude/settings.json`
+> (`env`) so every Claude session resolves it; add it to your shell
+> profile for terminal use. All paths below are written relative to it.
 
 The rule of thumb: **document the artifact, not the tool.** A spec, a
 decision record, and a passing test outlive any IDE or agent.
@@ -30,26 +36,90 @@ the artifacts matters more than their existence.**
 experiment, or a five-minute fix does not need a spec and an ADR.
 These practices earn their keep on work that is *substantial* (more
 than a single function or bugfix) or *long-lived* (something another
-person — or a future you — will maintain). Apply judgment.
+person — or a future you, or a future agent — will maintain). Apply
+judgment.
+
+---
+
+## Using this methodology (humans and agents)
+
+This methodology is meant to be followed by a human contributor and by
+an AI coding agent equally. This section is the navigable surface for
+both.
+
+### Reading order (onboarding)
+
+To get oriented in any project, in order:
+
+1. **This document** — the practices (§1–§11) and why they exist.
+2. The project's **`docs/adr/`**, highest number down, until the shape
+   of the system is clear. Each ADR is binding unless `superseded`.
+3. The project's **`docs/glossary.md`** — the ubiquitous language; use
+   these terms exactly.
+4. The **`specs/<feature>/`** folder for the work at hand, if one was
+   named.
+
+### Decision guide — which artifact, when
+
+| If you are about to… | Produce… | Where |
+|---|---|---|
+| Do substantial or long-lived work (more than a function/bugfix) | a spec, then plan, then tasks | `specs/<slug>/{spec,plan,tasks}.md` |
+| Make a decision that is expensive to reverse, cross-component, or future-constraining | an ADR | `docs/adr/NNNN-*.md` |
+| Add or change behavior | a test that fails before and passes after | `tests/` |
+| Use a domain term that isn't defined | a glossary entry | `docs/glossary.md` |
+| Add or upgrade a dependency | weigh it; record non-trivial ones as an ADR (§10) | `docs/adr/` |
+| Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout |
+| Resolve an incident | at least one of: regression test, ADR, spec update (§8) | `tests/`, `docs/adr/`, `specs/` |
+| Make a trivial, throwaway, or five-minute change | nothing — a good commit message is enough | the commit |
+
+### Operating rules for AI agents
+
+An AI agent (Claude today, something else tomorrow) is a first-class
+contributor here, bound by the same artifacts. Specifically:
+
+- **Read before you write.** Follow the reading order above before
+  proposing changes.
+- **Produce artifacts, not just code.** A change to substantial or
+  long-lived work includes its spec, its tests, and an ADR for any
+  significant decision — not code alone.
+- **A failing test is the most precise instruction you can be given,
+  and a passing suite is the most trustworthy signal that work is
+  done.** Prefer encoding intent as executable constraints.
+- **Stop and ask** when a needed domain term is undefined, when a
+  decision looks expensive to reverse, or when the spec is ambiguous —
+  do not invent a term or guess a boundary.
+- **The human is the author of record.** You may draft anything; the
+  human reviews the diff, runs the tests, and accepts. Never assume an
+  unstated standard (security posture, naming, API shape) — surface it.
+
+### Keep the artifacts honest
+
+- **Docs change in the same PR as the behavior they describe.** No
+  "docs later." A change that makes the glossary, an ADR, a spec, or
+  the README wrong must fix it in the same change.
+- **ADRs are append-only** — supersede, never rewrite history.
+- **Automate what is checkable.** Anything a machine can verify —
+  tests, type-checks, lint, commit-message format — is enforced in CI,
+  not left to memory or review diligence.
 
 ---
 
 ## Artifact map
 
 The methodology's durable surface — the things that survive any tool
-change — lives at conventional paths in each project. Newcomers
-(human or AI) use this table to find what's where without hunting.
+change — lives at conventional paths. Newcomers (human or AI) use this
+table to find what's where without hunting.
 
 | Primitive | Conventional path | Purpose |
 |---|---|---|
-| This methodology | `~/Developer/methodology/methodology.md` | The document you are reading; shared across all projects. |
+| This methodology | `$METHODOLOGY_HOME/methodology.md` | The document you are reading; shared across all projects. |
 | Project README | `README.md` | Front door for the repo; short pointer to the artifacts below. |
-| Architecture Decision Records | `docs/adr/NNNN-*.md` | One short file per significant decision. Template: `~/Developer/methodology/templates/adr/_template.md`. |
-| Ubiquitous language / glossary | `docs/glossary.md` | The project's domain terms. Template: `templates/glossary.md`. |
-| Twelve-Factor checklist | `docs/twelve-factor.md` | Status table for deployable services. Template: `templates/twelve-factor.md`. |
-| Feature specifications | `specs/<slug>/{spec,plan,tasks}.md` | Spec-first workflow. Templates in `templates/spec/`. |
+| Architecture Decision Records | `docs/adr/NNNN-*.md` | One short file per significant decision. Template: `$METHODOLOGY_HOME/templates/adr/_template.md`. |
+| Ubiquitous language / glossary | `docs/glossary.md` | The project's domain terms. Template: `$METHODOLOGY_HOME/templates/glossary.md`. |
+| Twelve-Factor checklist | `docs/twelve-factor.md` | Status table for deployable services. Template in `templates/`. |
+| Feature specifications | `specs/<slug>/{spec,plan,tasks}.md` | Spec-first workflow. Templates in `$METHODOLOGY_HOME/templates/spec/`. |
 | AI agent orientation | `CLAUDE.md` | Points the active AI tool at the artifacts above. Template: `templates/project-CLAUDE.md`. |
-| Contributor guide | `CONTRIBUTING.md` | Operational rules: PR flow, commit labels, definition of done, review scope. Template: `templates/project-CONTRIBUTING.md`. |
+| Contributor guide | `CONTRIBUTING.md` | Operational rules: PR flow, commit labels, definition of ready/done, review scope. Template: `templates/project-CONTRIBUTING.md`. |
 | Tests | `tests/` | Executable specification (see practice §5). |
 
 The human is the author of record for every artifact. AI assistants
@@ -66,22 +136,20 @@ decision, alternatives considered, consequences. Numbered, immutable
 once accepted, superseded rather than edited.
 
 - Origin: Michael Nygard, [Documenting Architecture Decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions) (2011).
-- Lives in: `docs/adr/`.
-- Template: `templates/adr/_template.md`.
+- Lives in: `docs/adr/`. Template: `$METHODOLOGY_HOME/templates/adr/_template.md`.
 
 **When is an ADR required?** When a decision is any of:
 
 - **Expensive to reverse** — changing it later would require
   coordinated work across files, data, or deployments.
-- **Cross-component** — affects more than one bounded module or
-  layer of the system.
+- **Cross-component** — affects more than one bounded module or layer.
 - **Future-constraining** — closes off options that would otherwise
   have remained open.
 
 The simpler test: would a future contributor (or AI agent) reasonably
-ask "why?" about this? If yes, write an ADR. If no, the commit
-message is enough. The goal is a decision trail rich enough to
-onboard a stranger, not an exhaustive log of every micro-choice.
+ask "why?" about this? If yes, write an ADR. If no, the commit message
+is enough. The goal is a decision trail rich enough to onboard a
+stranger, not an exhaustive log of every micro-choice.
 
 Why this lasts: a written decision trail is the single highest-
 leverage habit in software engineering. It is the answer to every
@@ -93,17 +161,16 @@ Write the spec before the code. One folder per feature, three files:
 `spec.md` (what + why), `plan.md` (how), `tasks.md` (PR-sized work
 items). The spec is reviewed and agreed before implementation.
 
-**The spec is the contract. The tests and the code review are how
-you prove you met it.** §5 elaborates on the test side; review-scope
-rules live in each project's `CONTRIBUTING.md`.
+**The spec is the contract. The tests and the code review are how you
+prove you met it.** §5 elaborates the test side; review-scope rules
+live in each project's `CONTRIBUTING.md`.
 
 - Origin: Tom Preston-Werner, [Readme Driven Development](https://tom.preston-werner.com/2010/08/23/readme-driven-development.html) (2010).
-- Lives in: `specs/<feature-slug>/`.
-- Templates: `templates/spec/`.
+- Lives in: `specs/<feature-slug>/`. Templates: `$METHODOLOGY_HOME/templates/spec/`.
 
-Why this lasts: every modern "spec-driven AI" framework
-(Spec Kit, BMAD, Kiro, etc.) is repackaging this. Owning the
-primitive means you are never locked into a wrapper.
+Why this lasts: every modern "spec-driven AI" framework (Spec Kit,
+BMAD, Kiro, etc.) is repackaging this. Owning the primitive means you
+are never locked into a wrapper.
 
 ### 3. Domain-Driven Design, applied lightly
 
@@ -124,8 +191,8 @@ confusion.
 
 ### 4. Trunk-based development with small PRs
 
-Short-lived branches merged frequently to `main`. PRs kept small.
-The discipline: keep changes reviewable, keep `main` always shippable,
+Short-lived branches merged frequently to `main`. PRs kept small. The
+discipline: keep changes reviewable, keep `main` always shippable,
 surface integration problems early.
 
 - Reference: [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/).
@@ -134,34 +201,34 @@ surface integration problems early.
   with high software delivery performance across thousands of orgs.
 
 Why this lasts: it is the only execution discipline with hard
-empirical evidence behind it.
+empirical evidence behind it. (It is only safe paired with §11 —
+reversible changes.)
 
 ### 5. Tests as executable specification
 
-Tests are not merely merge gates. They are the executable encoding
-of:
+Tests are not merely merge gates. They are the executable encoding of:
 
-- **Business invariants.** Especially for rules that must hold for
-  *every* input rather than a finite test set — money math, access
-  control, idempotency, state-machine transitions. Property-based
-  tests (Hypothesis, fast-check, QuickCheck, etc.) are preferred when
-  an invariant holds over an infinite input space.
+- **Business invariants.** Especially rules that must hold for *every*
+  input rather than a finite test set — money math, access control,
+  idempotency, state-machine transitions. Property-based tests
+  (Hypothesis, fast-check, QuickCheck, etc.) are preferred when an
+  invariant holds over an infinite input space.
 - **Acceptance criteria from specs.** Every success criterion in a
   `spec.md` should map to at least one test that fails before the
-  feature is built and passes after it is.
-- **Regression records.** Every bug fix ships with the test that
-  would have caught the bug. The test is the permanent record of
-  what went wrong.
+  feature is built and passes after.
+- **Regression records.** Every bug fix ships with the test that would
+  have caught the bug. The test is the permanent record of what went
+  wrong.
 
 The philosophical posture: **behavior over implementation.** A test
 should describe what the system does for a user or a caller, not how
 the code happens to be structured today. Implementation refactors
 should not require test changes; behavior changes must.
 
-This framing also strengthens the AI-agent story. Agents operate
-best against **executable constraints**: a failing test is the most
-precise specification you can give one, and a passing suite is the
-most trustworthy signal that work is done.
+This framing also strengthens the AI-agent story. Agents operate best
+against **executable constraints**: a failing test is the most precise
+specification you can give one, and a passing suite is the most
+trustworthy signal that work is done.
 
 ### 6. The Twelve-Factor App
 
@@ -183,45 +250,104 @@ Machine-readable commit messages and predictable version numbers.
 - [Conventional Commits](https://www.conventionalcommits.org/).
 - [Semantic Versioning](https://semver.org/).
 
-See each project's `CONTRIBUTING.md` for the project-specific gloss
-of each commit type label and the disambiguation rules between them.
+See each project's `CONTRIBUTING.md` for the project-specific gloss of
+each commit type label and the disambiguation rules between them.
 
 Why this lasts: boring, simple, machine-readable. Every tool from
 changelog generators to release bots speaks both.
 
 ### 8. Operational feedback loops
 
-Production behavior is part of the specification process. Specs,
-ADRs, and tests describe what the system *should* do; production
-tells us what it *actually* does. The loop only closes when those
-two are reconciled.
+Production behavior is part of the specification process. Specs, ADRs,
+and tests describe what the system *should* do; production tells us
+what it *actually* does. The loop only closes when those two are
+reconciled.
 
 No formal SRE machinery is required. One rule is:
 
 > Incidents, outages, and unexpected operational behavior result in
 > **at least one** of:
 >
-> - **A failing test (now passing)** — capturing the regression so
->   it cannot recur silently.
-> - **A new or updated ADR** — when the incident revealed a
->   decision we should have made, or made differently.
-> - **A spec update** — when the incident revealed that the
->   specified behavior was wrong, ambiguous, or incomplete.
+> - **A failing test (now passing)** — capturing the regression so it
+>   cannot recur silently.
+> - **A new or updated ADR** — when the incident revealed a decision
+>   we should have made, or made differently.
+> - **A spec update** — when the incident revealed that the specified
+>   behavior was wrong, ambiguous, or incomplete.
 
 Lightweight supporting practices:
 
-- **Observability is non-negotiable for deployed services.** Every
-  one exposes structured logs (event-stream format per 12-Factor),
-  key metrics (request rates, latencies, error rates, business-
-  relevant counters), and traces when warranted.
+- **Observability is non-negotiable for deployed services** —
+  structured logs (event-stream format per 12-Factor), key metrics,
+  and traces when warranted.
 - **Postmortems are written for any user-visible incident.** Short,
   blameless, focused on what the system *permitted* rather than who
-  pushed which button. The postmortem's deliverable is one or more
-  of the three artifacts above — not the postmortem itself.
+  pushed which button. The deliverable is one of the three artifacts
+  above — not the postmortem itself.
 
-Why this lasts: production is a continuous, free source of
-information about how the system actually behaves. Projects that
-discard it relearn the same lessons repeatedly.
+Why this lasts: production is a continuous, free source of information
+about how the system actually behaves. Projects that discard it
+relearn the same lessons repeatedly.
+
+### 9. Security and secrets by default
+
+Security is a design default, expressed (like everything else) as
+durable artifacts — a decision record and a test — not as tooling.
+
+- **Secrets never live in the repository** — not in code, config,
+  fixtures, or committed env files. They come from the environment or
+  a secret manager (ties to §6, config in the environment). A leaked
+  secret is **rotated**, not merely deleted.
+- **Trust boundaries and the authorization model are decisions** —
+  they get ADRs (they are expensive to reverse, cross-component, and
+  future-constraining by definition).
+- **Validate input at trust boundaries; default to least privilege.**
+- **Security-relevant bugs ship with a regression test**, exactly like
+  any other bug (§5, §8).
+
+Why this lasts: the durable artifacts — the boundary written in an ADR,
+the regression test that proves the hole is closed — outlive any
+scanner or vendor. (Specific security tooling, when adopted, gets its
+own project ADR.)
+
+### 10. Dependencies are decisions
+
+Every dependency is a future-constraining choice: maintenance burden,
+licensing obligation, and supply-chain surface.
+
+- **Adding a dependency is a decision.** Weigh maintenance health,
+  license compatibility, supply-chain surface, and whether the standard
+  library or an existing dependency would do. Record non-trivial
+  additions as an ADR (§1) — especially load-bearing, copyleft, or
+  sparsely maintained ones.
+- **Lockfiles are committed.** Builds are reproducible; versions are
+  pinned and updated deliberately, never drifting silently.
+- **Updates are deliberate** — normal `chore:` work, reviewed like any
+  change; a behavior-changing major bump may warrant its own ADR.
+
+Why this lasts: the cheapest dependency to remove is the one you never
+added. Considering the cost at add-time, and leaving it in the decision
+trail, is independent of any package manager or scanner.
+
+### 11. Reversible by default
+
+Frequent merging to `main` (§4) is only safe when changes are easy to
+undo.
+
+- **Prefer changes you can turn off or roll back** — feature flags for
+  risky behavior; ship dark, enable gradually.
+- **Evolve schemas with expand-contract (parallel-change):** add the
+  new shape, migrate, then remove the old — never a destructive
+  in-place change in one irreversible step.
+- **Evolve APIs backward-compatibly:** additive first; deprecate with a
+  transition window before removing.
+- **Every non-trivial change has a known undo** — a flag flip, a
+  revert, or a documented rollback in `plan.md`. A genuinely
+  irreversible action (data deletion, an external side effect) is
+  called out explicitly and decided with an ADR.
+
+Why this lasts: cheap, fast recovery is what makes continuous delivery
+viable. The principle is independent of any flag system or platform.
 
 ---
 
@@ -235,48 +361,45 @@ contributors and automated agents read, write, and reason against.
 This framing matters because it is independent of any particular AI
 tool, IDE, or workflow:
 
-- A human contributor onboards by reading the ADRs, the glossary,
-  and the most recent specs.
-- An AI agent — Claude Code today; something else tomorrow — does
-  the same. The agent reads the spec, the ADRs, the glossary, and
-  the tests; it writes code, tests, and new ADRs.
-- Any tool that can read those artifacts and produce well-typed
-  code, tests, and decision records is a competent collaborator,
-  regardless of vendor or model.
+- A human contributor onboards by reading the ADRs, the glossary, and
+  the most recent specs (the reading order above).
+- An AI agent — Claude Code today; something else tomorrow — does the
+  same. The agent reads the spec, the ADRs, the glossary, and the
+  tests; it writes code, tests, and new ADRs.
+- Any tool that can read those artifacts and produce well-typed code,
+  tests, and decision records is a competent collaborator, regardless
+  of vendor or model.
 
-If every AI tool in use today disappeared overnight, the project
-would still be intelligible to a human (or a future tool) because
-the interface is plain markdown, plain git, and plain test files.
+If every AI tool in use today disappeared overnight, the project would
+still be intelligible to a human (or a future tool) because the
+interface is plain markdown, plain git, and plain test files.
 
-A project's `CLAUDE.md` is the orientation pointer for the current
-AI tool. When the tool changes, only that file changes.
+A project's `CLAUDE.md` is the orientation pointer for the current AI
+tool. When the tool changes, only that file changes.
 
-**Optional workflow tools are welcome but disposable.** If a
-workflow framework (BMAD, Spec Kit, Kiro, a custom set of skills,
-or whatever emerges next) helps you draft specs, run reviews, or
-coordinate multi-step work, you may use it — provided it only reads
-and writes the canonical artifacts in the artifact map above. The
-artifacts are the source of truth; the workflow tool is disposable
-orchestration over them. The day the tool is retired, the project
-loses an editor, not a project.
+**Optional workflow tools are welcome but disposable.** If a workflow
+framework (BMAD, Spec Kit, Kiro, a custom set of skills, or whatever
+emerges next) helps you draft specs, run reviews, or coordinate
+multi-step work, you may use it — provided it only reads and writes the
+canonical artifacts in the artifact map above. The artifacts are the
+source of truth; the workflow tool is disposable orchestration over
+them. The day the tool is retired, the project loses an editor, not a
+project.
 
 ---
 
 ## What is intentionally not here
 
 - **No agent personas or role-playing workflows.** They are
-  framework-flavored; the underlying practices (spec-first, ADRs,
-  small PRs, tests as specification) give the same benefit without
-  the lock-in.
+  framework-flavored; the underlying practices give the same benefit
+  without the lock-in.
 - **No methodology branding** (Scrum, SAFe, BMAD, Spec Kit, Kiro,
-  etc.). These are useful inspirations; none of their vocabulary is
-  load-bearing.
-- **No formal SRE / ITIL machinery.** Operational feedback loops
-  exist (practice §8) but are deliberately lightweight. Incident
-  response should produce durable artifacts (tests, ADRs, spec
-  updates), not paperwork.
-- **No premature tech-stack commitments.** Each tooling choice gets
-  an ADR in the project that makes it, when it is made, not before.
+  etc.). Useful inspirations; none of their vocabulary is load-bearing.
+- **No formal SRE / ITIL machinery.** Operational feedback loops exist
+  (§8) but are deliberately lightweight.
+- **No premature tech-stack or tooling commitments.** Each tooling
+  choice — stack, security scanner, flag system, CI provider — gets an
+  ADR in the project that makes it, when it is made, not before.
 
 ---
 
@@ -284,6 +407,7 @@ loses an editor, not a project.
 
 `methodology.md` is the only methodology document. If a practice
 changes, update it here and record the change in an ADR under this
-repository's `adr/`. If you find yourself arguing for or against a
-practice that isn't listed here, that is a sign you need an ADR, not
-a longer methodology doc.
+repository's `adr/` (see `adr/0001`–`adr/0005` for the decisions that
+shaped the current version). If you find yourself arguing for or
+against a practice that isn't listed here, that is a sign you need an
+ADR, not a longer methodology doc.

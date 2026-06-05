@@ -1,12 +1,12 @@
 # Contributing
 
 This project follows the shared methodology at
-`~/Developer/methodology/methodology.md` — a small set of durable
+`$METHODOLOGY_HOME/methodology.md` — a small set of durable
 practices that predate (and outlast) any particular tool or framework.
 
 ## Before you write code
 
-1. Read `~/Developer/methodology/methodology.md` (once, if unfamiliar).
+1. Read `$METHODOLOGY_HOME/methodology.md` (once, if unfamiliar).
 2. Skim `docs/adr/` from highest number down until you understand the
    shape of the system.
 3. For anything larger than a one-line fix, open or claim an issue
@@ -15,7 +15,7 @@ practices that predate (and outlast) any particular tool or framework.
 ## How work flows
 
 1. **Spec** — for any non-trivial feature, copy the spec templates
-   from `~/Developer/methodology/templates/spec/` to
+   from `$METHODOLOGY_HOME/templates/spec/` to
    `specs/<feature-slug>/` and fill in `spec.md`. Discuss in a PR
    before writing code.
 2. **Plan** — once the spec is agreed, fill in `plan.md` (how) and
@@ -26,7 +26,22 @@ practices that predate (and outlast) any particular tool or framework.
 4. **Decide** — write an ADR when a decision is **expensive to
    reverse**, **affects multiple components**, or **constrains
    future choices**. See `methodology.md` §1 and the template at
-   `~/Developer/methodology/templates/adr/_template.md`.
+   `$METHODOLOGY_HOME/templates/adr/_template.md`.
+
+## Definition of ready
+
+**A task is ready to start when:**
+
+- The problem and the user-visible outcome are stated (in the spec, or
+  the issue for small work).
+- Success criteria are concrete and testable.
+- Open questions are resolved or explicitly deferred (not silently
+  ignored).
+- Any decision it depends on already has an ADR, or one is queued.
+- It is PR-sized (or has been split until it is).
+
+If a task can't meet this bar, it isn't ready — sharpen the spec
+first rather than starting to code.
 
 ## Definition of done
 
@@ -38,6 +53,11 @@ practices that predate (and outlast) any particular tool or framework.
 - The corresponding task in `tasks.md` is marked `[x]` with the
   merged PR number or hash.
 - Any new behavior is covered by at least one test (methodology §5).
+- No secrets were committed; any security-relevant change is covered
+  by a test, and any irreversible step was called out (methodology
+  §9, §11).
+- Any new or upgraded dependency was weighed and recorded as needed,
+  with the lockfile committed (methodology §10).
 - Any new domain term used in code or tests appears in
   `docs/glossary.md` (methodology §3).
 - Any significant decision made during implementation has an ADR

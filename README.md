@@ -6,7 +6,18 @@ read that first.
 
 This repo is the single source of truth for *how* work is done. It is
 plain markdown + git on purpose: it must outlive any editor, AI tool,
-or workflow framework.
+or workflow framework. It is written to be followed by **humans and AI
+agents alike** — see the "Using this methodology" section of
+`methodology.md` for the reading order, the decision guide (which
+artifact to produce when), and agent operating rules.
+
+## `$METHODOLOGY_HOME`
+
+Everything references this repo via `$METHODOLOGY_HOME` (default
+`~/Developer/methodology`), so a clone at a different path still
+resolves. It's set in `~/.claude/settings.json` (`env`) for Claude
+sessions; add `export METHODOLOGY_HOME="$HOME/Developer/methodology"`
+to your shell profile for terminal use.
 
 ## Layout
 
