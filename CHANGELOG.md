@@ -11,6 +11,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-06-06
+
 ### Added
 
 - **Checkable spec↔test traceability** — success criteria carry stable
@@ -43,3 +45,6 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
+
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/vpciii/methodology/releases/tag/v0.1.0
