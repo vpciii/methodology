@@ -11,11 +11,13 @@ the durable project-specific rules live in `docs/adr/` and
 1. `$METHODOLOGY_HOME/methodology.md` — the practices and why (global;
    read once if unfamiliar, and see its "Using this methodology"
    section for the decision guide and agent operating rules).
-2. `docs/glossary.md` — this project's ubiquitous language. Use these
+2. `docs/architecture.md` — the current shape of the system
+   (components, boundaries, stores, external deps); the ADRs say *why*.
+3. `docs/glossary.md` — this project's ubiquitous language. Use these
    terms exactly.
-3. `docs/adr/` — every numbered ADR is binding unless `superseded`.
+4. `docs/adr/` — every numbered ADR is binding unless `superseded`.
    Newest first.
-4. The `specs/<feature>/` folder for the work at hand, if one was named.
+5. The `specs/<feature>/` folder for the work at hand, if one was named.
 
 ## Hard rules
 
@@ -31,7 +33,13 @@ the durable project-specific rules live in `docs/adr/` and
   / backward-compatible APIs; call out and ADR anything truly
   irreversible.
 - **Tests before merge.** New behavior ships with tests; bug fixes ship
-  a regression test. Test behavior, not implementation.
+  a regression test. Test behavior, not implementation. A test that
+  verifies a spec success criterion cites its id; criteria carry stable
+  ids, CI-checked for coverage.
+- **Specs freeze; keep the shape doc honest.** A spec freezes at
+  `Implemented` (a historical record) — a contradiction found later
+  goes to a test, a new spec, or an ADR, not back into it. Update
+  `docs/architecture.md` in the same PR as any structural change.
 - **Secrets never in the repo.** Env or secret manager only. Trust
   boundaries / authz are ADR-worthy; security bugs ship a regression
   test.
@@ -40,6 +48,12 @@ the durable project-specific rules live in `docs/adr/` and
 - **Docs change in the same PR as the behavior.** Conventional Commits
   (`feat: fix: docs: refactor: test: chore: perf: build: ci:`; `!` for
   breaking).
+- **Don't silently rewrite an agreed contract.** An `Approved` /
+  `Implemented` spec's requirements and success criteria are the
+  contract — a change to them is its own diff for human sign-off, never
+  folded into an implementation PR. Show "done" by citing the passing
+  test; re-read a spec/ADR/glossary before editing it; surface drift
+  you notice.
 
 <!-- Add project-specific hard rules below, each backed by an ADR.
      e.g. "Never represent money as a float — see ADR 0004." -->

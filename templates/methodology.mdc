@@ -25,8 +25,9 @@ skip the ceremony — a good commit message is enough.
 |---|---|
 | Do substantial/long-lived work | a spec → plan → tasks in `specs/<slug>/` |
 | Make a decision expensive to reverse / cross-component / future-constraining | an ADR in `docs/adr/` |
-| Add or change behavior | a test that fails before, passes after |
+| Add or change behavior | a test that fails before, passes after; in a spec, trace it to a criterion id |
 | Use an undefined domain term | a `docs/glossary.md` entry (don't invent synonyms) |
+| Change the system's structure (component / boundary / store / dependency) | update `docs/architecture.md`, same PR |
 | Add/upgrade a dependency | weigh it; ADR for non-trivial ones |
 | Resolve an incident | ≥1 of: regression test, ADR, spec update |
 | Trivial / throwaway change | nothing but a clear commit message |
@@ -37,7 +38,8 @@ skip the ceremony — a good commit message is enough.
 - **Decisions get ADRs** (expensive to reverse / multi-component / future-constraining).
 - **Small PRs, trunk-based;** split past ~300 lines of diff.
 - **Reversible by default:** flags / expand-contract migrations / backward-compatible APIs; call out and ADR anything irreversible.
-- **Tests as specification:** new behavior ships with tests; fixes ship a regression test (fails before, passes after). Test behavior, not implementation.
+- **Tests as specification:** new behavior ships with tests; fixes ship a regression test (fails before, passes after). Test behavior, not implementation. Spec success criteria carry stable ids traced to tests, CI-checked for coverage.
+- **Current-state & spec freeze:** keep `docs/architecture.md` honest (the system's shape *now*) in the same PR as any structural change; a spec freezes at `Implemented` (a historical record) — later contradictions go to a test, a new spec, or an ADR.
 - **Security & secrets:** secrets never in the repo (env / secret manager); rotate leaks; trust boundaries & authz are ADR-worthy; security bugs ship a regression test.
 - **Dependencies are decisions:** weigh maintenance/license/supply-chain; commit lockfiles; ADR non-trivial deps.
 - **Ubiquitous language:** use the project's domain terms exactly.
@@ -46,8 +48,14 @@ skip the ceremony — a good commit message is enough.
 
 ## Author of record
 
-Read before you write (methodology → ADRs → glossary → active spec).
-Produce artifacts, not just code. Stop and ask on undefined terms or
-hard-to-reverse decisions. **The human accepts every diff and runs the
-tests.** Workflow frameworks are disposable orchestration over the
-canonical artifacts, not a replacement for them.
+Read before you write (methodology → architecture → ADRs → glossary →
+active spec). Produce artifacts, not just code. Stop and ask on
+undefined terms or hard-to-reverse decisions. **The human accepts every
+diff and runs the tests.** Workflow frameworks are disposable
+orchestration over the canonical artifacts, not a replacement for them.
+
+**Agent guardrails:** don't silently rewrite an agreed spec's
+requirements or criteria — a contract change is its own diff for
+sign-off, never folded into an implementation PR; show "done" by citing
+the passing test, don't assert it; re-read a file before you edit it;
+surface drift you notice rather than papering over it.

@@ -52,11 +52,16 @@ both.
 To get oriented in any project, in order:
 
 1. **This document** — the practices (§1–§11) and why they exist.
-2. The project's **`docs/adr/`**, highest number down, until the shape
-   of the system is clear. Each ADR is binding unless `superseded`.
-3. The project's **`docs/glossary.md`** — the ubiquitous language; use
+2. The project's **`docs/architecture.md`** — the current shape of the
+   system at a glance (components, boundaries, data stores, external
+   dependencies). It tells you *how the system is now*; the ADRs tell
+   you *why*. Skim it before the ADRs.
+3. The project's **`docs/adr/`**, highest number down, until the
+   reasoning behind that shape is clear. Each ADR is binding unless
+   `superseded`.
+4. The project's **`docs/glossary.md`** — the ubiquitous language; use
    these terms exactly.
-4. The **`specs/<feature>/`** folder for the work at hand, if one was
+5. The **`specs/<feature>/`** folder for the work at hand, if one was
    named.
 
 ### Decision guide — which artifact, when
@@ -65,8 +70,9 @@ To get oriented in any project, in order:
 |---|---|---|
 | Do substantial or long-lived work (more than a function/bugfix) | a spec, then plan, then tasks | `specs/<slug>/{spec,plan,tasks}.md` |
 | Make a decision that is expensive to reverse, cross-component, or future-constraining | an ADR | `docs/adr/NNNN-*.md` |
-| Add or change behavior | a test that fails before and passes after | `tests/` |
+| Add or change behavior | a test that fails before and passes after; in a spec, trace it to a success-criterion id (§5) | `tests/` |
 | Use a domain term that isn't defined | a glossary entry | `docs/glossary.md` |
+| Change the system's structure (a component, boundary, store, or external dependency) | an update to the current-state overview, in the same PR | `docs/architecture.md` |
 | Add or upgrade a dependency | weigh it; record non-trivial ones as an ADR (§10) | `docs/adr/` |
 | Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout |
 | Resolve an incident | at least one of: regression test, ADR, spec update (§8) | `tests/`, `docs/adr/`, `specs/` |
@@ -92,6 +98,29 @@ contributor here, bound by the same artifacts. Specifically:
   human reviews the diff, runs the tests, and accepts. Never assume an
   unstated standard (security posture, naming, API shape) — surface it.
 
+#### Guardrails against agent-specific drift
+
+Agents desync confidently and asymmetrically; these four failures are
+the ones least likely to be caught by a human skimming an internally
+consistent diff (see ADR 0008):
+
+- **Do not silently change an agreed contract.** An `Approved` or
+  `Implemented` spec's requirements and success criteria are what you
+  build against — never edit them to match code you just wrote. A
+  genuine contract change is its own diff, with rationale, for human
+  sign-off; it is never folded into an implementation change.
+- **Show "done," do not assert it.** When you claim a success criterion
+  is met, cite the passing test that proves it (§5). Completion you
+  cannot point at is reported as unproven.
+- **Re-read before you write.** Before editing a spec, ADR, or
+  glossary, re-read the current file — not a remembered or summarized
+  version. Treat recalled context as a possibly-stale pointer to
+  verify, not as ground truth.
+- **Surface drift; don't paper over it.** If you notice code, spec, and
+  glossary disagreeing while doing unrelated work, flag it (an issue, a
+  note, or the §8 loop) rather than quietly editing the doc to match
+  the code.
+
 ### Keep the artifacts honest
 
 - **Docs change in the same PR as the behavior they describe.** No
@@ -99,8 +128,9 @@ contributor here, bound by the same artifacts. Specifically:
   the README wrong must fix it in the same change.
 - **ADRs are append-only** — supersede, never rewrite history.
 - **Automate what is checkable.** Anything a machine can verify —
-  tests, type-checks, lint, commit-message format — is enforced in CI,
-  not left to memory or review diligence.
+  tests, type-checks, lint, commit-message format, spec-criterion
+  coverage (§5) — is enforced in CI, not left to memory or review
+  diligence.
 
 ---
 
@@ -114,6 +144,7 @@ table to find what's where without hunting.
 |---|---|---|
 | This methodology | `$METHODOLOGY_HOME/methodology.md` | The document you are reading; shared across all projects. |
 | Project README | `README.md` | Front door for the repo; short pointer to the artifacts below. |
+| Current-state architecture | `docs/architecture.md` | How the system is shaped *now* — components, boundaries, data stores, external dependencies. Points at ADRs for the *why*. Template: `$METHODOLOGY_HOME/templates/architecture.md`. |
 | Architecture Decision Records | `docs/adr/NNNN-*.md` | One short file per significant decision. Template: `$METHODOLOGY_HOME/templates/adr/_template.md`. |
 | Ubiquitous language / glossary | `docs/glossary.md` | The project's domain terms. Template: `$METHODOLOGY_HOME/templates/glossary.md`. |
 | Twelve-Factor checklist | `docs/twelve-factor.md` | Status table for deployable services. Template in `templates/`. |
@@ -165,6 +196,18 @@ items). The spec is reviewed and agreed before implementation.
 prove you met it.** §5 elaborates the test side; review-scope rules
 live in each project's `CONTRIBUTING.md`.
 
+**A spec freezes when it ships.** While it is `Draft`, `Under review`,
+or `Approved` it is edited freely. When its status reaches
+`Implemented` it becomes a historical record of what was agreed and
+built, and is no longer rewritten to track ongoing change — a
+contradiction discovered later flows to a *living* artifact instead (a
+regression test, a new spec, or an ADR), exactly as the
+operational-feedback loop prescribes (§8). Current truth lives
+elsewhere: *behavioral* current state in the test suite (§5),
+*structural* current state in `docs/architecture.md`. Each success
+criterion carries a stable id and is traced to the test that verifies
+it (§5).
+
 - Origin: Tom Preston-Werner, [Readme Driven Development](https://tom.preston-werner.com/2010/08/23/readme-driven-development.html) (2010).
 - Lives in: `specs/<feature-slug>/`. Templates: `$METHODOLOGY_HOME/templates/spec/`.
 
@@ -214,8 +257,13 @@ Tests are not merely merge gates. They are the executable encoding of:
   (Hypothesis, fast-check, QuickCheck, etc.) are preferred when an
   invariant holds over an infinite input space.
 - **Acceptance criteria from specs.** Every success criterion in a
-  `spec.md` should map to at least one test that fails before the
-  feature is built and passes after.
+  `spec.md` carries a stable id (`SC-1`, …) and maps to at least one
+  test that fails before the feature is built and passes after. The
+  test cites the id it verifies, a Traceability table in the spec
+  records the mapping, and a CI check fails on any criterion left
+  uncovered — so "done" is provable, not asserted, and a later change
+  that breaks a criterion is caught loudly. The id-and-table convention
+  is global; the CI mechanism is a project tooling decision (ADR 0006).
 - **Regression records.** Every bug fix ships with the test that would
   have caught the bug. The test is the permanent record of what went
   wrong.
@@ -407,7 +455,7 @@ project.
 
 `methodology.md` is the only methodology document. If a practice
 changes, update it here and record the change in an ADR under this
-repository's `adr/` (see `adr/0001`–`adr/0005` for the decisions that
+repository's `adr/` (see `adr/0001`–`adr/0008` for the decisions that
 shaped the current version). If you find yourself arguing for or
 against a practice that isn't listed here, that is a sign you need an
 ADR, not a longer methodology doc.
