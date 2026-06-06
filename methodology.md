@@ -455,7 +455,10 @@ project.
 
 `methodology.md` is the only methodology document. If a practice
 changes, update it here and record the change in an ADR under this
-repository's `adr/` (see `adr/0001`–`adr/0008` for the decisions that
-shaped the current version). If you find yourself arguing for or
-against a practice that isn't listed here, that is a sign you need an
-ADR, not a longer methodology doc.
+repository's `adr/` (see `adr/0001`–`adr/0009` for the decisions that
+shaped the current version). Each such ADR declares an **adoption
+impact** for consuming projects, and the change is noted in
+`CHANGELOG.md` under semantic versioning, so projects adopt it
+deliberately like any dependency (ADR 0009). If you find yourself
+arguing for or against a practice that isn't listed here, that is a sign
+you need an ADR, not a longer methodology doc.

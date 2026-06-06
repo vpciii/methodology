@@ -30,6 +30,16 @@ What becomes easier? What becomes harder? What new constraints does
 this decision impose? Include both the upside and the downside
 honestly — an ADR that only lists benefits is incomplete.
 
+## Adoption impact
+
+How this reaches the people and projects that must follow it. For a
+**methodology** ADR, classify it for consuming projects: *reference-only*
+(arrives by reading `methodology.md`; no per-project action) or
+*per-project action* (name the concrete change a project makes to adopt,
+and link the diff or template). For a **project** ADR, note any rollout
+the decision forces — a migration, a new check, a convention every
+component adopts — or "none." See methodology ADR 0009.
+
 ## References
 
 Links to specs, prior ADRs, external articles, RFCs, or issues that
