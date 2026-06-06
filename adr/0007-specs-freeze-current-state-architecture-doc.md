@@ -80,6 +80,14 @@ latter explicit homes:
   stale one-pager is cheap to fix; resist letting it grow into
   duplicated detail (that is what the code, tests, and ADRs are for).
 
+## Adoption impact
+
+**Per-project action** for the architecture overview: seed
+`docs/architecture.md` from `templates/architecture.md` and keep it
+honest thereafter. **Reference-only** for the spec-freeze rule — it
+arrives by reading `methodology.md` and the updated `CONTRIBUTING`
+template; existing specs are not changed retroactively.
+
 ## References
 
 - `methodology.md` §2, §5, §8; artifact map; reading order.

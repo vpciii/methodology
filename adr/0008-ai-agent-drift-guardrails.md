@@ -77,6 +77,12 @@ Mirror the contract-protection and "show, don't assert" points into
   together they make agent contributions auditable and make drift
   loud rather than silent.
 
+## Adoption impact
+
+**Reference-only.** Agents pick up the guardrails from `methodology.md`
+and the updated `CONTRIBUTING` "Using AI assistants" section; no
+per-project artifact change is required.
+
 ## References
 
 - `methodology.md` "Using this methodology" (agent operating rules),

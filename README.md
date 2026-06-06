@@ -24,6 +24,7 @@ to your shell profile for terminal use.
 | Path | What |
 |---|---|
 | `methodology.md` | The canonical methodology (11 practices + the reasoning + a decision guide). |
+| `CHANGELOG.md` | Human-facing record of changes to the methodology, under SemVer (ADR 0009). |
 | `templates/adr/_template.md` | Architecture Decision Record template. |
 | `templates/spec/{spec,plan,tasks}.md` | Spec-first feature templates. |
 | `templates/glossary.md` | Ubiquitous-language glossary seed. |
@@ -60,5 +61,8 @@ Projects reference this repo by path; they do not vendor a copy of
 
 ## Changing the methodology
 
-Edit `methodology.md` and record the change as an ADR in `adr/`. See
-the "Changing this document" section of the methodology.
+Edit `methodology.md` and record the change as an ADR in `adr/` — each
+ADR declares its **adoption impact** for consuming projects. Note the
+change in [`CHANGELOG.md`](./CHANGELOG.md) under semantic versioning, so
+projects adopt it deliberately like any dependency (ADR 0009). See the
+"Changing this document" section of the methodology.

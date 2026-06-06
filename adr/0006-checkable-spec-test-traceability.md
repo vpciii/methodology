@@ -82,6 +82,14 @@ to spec'd (substantial/long-lived) work:
   silently uncovered — which often reveals the criterion was vague.
   That surfacing is a feature, not a cost.
 
+## Adoption impact
+
+**Per-project action.** To adopt: add `SC-`/`R-` ids and the
+Traceability table when next touching a `spec.md` (templates updated),
+and wire the spec-criterion-coverage check into the project's CI (the
+mechanism is a project tooling ADR). Existing frozen specs are not
+retrofitted.
+
 ## References
 
 - `methodology.md` §5, §2; `templates/spec/spec.md`,
