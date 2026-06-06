@@ -23,6 +23,7 @@ merged). Link the PR number when merged.
 - [ ] …
 - [ ] …
 - [ ] Tests added (unit / integration / e2e as appropriate)
+- [ ] Tests verifying a spec criterion cite its id; Traceability table updated
 - [ ] Glossary terms used consistently
 - [ ] Spec/plan updated if scope changed
 

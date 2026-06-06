@@ -7,8 +7,8 @@ practices that predate (and outlast) any particular tool or framework.
 ## Before you write code
 
 1. Read `$METHODOLOGY_HOME/methodology.md` (once, if unfamiliar).
-2. Skim `docs/adr/` from highest number down until you understand the
-   shape of the system.
+2. Read `docs/architecture.md` for the current shape of the system,
+   then skim `docs/adr/` from highest number down for the *why*.
 3. For anything larger than a one-line fix, open or claim an issue
    first.
 
@@ -52,7 +52,8 @@ first rather than starting to code.
 - Lint and strict type-check pass (per the project's tooling ADR).
 - The corresponding task in `tasks.md` is marked `[x]` with the
   merged PR number or hash.
-- Any new behavior is covered by at least one test (methodology §5).
+- Any new behavior is covered by at least one test; a test that
+  verifies a spec success criterion cites its id (methodology §5).
 - No secrets were committed; any security-relevant change is covered
   by a test, and any irreversible step was called out (methodology
   §9, §11).
@@ -69,10 +70,17 @@ first rather than starting to code.
 **A feature (one spec) is done when:**
 
 - Every task in its `tasks.md` is marked `[x]`.
-- Every success criterion in `spec.md` maps to a passing test.
-- The spec's status field is updated to `Implemented`.
+- Every success criterion in `spec.md` is recorded in the spec's
+  Traceability table against a passing test, and the
+  spec-criterion-coverage check passes in CI (methodology §5) — not
+  mapped by hand.
 - Anything learned during implementation that contradicts the spec or
-  plan has been written back into it, noted in a commit message.
+  plan has been written back into it **before** the spec is marked
+  `Implemented`.
+- The spec's status field is updated to `Implemented`, which
+  **freezes** it into a historical record. A contradiction found later
+  goes to a living artifact — a regression test, a new spec, or an ADR
+  (methodology §2, §8) — not back into the frozen spec.
 
 ## Reviews
 
@@ -135,3 +143,13 @@ AI tools (Claude Code, Cursor, Cline, Aider, etc.) are welcome. They
 read the same artifacts you do — `CLAUDE.md`, ADRs, specs, glossary.
 The rule is simple: **the AI is not the author of record. You are.**
 Review every diff. Run every test. Sign your commits.
+
+Two guardrails matter most because they fail quietly (methodology
+"AI-agent guardrails"):
+
+- **An agent must not silently rewrite an agreed contract.** Changes to
+  an `Approved` / `Implemented` spec's requirements or success criteria
+  come as their own diff for your sign-off — never folded into an
+  implementation PR.
+- **An agent shows "done," it doesn't assert it.** A criterion claimed
+  met cites the passing test that proves it.

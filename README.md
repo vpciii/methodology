@@ -27,6 +27,7 @@ to your shell profile for terminal use.
 | `templates/adr/_template.md` | Architecture Decision Record template. |
 | `templates/spec/{spec,plan,tasks}.md` | Spec-first feature templates. |
 | `templates/glossary.md` | Ubiquitous-language glossary seed. |
+| `templates/architecture.md` | Current-state architecture overview (kept-honest system shape). |
 | `templates/twelve-factor.md` | Twelve-Factor status checklist (deployable services). |
 | `templates/project-CLAUDE.md` | Drop-in `CLAUDE.md` for a new project (AI orientation pointer). |
 | `templates/project-CONTRIBUTING.md` | Drop-in `CONTRIBUTING.md` (PR flow, commit labels, DoR/DoD, review scope). |
@@ -49,9 +50,9 @@ to your shell profile for terminal use.
 1. Copy `templates/project-CLAUDE.md` → `<project>/CLAUDE.md` and fill
    in the project-specific blanks.
 2. Copy `templates/project-CONTRIBUTING.md` → `<project>/CONTRIBUTING.md`.
-3. Create `<project>/docs/adr/`, `<project>/docs/glossary.md`, and
-   (for deployable services) `<project>/docs/twelve-factor.md` from
-   the templates here.
+3. Create `<project>/docs/adr/`, `<project>/docs/glossary.md`,
+   `<project>/docs/architecture.md`, and (for deployable services)
+   `<project>/docs/twelve-factor.md` from the templates here.
 4. Use `templates/spec/` for the first feature: `specs/<slug>/`.
 
 Projects reference this repo by path; they do not vendor a copy of
