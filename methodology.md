@@ -278,6 +278,11 @@ Tests are not merely merge gates. They are the executable encoding of:
 - **Regression records.** Every bug fix ships with the test that would
   have caught the bug. The test is the permanent record of what went
   wrong.
+- **Characterized legacy behavior.** On an existing codebase, before
+  changing untested code, a *characterization test* pins its current
+  behavior so a fix or refactor has a safety net even where no spec ever
+  existed. It is the brownfield entry point to the suite; see
+  `adopting.md`.
 
 The philosophical posture: **behavior over implementation.** A test
 should describe what the system does for a user or a caller, not how
@@ -465,11 +470,12 @@ project.
 ## Changing this document
 
 This repository holds two methodology documents — `methodology.md`
-(development) and `planning.md` (planning, ADR 0010) — sharing one
-version and `CHANGELOG.md`. If a practice changes, update the relevant
-document and record the change in an ADR under this repository's `adr/`
-(see `adr/0001`–`adr/0010` for the decisions that shaped the current
-version). Each such ADR declares an **adoption
+(development) and `planning.md` (planning, ADR 0010) — plus `adopting.md`,
+the guide for bringing an existing project onto them (ADR 0012); all three
+share one version and `CHANGELOG.md`. If a practice changes, update the
+relevant document and record the change in an ADR under this repository's
+`adr/` (see `adr/0001`–`adr/0012` for the decisions that shaped the
+current version). Each such ADR declares an **adoption
 impact** for consuming projects, and the change is noted in
 `CHANGELOG.md` under semantic versioning, so projects adopt it
 deliberately like any dependency (ADR 0009). If you find yourself

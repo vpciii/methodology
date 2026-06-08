@@ -25,6 +25,7 @@ to your shell profile for terminal use.
 |---|---|
 | `methodology.md` | The canonical development methodology (11 practices + the reasoning + a decision guide). |
 | `planning.md` | The planning methodology — the pre-spec phase (problem framing → betting), sibling to `methodology.md`. Converges to a `spec.md`. (ADR 0010) |
+| `adopting.md` | Bringing an **existing** codebase onto the methodology — the forward-only bootstrap path. (ADR 0012) |
 | `CHANGELOG.md` | Human-facing record of changes to the methodology, under SemVer (ADR 0009). |
 | `templates/adr/_template.md` | Architecture Decision Record template. |
 | `templates/spec/{spec,plan,tasks}.md` | Spec-first feature templates. |
@@ -56,6 +57,11 @@ to your shell profile for terminal use.
    `<project>/docs/architecture.md`, and (for deployable services)
    `<project>/docs/twelve-factor.md` from the templates here.
 4. Use `templates/spec/` for the first feature: `specs/<slug>/`.
+
+**Adopting on an existing codebase?** Read [`adopting.md`](./adopting.md)
+first — it gives the forward-only rule and the order to seed current-state
+artifacts (architecture, glossary, decision-capture ADRs) without turning
+adoption into a documentation project.
 
 Projects reference this repo by path; they do not vendor a copy of
 `methodology.md`. One source of truth, updated in one place.
