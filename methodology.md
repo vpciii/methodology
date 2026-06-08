@@ -192,6 +192,11 @@ Write the spec before the code. One folder per feature, three files:
 `spec.md` (what + why), `plan.md` (how), `tasks.md` (PR-sized work
 items). The spec is reviewed and agreed before implementation.
 
+Everything *upstream* of the spec — whether to build, what, and which
+approach — is the **planning methodology**'s concern (`planning.md`, ADR
+0010). It converges to the `spec.md` this practice begins with; that
+handoff is the seam between the two documents.
+
 **The spec is the contract. The tests and the code review are how you
 prove you met it.** §5 elaborates the test side; review-scope rules
 live in each project's `CONTRIBUTING.md`.
@@ -453,10 +458,12 @@ project.
 
 ## Changing this document
 
-`methodology.md` is the only methodology document. If a practice
-changes, update it here and record the change in an ADR under this
-repository's `adr/` (see `adr/0001`–`adr/0009` for the decisions that
-shaped the current version). Each such ADR declares an **adoption
+This repository holds two methodology documents — `methodology.md`
+(development) and `planning.md` (planning, ADR 0010) — sharing one
+version and `CHANGELOG.md`. If a practice changes, update the relevant
+document and record the change in an ADR under this repository's `adr/`
+(see `adr/0001`–`adr/0010` for the decisions that shaped the current
+version). Each such ADR declares an **adoption
 impact** for consuming projects, and the change is noted in
 `CHANGELOG.md` under semantic versioning, so projects adopt it
 deliberately like any dependency (ADR 0009). If you find yourself

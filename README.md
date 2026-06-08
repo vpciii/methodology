@@ -23,7 +23,8 @@ to your shell profile for terminal use.
 
 | Path | What |
 |---|---|
-| `methodology.md` | The canonical methodology (11 practices + the reasoning + a decision guide). |
+| `methodology.md` | The canonical development methodology (11 practices + the reasoning + a decision guide). |
+| `planning.md` | The planning methodology — the pre-spec phase (problem framing → betting), sibling to `methodology.md`. Converges to a `spec.md`. (ADR 0010) |
 | `CHANGELOG.md` | Human-facing record of changes to the methodology, under SemVer (ADR 0009). |
 | `templates/adr/_template.md` | Architecture Decision Record template. |
 | `templates/spec/{spec,plan,tasks}.md` | Spec-first feature templates. |
