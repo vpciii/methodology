@@ -11,6 +11,27 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-08
+
+### Added
+
+- **Planning methodology** — new sibling document `planning.md` covering
+  the pre-spec phase (deciding *what / whether / which approach* to
+  build): five artifact-producing practices — problem framing,
+  working-backwards PR-FAQ, set-based divergence, prioritization
+  economics, and assumption testing — that converge to a `spec.md`.
+  Planning artifacts live in `planning/<slug>/` and freeze when the spec
+  is created. (ADR 0010)
+  *Adoption: reference-only — arrives by reading; the `planning/<slug>/`
+  artifact home is an opt-in convention for genuinely uncertain or
+  expensive bets. Matching `templates/planning/` are a follow-up.*
+
+### Changed
+
+- `methodology.md` cross-references `planning.md` from §2 (the spec seam)
+  and retires the "only methodology document" line; `README.md` layout
+  table gains a `planning.md` row.
+
 ## [0.1.0] - 2026-06-06
 
 ### Added
@@ -46,5 +67,6 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/vpciii/methodology/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/vpciii/methodology/releases/tag/v0.1.0
