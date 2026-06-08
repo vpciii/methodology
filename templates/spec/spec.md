@@ -39,7 +39,10 @@ reviewers.
 ## Requirements
 
 Use [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) keywords. Give
-each a stable id (`R-1`, …) when it is worth tracing to a test.
+every requirement a stable id (`R-1`, …). Each `MUST` / `MUST NOT`
+requirement is reflected in at least one success criterion below, so it
+inherits a test (methodology §5, ADR 0011); `SHOULD` / `MAY` requirements
+may be, but need not be.
 
 - **R-1 (MUST)** …
 - **R-2 (MUST NOT)** …
@@ -50,7 +53,8 @@ each a stable id (`R-1`, …) when it is worth tracing to a test.
 
 Concrete, measurable signals that this feature is working. Each gets a
 stable id (`SC-1`, `SC-2`, …) and is verified by at least one test that
-cites that id (methodology §5). Ids are append-only — never reuse or
+cites that id (methodology §5); together they cover every `MUST` /
+`MUST NOT` requirement above. Ids are append-only — never reuse or
 renumber them.
 
 - **SC-1** — …
@@ -75,10 +79,12 @@ to follow-up issues or specs when known.
 
 Built up as the feature is implemented; complete before the spec is
 marked `Implemented`. Every success-criterion id maps to the test(s)
-that verify it, and a CI check fails on any criterion left uncovered
-(methodology §5).
+that verify it and records which requirement(s) it covers, so the
+`R-… → SC-… → test` chain is explicit; a CI check fails on any criterion
+left uncovered, and every `MUST` / `MUST NOT` requirement appears in this
+table (methodology §5, ADR 0011).
 
-| Criterion | Verified by (test) |
-|---|---|
-| SC-1 | `tests/…::test_…` |
-| SC-2 | `tests/…::test_…` |
+| Criterion | Requirement(s) | Verified by (test) |
+|---|---|---|
+| SC-1 | R-1 | `tests/…::test_…` |
+| SC-2 | R-2, R-3 | `tests/…::test_…` |

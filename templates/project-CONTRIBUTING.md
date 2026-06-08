@@ -74,6 +74,9 @@ first rather than starting to code.
   Traceability table against a passing test, and the
   spec-criterion-coverage check passes in CI (methodology §5) — not
   mapped by hand.
+- Every `MUST` / `MUST NOT` requirement in `spec.md` is reflected in at
+  least one success criterion, so it inherits a test; the Traceability
+  table records the `R-… → SC-… → test` chain (methodology §5, ADR 0011).
 - Anything learned during implementation that contradicts the spec or
   plan has been written back into it **before** the spec is marked
   `Implemented`.
