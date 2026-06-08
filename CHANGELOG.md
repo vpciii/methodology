@@ -11,6 +11,17 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-08
+
+### Added
+
+- **License** — the repository is dedicated to the public domain under
+  [CC0 1.0 Universal](./LICENSE); everything here (methodology, templates,
+  ADRs) may be copied into any project with no attribution required. The
+  repo is a curated synthesis of existing, separately-credited practices,
+  so copyright covers only that authored expression — which is waived.
+  (ADR 0013) *Adoption: reference-only.*
+
 ## [0.4.0] - 2026-06-08
 
 ### Added
@@ -113,7 +124,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/vpciii/methodology/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/vpciii/methodology/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/vpciii/methodology/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/vpciii/methodology/compare/v0.1.0...v0.2.0
