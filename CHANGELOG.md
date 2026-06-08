@@ -11,6 +11,28 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-06-08
+
+### Added
+
+- **Planning seam wired in + planning templates** — the planning
+  methodology (ADR 0010) is now reachable from the rest of the docs:
+  `methodology.md` gains a decision-guide row and a reading-order entry
+  for `planning/<slug>/`, and the `project-CLAUDE.md` / `CONTRIBUTING`
+  templates route uncertain or expensive bets through planning before the
+  spec. New `templates/planning/{brief,pr-faq,options,bet,premortem}.md`
+  match `templates/spec/`. (completes ADR 0010)
+  *Adoption: reference-only for the navigation; the new
+  `templates/planning/` are available to copy when a project takes on an
+  uncertain bet.*
+
+### Changed
+
+- `methodology.md` (reading order, decision guide), `planning.md`
+  (templates pointer), `README.md` (layout row),
+  `templates/project-CLAUDE.md`, `templates/project-CONTRIBUTING.md`, and
+  `templates/methodology.mdc` (decision-guide row) updated for the above.
+
 ## [0.5.0] - 2026-06-08
 
 ### Added
@@ -124,7 +146,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/vpciii/methodology/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/vpciii/methodology/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/vpciii/methodology/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/vpciii/methodology/compare/v0.2.0...v0.3.0

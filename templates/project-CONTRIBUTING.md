@@ -14,6 +14,12 @@ practices that predate (and outlast) any particular tool or framework.
 
 ## How work flows
 
+> For an **uncertain or expensive bet** — where it's not yet clear *what*
+> or *whether* to build — do the pre-spec planning first in
+> `planning/<slug>/` (problem, options, appetite) per
+> `$METHODOLOGY_HOME/planning.md`; it converges to the spec below.
+> Clear-cut work skips straight to the spec.
+
 1. **Spec** — for any non-trivial feature, copy the spec templates
    from `$METHODOLOGY_HOME/templates/spec/` to
    `specs/<feature-slug>/` and fill in `spec.md`. Discuss in a PR

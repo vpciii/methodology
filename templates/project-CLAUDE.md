@@ -17,13 +17,17 @@ the durable project-specific rules live in `docs/adr/` and
    terms exactly.
 4. `docs/adr/` — every numbered ADR is binding unless `superseded`.
    Newest first.
-5. The `specs/<feature>/` folder for the work at hand, if one was named.
+5. The `planning/<feature>/` folder, if the work began as a planned bet
+   (`$METHODOLOGY_HOME/planning.md`).
+6. The `specs/<feature>/` folder for the work at hand, if one was named.
 
 ## Hard rules
 
 - **No code without a spec for non-trivial work.** Larger than a single
   function or bugfix → draft `specs/<slug>/spec.md` first and confirm
-  before implementing. Templates: `$METHODOLOGY_HOME/templates/spec/`.
+  before implementing. Templates: `$METHODOLOGY_HOME/templates/spec/`. For
+  an uncertain or expensive bet, plan it first in `planning/<slug>/`
+  (`$METHODOLOGY_HOME/planning.md`) — it converges to the spec.
 - **Never invent a domain term.** If a concept needs a name and it
   isn't in `docs/glossary.md`, stop and propose it.
 - **Decisions get ADRs** — expensive to reverse, multi-component, or
