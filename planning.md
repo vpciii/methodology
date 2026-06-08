@@ -65,6 +65,8 @@ new spec, an ADR, or the operational-feedback loop.
 | Hand off to implementation | a spec (development methodology takes over) | `specs/<slug>/spec.md` |
 | Make an obvious or throwaway change | nothing — go straight to the spec or the commit | — |
 
+Templates for each artifact live in `$METHODOLOGY_HOME/templates/planning/`.
+
 ---
 
 ## The practices

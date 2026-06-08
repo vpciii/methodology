@@ -61,13 +61,17 @@ To get oriented in any project, in order:
    `superseded`.
 4. The project's **`docs/glossary.md`** — the ubiquitous language; use
    these terms exactly.
-5. The **`specs/<feature>/`** folder for the work at hand, if one was
+5. The **`planning/<feature>/`** folder, if the work began as a bet that
+   went through planning (`planning.md`) — the problem, options, and
+   appetite behind the spec.
+6. The **`specs/<feature>/`** folder for the work at hand, if one was
    named.
 
 ### Decision guide — which artifact, when
 
 | If you are about to… | Produce… | Where |
 |---|---|---|
+| Take on an uncertain or expensive bet (decide *what* / *whether* to build) | plan it before the spec — problem, options, appetite (planning.md) | `planning/<slug>/` |
 | Do substantial or long-lived work (more than a function/bugfix) | a spec, then plan, then tasks | `specs/<slug>/{spec,plan,tasks}.md` |
 | Make a decision that is expensive to reverse, cross-component, or future-constraining | an ADR | `docs/adr/NNNN-*.md` |
 | Add or change behavior | a test that fails before and passes after; in a spec, trace it to a success-criterion id (§5) | `tests/` |

@@ -23,6 +23,7 @@ skip the ceremony — a good commit message is enough.
 
 | About to… | Produce… |
 |---|---|
+| Take on an uncertain/expensive bet (what/whether to build) | plan it first in `planning/<slug>/` (planning.md) |
 | Do substantial/long-lived work | a spec → plan → tasks in `specs/<slug>/` |
 | Make a decision expensive to reverse / cross-component / future-constraining | an ADR in `docs/adr/` |
 | Add or change behavior | a test that fails before, passes after; in a spec, trace it to a criterion id |

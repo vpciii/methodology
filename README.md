@@ -29,6 +29,7 @@ to your shell profile for terminal use.
 | `CHANGELOG.md` | Human-facing record of changes to the methodology, under SemVer (ADR 0009). |
 | `templates/adr/_template.md` | Architecture Decision Record template. |
 | `templates/spec/{spec,plan,tasks}.md` | Spec-first feature templates. |
+| `templates/planning/{brief,pr-faq,options,bet,premortem}.md` | Planning artifacts for the pre-spec phase (ADR 0010). |
 | `templates/glossary.md` | Ubiquitous-language glossary seed. |
 | `templates/architecture.md` | Current-state architecture overview (kept-honest system shape). |
 | `templates/twelve-factor.md` | Twelve-Factor status checklist (deployable services). |
