@@ -13,6 +13,11 @@ by humans and AI agents alike. Full canonical document:
 long-lived work, read it first.** A project's own `.cursor/rules/` and
 its ADRs add project-specific rules and take precedence.
 
+<!-- This file hardcodes the default path (~/Developer/methodology)
+rather than $METHODOLOGY_HOME: Cursor User Rules are plain markdown and do
+not expand shell variables. Change the path if your clone lives
+elsewhere. See methodology ADR 0005. -->
+
 ## Scope — apply judgment
 
 These earn their keep on **substantial** (more than a function/bugfix)
@@ -27,6 +32,7 @@ skip the ceremony — a good commit message is enough.
 | Do substantial/long-lived work | a spec → plan → tasks in `specs/<slug>/` |
 | Make a decision expensive to reverse / cross-component / future-constraining | an ADR in `docs/adr/` |
 | Add or change behavior | a test that fails before, passes after; in a spec, trace it to a criterion id |
+| Restructure code without changing behavior (refactor) | no spec — keep tests green; ADR only if it closes off future options |
 | Use an undefined domain term | a `docs/glossary.md` entry (don't invent synonyms) |
 | Change the system's structure (component / boundary / store / dependency) | update `docs/architecture.md`, same PR |
 | Add/upgrade a dependency | weigh it; ADR for non-trivial ones |

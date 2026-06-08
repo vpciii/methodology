@@ -75,6 +75,7 @@ To get oriented in any project, in order:
 | Do substantial or long-lived work (more than a function/bugfix) | a spec, then plan, then tasks | `specs/<slug>/{spec,plan,tasks}.md` |
 | Make a decision that is expensive to reverse, cross-component, or future-constraining | an ADR | `docs/adr/NNNN-*.md` |
 | Add or change behavior | a test that fails before and passes after; in a spec, trace it to a success-criterion id (§5) | `tests/` |
+| Restructure code without changing behavior (refactor, tech-debt paydown) | no spec — keep the test suite green; an ADR only if it closes off future options (§1, §11) | the commit / `docs/adr/` |
 | Use a domain term that isn't defined | a glossary entry | `docs/glossary.md` |
 | Change the system's structure (a component, boundary, store, or external dependency) | an update to the current-state overview, in the same PR | `docs/architecture.md` |
 | Add or upgrade a dependency | weigh it; record non-trivial ones as an ADR (§10) | `docs/adr/` |

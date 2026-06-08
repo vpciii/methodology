@@ -6,6 +6,11 @@
 - **Spec:** ./spec.md
 - **Related ADRs:** ADR-NNNN
 
+> This plan freezes with its spec: editable while `Draft` / `Under
+> review` / `Approved`, and a historical record once `Implemented`
+> (methodology §2, ADR 0007). A contradiction found later goes to a test,
+> a new spec, or an ADR — not back into this file.
+
 ## Approach
 
 One or two paragraphs describing the implementation approach at the

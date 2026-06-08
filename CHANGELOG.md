@@ -11,6 +11,26 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-06-08
+
+### Added
+
+- **Refactoring in the decision guide** — a row for restructuring code
+  without changing behavior: no spec, keep the test suite green, an ADR
+  only if it closes off future options. Fills the gap between "add or
+  change behavior" (→ a test) and "change the system's structure"
+  (→ `architecture.md`). (ADR 0014) *Adoption: reference-only.*
+
+### Changed
+
+- **`plan.md` freeze made explicit** — the plan template now states it
+  freezes with its spec at `Implemented` (methodology §2, ADR 0007),
+  matching `spec.md`.
+- **`templates/methodology.mdc`** documents why it hardcodes the default
+  methodology path instead of `$METHODOLOGY_HOME` (Cursor User Rules don't
+  expand shell variables; ADR 0005), and gains the refactoring
+  decision-guide row.
+
 ## [0.6.0] - 2026-06-08
 
 ### Added
@@ -146,7 +166,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/vpciii/methodology/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/vpciii/methodology/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/vpciii/methodology/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/vpciii/methodology/compare/v0.3.0...v0.4.0
