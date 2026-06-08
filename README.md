@@ -73,3 +73,9 @@ ADR declares its **adoption impact** for consuming projects. Note the
 change in [`CHANGELOG.md`](./CHANGELOG.md) under semantic versioning, so
 projects adopt it deliberately like any dependency (ADR 0009). See the
 "Changing this document" section of the methodology.
+
+## License
+
+Dedicated to the public domain under [CC0 1.0 Universal](./LICENSE)
+(ADR 0013). Copy anything here — the methodology, the templates, the
+ADRs — into your own projects freely, with no attribution required.
