@@ -11,6 +11,30 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-08
+
+### Added
+
+- **Brownfield adoption guide** — new `adopting.md` for bringing an
+  existing codebase onto the methodology: a *forward-only* rule (the
+  methodology applies from the adoption date forward; no retroactive
+  specs, never block a fix to backfill), a seed order for current-state
+  artifacts (`architecture.md` → glossary → decision-capture ADRs → CI
+  coverage on new specs only), and three modes (greenfield / brownfield /
+  retroactive). (ADR 0012)
+  *Adoption: reference-only — arrives by reading; the seed order is a
+  recommended path, not a gate.*
+- **Characterization tests** named in `methodology.md` §5 as the
+  brownfield safety net — pin current behavior before changing untested
+  legacy code.
+
+### Changed
+
+- `methodology.md` §5 cross-references characterization tests; "Changing
+  this document" now lists `adopting.md` and the ADR range extends to
+  0012. `README.md` gains an `adopting.md` layout row and a brownfield
+  pointer in the adoption steps.
+
 ## [0.3.0] - 2026-06-08
 
 ### Added
@@ -89,7 +113,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/vpciii/methodology/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/vpciii/methodology/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/vpciii/methodology/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/vpciii/methodology/releases/tag/v0.1.0
