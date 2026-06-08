@@ -11,6 +11,28 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-08
+
+### Added
+
+- **`MUST` requirements map to success criteria** — every `MUST` /
+  `MUST NOT` requirement (`R-…`) now carries a stable id and is reflected
+  in at least one success criterion, closing the gap where a normative
+  requirement could ship untested while all criteria passed. Success
+  criteria stay the single verification surface; the spec Traceability
+  table gains a **Requirement(s)** column so the `R-… → SC-… → test` chain
+  is explicit. (ADR 0011)
+  *Adoption: per-project — when next touching a spec, id every `MUST` /
+  `MUST NOT`, ensure each maps to a criterion, and add the Requirement(s)
+  column; optionally extend the spec-coverage CI check to assert every
+  `MUST` is covered.*
+
+### Changed
+
+- `templates/spec/spec.md` (Requirements, Success criteria, Traceability)
+  and `templates/project-CONTRIBUTING.md` (Definition of Done) updated for
+  the above.
+
 ## [0.2.0] - 2026-06-08
 
 ### Added
@@ -67,6 +89,7 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/vpciii/methodology/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/vpciii/methodology/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/vpciii/methodology/releases/tag/v0.1.0

@@ -267,8 +267,14 @@ Tests are not merely merge gates. They are the executable encoding of:
   test cites the id it verifies, a Traceability table in the spec
   records the mapping, and a CI check fails on any criterion left
   uncovered — so "done" is provable, not asserted, and a later change
-  that breaks a criterion is caught loudly. The id-and-table convention
-  is global; the CI mechanism is a project tooling decision (ADR 0006).
+  that breaks a criterion is caught loudly. Requirements feed this
+  surface rather than bypassing it: every `MUST` / `MUST NOT` requirement
+  (`R-…`) is reflected in at least one success criterion, so a normative
+  obligation is never shipped without a test (ADR 0011) — success criteria
+  stay the single verification surface, and requirements are what they
+  must cover. The id-and-table convention is global; the CI mechanism
+  (including checking that every `MUST` is covered) is a project tooling
+  decision (ADR 0006).
 - **Regression records.** Every bug fix ships with the test that would
   have caught the bug. The test is the permanent record of what went
   wrong.
