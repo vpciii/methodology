@@ -80,7 +80,7 @@ To get oriented in any project, in order:
 | Change the system's structure (a component, boundary, store, or external dependency) | an update to the current-state overview, in the same PR | `docs/architecture.md` |
 | Add or upgrade a dependency | weigh it; record non-trivial ones as an ADR (§10) | `docs/adr/` |
 | Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout |
-| Resolve an incident | at least one of: regression test, ADR, spec update (§8) | `tests/`, `docs/adr/`, `specs/` |
+| Resolve an incident | at least one of: regression test, ADR, spec update; a short blameless postmortem if user-visible (§8) | `tests/`, `docs/adr/`, `specs/`, `docs/postmortems/` |
 | Make a trivial, throwaway, or five-minute change | nothing — a good commit message is enough | the commit |
 
 ### Operating rules for AI agents
@@ -155,6 +155,7 @@ table to find what's where without hunting.
 | Architecture Decision Records | `docs/adr/NNNN-*.md` | One short file per significant decision. Template: `$METHODOLOGY_HOME/templates/adr/_template.md`. |
 | Ubiquitous language / glossary | `docs/glossary.md` | The project's domain terms. Template: `$METHODOLOGY_HOME/templates/glossary.md`. |
 | Twelve-Factor checklist | `docs/twelve-factor.md` | Status table for deployable services. Template in `templates/`. |
+| Postmortems | `docs/postmortems/YYYY-MM-DD-<slug>.md` | Blameless record of a user-visible incident; links its §8 follow-through (regression test, ADR, or spec update). Template: `$METHODOLOGY_HOME/templates/postmortem.md`. |
 | Feature specifications | `specs/<slug>/{spec,plan,tasks}.md` | Spec-first workflow. Templates in `$METHODOLOGY_HOME/templates/spec/`. |
 | AI agent orientation | `CLAUDE.md` | Points the active AI tool at the artifacts above. Template: `templates/project-CLAUDE.md`. |
 | Contributor guide | `CONTRIBUTING.md` | Operational rules: PR flow, commit labels, definition of ready/done, review scope. Template: `templates/project-CONTRIBUTING.md`. |
@@ -357,7 +358,10 @@ Lightweight supporting practices:
 - **Postmortems are written for any user-visible incident.** Short,
   blameless, focused on what the system *permitted* rather than who
   pushed which button. The deliverable is one of the three artifacts
-  above — not the postmortem itself.
+  above — not the postmortem itself; the postmortem records the
+  incident and links that follow-through. It lives at
+  `docs/postmortems/YYYY-MM-DD-<slug>.md` (template:
+  `$METHODOLOGY_HOME/templates/postmortem.md`, ADR 0016).
 
 Why this lasts: production is a continuous, free source of information
 about how the system actually behaves. Projects that discard it

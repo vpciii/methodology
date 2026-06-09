@@ -31,6 +31,7 @@ to your shell profile for terminal use.
 | `templates/spec/{spec,plan,tasks}.md` | Spec-first feature templates. |
 | `templates/planning/{brief,pr-faq,options,bet,premortem}.md` | Planning artifacts for the pre-spec phase (ADR 0010). |
 | `templates/glossary.md` | Ubiquitous-language glossary seed. |
+| `templates/postmortem.md` | Blameless postmortem for a user-visible incident → `docs/postmortems/` (ADR 0016). |
 | `templates/architecture.md` | Current-state architecture overview (kept-honest system shape). |
 | `templates/twelve-factor.md` | Twelve-Factor status checklist (deployable services). |
 | `templates/project-CLAUDE.md` | Drop-in `CLAUDE.md` for a new project (AI orientation pointer). |

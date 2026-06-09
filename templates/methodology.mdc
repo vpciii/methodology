@@ -36,7 +36,7 @@ skip the ceremony — a good commit message is enough.
 | Use an undefined domain term | a `docs/glossary.md` entry (don't invent synonyms) |
 | Change the system's structure (component / boundary / store / dependency) | update `docs/architecture.md`, same PR |
 | Add/upgrade a dependency | weigh it; ADR for non-trivial ones |
-| Resolve an incident | ≥1 of: regression test, ADR, spec update |
+| Resolve an incident | ≥1 of: regression test, ADR, spec update; postmortem in `docs/postmortems/` if user-visible |
 | Trivial / throwaway change | nothing but a clear commit message |
 
 ## Hard rules

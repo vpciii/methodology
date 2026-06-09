@@ -23,6 +23,12 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
   "show done" agent guardrail is extended to the red half. (ADR 0015)
   *Adoption: per-project action — re-sync `CONTRIBUTING.md` (Reviews,
   definition of done, Tests) and `CLAUDE.md` from the templates.*
+- **Postmortems get a conventional home** — the §8-mandated postmortem
+  now lives at `docs/postmortems/YYYY-MM-DD-<slug>.md`, with a template
+  (`templates/postmortem.md`) whose follow-through table links the
+  incident's §8 deliverable. The deliverable rule is unchanged.
+  (ADR 0016) *Adoption: reference-only — the first user-visible
+  incident uses the template; nothing to backfill.*
 
 ## [0.7.0] - 2026-06-08
 
