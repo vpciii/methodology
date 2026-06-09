@@ -82,7 +82,8 @@ first rather than starting to code.
 - Every success criterion in `spec.md` is recorded in the spec's
   Traceability table against a passing test, and the
   spec-criterion-coverage check passes in CI (methodology §5) — not
-  mapped by hand.
+  mapped by hand. (A reference checker to adapt or replace ships at
+  `$METHODOLOGY_HOME/templates/ci/check-spec-coverage.py`, ADR 0017.)
 - Every `MUST` / `MUST NOT` requirement in `spec.md` is reflected in at
   least one success criterion, so it inherits a test; the Traceability
   table records the `R-… → SC-… → test` chain (methodology §5, ADR 0011).

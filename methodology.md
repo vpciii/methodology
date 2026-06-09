@@ -282,7 +282,8 @@ Tests are not merely merge gates. They are the executable encoding of:
   stay the single verification surface, and requirements are what they
   must cover. The id-and-table convention is global; the CI mechanism
   (including checking that every `MUST` is covered) is a project tooling
-  decision (ADR 0006).
+  decision (ADR 0006). A reference checker to adapt or replace ships at
+  `$METHODOLOGY_HOME/templates/ci/check-spec-coverage.py` (ADR 0017).
 - **Regression records.** Every bug fix ships with the test that would
   have caught the bug. The test is the permanent record of what went
   wrong. The fix cites its **red→green evidence** — the test's failing

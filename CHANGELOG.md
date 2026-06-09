@@ -29,6 +29,14 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
   incident's §8 deliverable. The deliverable rule is unchanged.
   (ADR 0016) *Adoption: reference-only — the first user-visible
   incident uses the template; nothing to backfill.*
+- **Reference spec-coverage checker** —
+  `templates/ci/check-spec-coverage.py`, a single-file stdlib-only
+  Python 3 script verifying the §5 traceability rules (SC → test
+  mapping, `MUST`/`MUST NOT` → criterion coverage per ADR 0011, test
+  files exist and cite their ids). Explicitly adapt-or-replace; ADR
+  0006's rule-vs-mechanism split is unchanged. (ADR 0017) *Adoption:
+  reference-only — an optional helper; wiring it is the project's own
+  tooling decision.*
 
 ## [0.7.0] - 2026-06-08
 

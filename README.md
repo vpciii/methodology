@@ -37,6 +37,7 @@ to your shell profile for terminal use.
 | `templates/project-CLAUDE.md` | Drop-in `CLAUDE.md` for a new project (AI orientation pointer). |
 | `templates/project-CONTRIBUTING.md` | Drop-in `CONTRIBUTING.md` (PR flow, commit labels, DoR/DoD, review scope). |
 | `templates/methodology.mdc` | Cursor rule — paste into Cursor User Rules (global) or drop into a project's `.cursor/rules/`. |
+| `templates/ci/check-spec-coverage.py` | Reference spec-criterion coverage checker (stdlib-only Python) — adapt or replace per project (ADR 0017). |
 | `adr/NNNN-*.md` | Decisions about *this methodology itself*. |
 
 ## How it's wired in globally
