@@ -60,6 +60,9 @@ first rather than starting to code.
   merged PR number or hash.
 - Any new behavior is covered by at least one test; a test that
   verifies a spec success criterion cites its id (methodology §5).
+- A bug fix cites its **red→green evidence**: the regression test's
+  failing output from before the fix, or a test-first commit a
+  reviewer can check out and run (methodology §5, ADR 0015).
 - No secrets were committed; any security-relevant change is covered
   by a test, and any irreversible step was called out (methodology
   §9, §11).
@@ -106,6 +109,24 @@ AI-assisted PRs can grow quickly between review passes. Citing the
 exact diff each review covers makes "what was reviewed" auditable and
 prevents new changes sliding through under cover of a prior approval.
 
+### What a review checks
+
+Whatever the range, every review checks (methodology §5, §9, §11,
+ADR 0015 — kept short on purpose):
+
+- **Spec conformance** — the diff does what the spec/task says, and no
+  more; requirements and success criteria were not quietly rewritten
+  to match the code (methodology "agent guardrails").
+- **Test honesty** — new behavior is covered; a bug fix shows its
+  red→green evidence (below); tests assert behavior, not
+  implementation, and would actually fail if the behavior broke.
+- **Language** — domain terms match `docs/glossary.md` exactly; no
+  invented synonyms.
+- **Boundaries and reversibility** — no secrets; input validated at
+  trust boundaries; anything irreversible called out.
+- **Artifacts ride along** — docs, ADR, glossary, and
+  `architecture.md` updates are in this PR, not promised for later.
+
 ## Commits and versioning
 
 - [Conventional Commits](https://www.conventionalcommits.org/) for
@@ -143,7 +164,8 @@ When a commit could fit two labels, apply in order:
 
 - New behavior ships with tests.
 - Bug fixes ship with a regression test that fails before the fix and
-  passes after.
+  passes after — and the PR cites the failing run (or a test-first
+  commit) as evidence, so red→green is shown, not asserted (ADR 0015).
 - The full test suite must pass before merge.
 
 ## Using AI assistants
@@ -161,4 +183,5 @@ Two guardrails matter most because they fail quietly (methodology
   come as their own diff for your sign-off — never folded into an
   implementation PR.
 - **An agent shows "done," it doesn't assert it.** A criterion claimed
-  met cites the passing test that proves it.
+  met cites the passing test that proves it; a fix claimed correct
+  cites the regression test failing before it (red→green evidence).

@@ -45,7 +45,7 @@ skip the ceremony — a good commit message is enough.
 - **Decisions get ADRs** (expensive to reverse / multi-component / future-constraining).
 - **Small PRs, trunk-based;** split past ~300 lines of diff.
 - **Reversible by default:** flags / expand-contract migrations / backward-compatible APIs; call out and ADR anything irreversible.
-- **Tests as specification:** new behavior ships with tests; fixes ship a regression test (fails before, passes after). Test behavior, not implementation. Spec success criteria carry stable ids traced to tests, CI-checked for coverage.
+- **Tests as specification:** new behavior ships with tests; fixes ship a regression test (fails before, passes after — failing run cited in the PR). Test behavior, not implementation. Spec success criteria carry stable ids traced to tests, CI-checked for coverage.
 - **Current-state & spec freeze:** keep `docs/architecture.md` honest (the system's shape *now*) in the same PR as any structural change; a spec freezes at `Implemented` (a historical record) — later contradictions go to a test, a new spec, or an ADR.
 - **Security & secrets:** secrets never in the repo (env / secret manager); rotate leaks; trust boundaries & authz are ADR-worthy; security bugs ship a regression test.
 - **Dependencies are decisions:** weigh maintenance/license/supply-chain; commit lockfiles; ADR non-trivial deps.
@@ -64,5 +64,6 @@ orchestration over the canonical artifacts, not a replacement for them.
 **Agent guardrails:** don't silently rewrite an agreed spec's
 requirements or criteria — a contract change is its own diff for
 sign-off, never folded into an implementation PR; show "done" by citing
-the passing test, don't assert it; re-read a file before you edit it;
+the passing test (for a fix, also the failing run before it), don't
+assert it; re-read a file before you edit it;
 surface drift you notice rather than papering over it.

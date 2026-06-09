@@ -11,6 +11,19 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-06-09
+
+### Added
+
+- **Review checklist + red→green evidence** — every review checks a
+  short named list (spec conformance, test honesty, language,
+  boundaries/reversibility, artifacts ride along), and a bug-fix PR
+  cites its regression test failing *before* the fix (output or a
+  test-first commit), so "fails before" is shown, not asserted. The
+  "show done" agent guardrail is extended to the red half. (ADR 0015)
+  *Adoption: per-project action — re-sync `CONTRIBUTING.md` (Reviews,
+  definition of done, Tests) and `CLAUDE.md` from the templates.*
+
 ## [0.7.0] - 2026-06-08
 
 ### Added

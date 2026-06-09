@@ -37,7 +37,8 @@ the durable project-specific rules live in `docs/adr/` and
   / backward-compatible APIs; call out and ADR anything truly
   irreversible.
 - **Tests before merge.** New behavior ships with tests; bug fixes ship
-  a regression test. Test behavior, not implementation. A test that
+  a regression test, with the failing-before run (or a test-first
+  commit) cited in the PR. Test behavior, not implementation. A test that
   verifies a spec success criterion cites its id; criteria carry stable
   ids, CI-checked for coverage.
 - **Specs freeze; keep the shape doc honest.** A spec freezes at

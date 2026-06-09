@@ -116,7 +116,9 @@ consistent diff (see ADR 0008):
   sign-off; it is never folded into an implementation change.
 - **Show "done," do not assert it.** When you claim a success criterion
   is met, cite the passing test that proves it (§5). Completion you
-  cannot point at is reported as unproven.
+  cannot point at is reported as unproven. For a bug fix this includes
+  the red half: show the regression test failing before the fix — its
+  output, or a test-first commit — not only passing after (ADR 0015).
 - **Re-read before you write.** Before editing a spec, ADR, or
   glossary, re-read the current file — not a remembered or summarized
   version. Treat recalled context as a possibly-stale pointer to
@@ -282,7 +284,10 @@ Tests are not merely merge gates. They are the executable encoding of:
   decision (ADR 0006).
 - **Regression records.** Every bug fix ships with the test that would
   have caught the bug. The test is the permanent record of what went
-  wrong.
+  wrong. The fix cites its **red→green evidence** — the test's failing
+  output from before the fix, or a test-first commit a reviewer can
+  run — so "fails before" is shown, not asserted; whether CI also
+  enforces this is a project tooling decision (ADR 0015).
 - **Characterized legacy behavior.** On an existing codebase, before
   changing untested code, a *characterization test* pins its current
   behavior so a fix or refactor has a safety net even where no spec ever
