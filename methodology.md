@@ -489,7 +489,7 @@ This repository holds two methodology documents — `methodology.md`
 the guide for bringing an existing project onto them (ADR 0012); all three
 share one version and `CHANGELOG.md`. If a practice changes, update the
 relevant document and record the change in an ADR under this repository's
-`adr/` (see `adr/0001`–`adr/0012` for the decisions that shaped the
+`adr/` (see the numbered ADRs in `adr/` for the decisions that shaped the
 current version). Each such ADR declares an **adoption
 impact** for consuming projects, and the change is noted in
 `CHANGELOG.md` under semantic versioning, so projects adopt it
