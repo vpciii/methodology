@@ -11,6 +11,33 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-06-09
+
+### Added
+
+- **Review checklist + red→green evidence** — every review checks a
+  short named list (spec conformance, test honesty, language,
+  boundaries/reversibility, artifacts ride along), and a bug-fix PR
+  cites its regression test failing *before* the fix (output or a
+  test-first commit), so "fails before" is shown, not asserted. The
+  "show done" agent guardrail is extended to the red half. (ADR 0015)
+  *Adoption: per-project action — re-sync `CONTRIBUTING.md` (Reviews,
+  definition of done, Tests) and `CLAUDE.md` from the templates.*
+- **Postmortems get a conventional home** — the §8-mandated postmortem
+  now lives at `docs/postmortems/YYYY-MM-DD-<slug>.md`, with a template
+  (`templates/postmortem.md`) whose follow-through table links the
+  incident's §8 deliverable. The deliverable rule is unchanged.
+  (ADR 0016) *Adoption: reference-only — the first user-visible
+  incident uses the template; nothing to backfill.*
+- **Reference spec-coverage checker** —
+  `templates/ci/check-spec-coverage.py`, a single-file stdlib-only
+  Python 3 script verifying the §5 traceability rules (SC → test
+  mapping, `MUST`/`MUST NOT` → criterion coverage per ADR 0011, test
+  files exist and cite their ids). Explicitly adapt-or-replace; ADR
+  0006's rule-vs-mechanism split is unchanged. (ADR 0017) *Adoption:
+  reference-only — an optional helper; wiring it is the project's own
+  tooling decision.*
+
 ## [0.7.0] - 2026-06-08
 
 ### Added

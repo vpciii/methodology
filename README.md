@@ -31,11 +31,13 @@ to your shell profile for terminal use.
 | `templates/spec/{spec,plan,tasks}.md` | Spec-first feature templates. |
 | `templates/planning/{brief,pr-faq,options,bet,premortem}.md` | Planning artifacts for the pre-spec phase (ADR 0010). |
 | `templates/glossary.md` | Ubiquitous-language glossary seed. |
+| `templates/postmortem.md` | Blameless postmortem for a user-visible incident → `docs/postmortems/` (ADR 0016). |
 | `templates/architecture.md` | Current-state architecture overview (kept-honest system shape). |
 | `templates/twelve-factor.md` | Twelve-Factor status checklist (deployable services). |
 | `templates/project-CLAUDE.md` | Drop-in `CLAUDE.md` for a new project (AI orientation pointer). |
 | `templates/project-CONTRIBUTING.md` | Drop-in `CONTRIBUTING.md` (PR flow, commit labels, DoR/DoD, review scope). |
 | `templates/methodology.mdc` | Cursor rule — paste into Cursor User Rules (global) or drop into a project's `.cursor/rules/`. |
+| `templates/ci/check-spec-coverage.py` | Reference spec-criterion coverage checker (stdlib-only Python) — adapt or replace per project (ADR 0017). |
 | `adr/NNNN-*.md` | Decisions about *this methodology itself*. |
 
 ## How it's wired in globally
