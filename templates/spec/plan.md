@@ -1,6 +1,6 @@
 # Plan: <Feature name>
 
-- **Status:** Draft | Under review | Approved | Implemented
+- **Status:** Draft | Under review | Approved | Implemented | Superseded | Withdrawn
 - **Date:** YYYY-MM-DD
 - **Author:** name
 - **Spec:** ./spec.md
@@ -28,7 +28,9 @@ modify or create.
 ## Data model changes
 
 Any new tables, columns, indexes, or migrations. Include the shape
-inline; do not link out to a moving target.
+inline; do not link out to a moving target. Call out data sensitivity:
+any new personal or regulated data, where it lives, how long it is
+kept, and how it is deleted.
 
 ```
 -- example

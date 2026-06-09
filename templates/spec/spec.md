@@ -44,6 +44,10 @@ requirement is reflected in at least one success criterion below, so it
 inherits a test (methodology §5, ADR 0011); `SHOULD` / `MAY` requirements
 may be, but need not be.
 
+Non-functional requirements — latency, availability, data retention,
+and the like — are requirements too: state them here when they are
+load-bearing rather than leaving them implied.
+
 - **R-1 (MUST)** …
 - **R-2 (MUST NOT)** …
 - **R-3 (SHOULD)** …

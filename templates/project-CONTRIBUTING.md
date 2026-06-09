@@ -161,6 +161,14 @@ When a commit could fit two labels, apply in order:
 4. **Root commits / initial scaffolds** → `chore:` is conventional
    even when docs-heavy. The one accepted exception to rule 2.
 
+### Releases
+
+- Tag each release `vX.Y.Z` (SemVer).
+- Keep a human-facing `CHANGELOG.md` per
+  [Keep a Changelog](https://keepachangelog.com/) — Conventional
+  Commits make it cheap to draft or generate; curate it rather than
+  dumping the git log.
+
 ## Tests
 
 - New behavior ships with tests.

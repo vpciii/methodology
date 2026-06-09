@@ -24,11 +24,32 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
   (ADR 0018) *Adoption: no project action; per-machine — copy the
   template to `~/.claude/CLAUDE.md`.*
 
+- **Release guidance for projects** — the `CONTRIBUTING.md` template
+  gains a Releases section: tag `vX.Y.Z`, keep a curated human-facing
+  `CHANGELOG.md` (Keep a Changelog; Conventional Commits make it cheap
+  to draft). *Adoption: per-project action (optional) — re-sync
+  `CONTRIBUTING.md`.*
+
 ### Changed
 
 - **Sign-off gates stated canonically** — `methodology.md` §2 now says
   what the summary already claimed: each spec → plan → tasks stage is
   agreed before the next is written against it. (ADR 0018)
+  *Adoption: reference-only.*
+- **Throwaway graduation** — the scope note now routes the script that
+  quietly became production to brownfield adoption (`adopting.md`),
+  forward-only. *Adoption: reference-only.*
+- **Issue trackers declared disposable orchestration** — the tracker
+  sequences work; anything durable in an issue (a decision, a
+  requirement, a regression) graduates to an artifact. *Adoption:
+  reference-only.*
+- **Non-functional and data prompts in the spec templates** —
+  `spec.md` Requirements now prompts for load-bearing NFRs (latency,
+  availability, retention); `plan.md` Data model changes prompts for
+  data sensitivity, retention, and deletion path. *Adoption:
+  per-project action (optional) — re-sync the spec templates.*
+- **`plan.md` status vocabulary** — gains `Superseded | Withdrawn`,
+  matching `spec.md`; a withdrawn spec's plan now has a legal status.
   *Adoption: reference-only.*
 
 ## [0.8.0] - 2026-06-09

@@ -39,6 +39,11 @@ than a single function or bugfix) or *long-lived* (something another
 person — or a future you, or a future agent — will maintain). Apply
 judgment.
 
+The judgment is revisited when the facts change: a throwaway that
+outlives its purpose — the script that quietly became production — is
+adopted *brownfield*, forward-only (`adopting.md`). Graduation triggers
+the artifacts from that point on, not a retroactive backfill.
+
 ---
 
 ## Using this methodology (humans and agents)
@@ -468,6 +473,12 @@ canonical artifacts in the artifact map above. The artifacts are the
 source of truth; the workflow tool is disposable orchestration over
 them. The day the tool is retired, the project loses an editor, not a
 project.
+
+The same holds for **issue trackers and backlogs**. The tracker is
+disposable orchestration for sequencing work; anything durable that
+surfaces in an issue — a decision, a requirement, a regression —
+graduates to the corresponding artifact. The artifacts, not the
+backlog, are the record.
 
 ---
 
