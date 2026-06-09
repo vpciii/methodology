@@ -34,6 +34,7 @@ to your shell profile for terminal use.
 | `templates/postmortem.md` | Blameless postmortem for a user-visible incident → `docs/postmortems/` (ADR 0016). |
 | `templates/architecture.md` | Current-state architecture overview (kept-honest system shape). |
 | `templates/twelve-factor.md` | Twelve-Factor status checklist (deployable services). |
+| `templates/global-CLAUDE.md` | Canonical source of the always-loaded `~/.claude/CLAUDE.md` summary (ADR 0018). |
 | `templates/project-CLAUDE.md` | Drop-in `CLAUDE.md` for a new project (AI orientation pointer). |
 | `templates/project-CONTRIBUTING.md` | Drop-in `CONTRIBUTING.md` (PR flow, commit labels, DoR/DoD, review scope). |
 | `templates/methodology.mdc` | Cursor rule — paste into Cursor User Rules (global) or drop into a project's `.cursor/rules/`. |
@@ -43,9 +44,14 @@ to your shell profile for terminal use.
 ## How it's wired in globally
 
 - **Claude:** `~/.claude/CLAUDE.md` (global memory, loaded in every
-  project) contains the hard rules inline and points here for the full
-  document, plus `$METHODOLOGY_HOME` is set in `~/.claude/settings.json`
-  `env`. Every Claude session, in any repo, already knows the methodology.
+  project) is a deployed copy of
+  [`templates/global-CLAUDE.md`](./templates/global-CLAUDE.md) — the
+  canonical source in this repo (ADR 0018). It carries the hard rules
+  inline and points here for the full document, plus `$METHODOLOGY_HOME`
+  is set in `~/.claude/settings.json` `env`. Every Claude session, in
+  any repo, already knows the methodology. Edit the template (same PR
+  as the change it summarizes); copy it into place when the release
+  lands.
 - **Cursor:** paste `templates/methodology.mdc` into **Cursor →
   Settings → Rules → User Rules** for the global equivalent. (Cursor has
   no global rules *file*; User Rules is its only always-on mechanism.)

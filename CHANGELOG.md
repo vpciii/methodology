@@ -11,6 +11,26 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-06-09
+
+### Added
+
+- **The global summary is a repo artifact** — the always-loaded
+  `~/.claude/CLAUDE.md` now has a canonical source at
+  `templates/global-CLAUDE.md`, edited in the same PR as any change it
+  summarizes; copying it into place is the per-machine release step.
+  Repairs the drift a review found (missing planning and refactor
+  rows, no `planning.md` mention) and folds in the 0.8.0 updates.
+  (ADR 0018) *Adoption: no project action; per-machine — copy the
+  template to `~/.claude/CLAUDE.md`.*
+
+### Changed
+
+- **Sign-off gates stated canonically** — `methodology.md` §2 now says
+  what the summary already claimed: each spec → plan → tasks stage is
+  agreed before the next is written against it. (ADR 0018)
+  *Adoption: reference-only.*
+
 ## [0.8.0] - 2026-06-09
 
 ### Added

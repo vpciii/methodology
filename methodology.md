@@ -199,6 +199,10 @@ future "why is it like this?"
 Write the spec before the code. One folder per feature, three files:
 `spec.md` (what + why), `plan.md` (how), `tasks.md` (PR-sized work
 items). The spec is reviewed and agreed before implementation.
+Sign-off sits **between the stages**: the spec is agreed before the
+plan is written against it, and the plan before the tasks are cut and
+built — each stage is the reviewed input to the next, so disagreement
+is caught at the cheapest altitude.
 
 Everything *upstream* of the spec — whether to build, what, and which
 approach — is the **planning methodology**'s concern (`planning.md`, ADR
@@ -493,6 +497,9 @@ relevant document and record the change in an ADR under this repository's
 current version). Each such ADR declares an **adoption
 impact** for consuming projects, and the change is noted in
 `CHANGELOG.md` under semantic versioning, so projects adopt it
-deliberately like any dependency (ADR 0009). If you find yourself
+deliberately like any dependency (ADR 0009). The always-loaded global
+summary (`templates/global-CLAUDE.md`, deployed as `~/.claude/CLAUDE.md`)
+changes in the **same PR** as any change it summarizes; copying it into
+place is the per-machine release step (ADR 0018). If you find yourself
 arguing for or against a practice that isn't listed here, that is a sign
 you need an ADR, not a longer methodology doc.
