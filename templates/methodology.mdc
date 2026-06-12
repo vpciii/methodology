@@ -36,6 +36,7 @@ skip the ceremony — a good commit message is enough.
 | Use an undefined domain term | a `docs/glossary.md` entry (don't invent synonyms) |
 | Change the system's structure (component / boundary / store / dependency) | update `docs/architecture.md`, same PR |
 | Add/upgrade a dependency | weigh it; ADR for non-trivial ones |
+| Retire a feature / service / data store | an ADR with the sunset plan (deprecate → dark → remove); update `architecture.md`, retire its tests, mark the spec `Retired` |
 | Resolve an incident | ≥1 of: regression test, ADR, spec update; postmortem in `docs/postmortems/` if user-visible |
 | Trivial / throwaway change | nothing but a clear commit message |
 
@@ -51,7 +52,7 @@ skip the ceremony — a good commit message is enough.
 - **Dependencies are decisions:** weigh maintenance/license/supply-chain; commit lockfiles; ADR non-trivial deps.
 - **Ubiquitous language:** use the project's domain terms exactly.
 - **Conventional Commits + SemVer** (`feat: fix: docs: refactor: test: chore: perf: build: ci:`; `!` for breaking).
-- **Keep artifacts honest:** docs change in the same PR as the behavior; ADRs append-only; enforce machine-checkable rules in CI.
+- **Keep artifacts honest:** docs — user-facing docs included — change in the same PR as the behavior; ADRs append-only; enforce machine-checkable rules in CI.
 
 ## Author of record
 

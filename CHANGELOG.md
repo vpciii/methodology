@@ -11,6 +11,34 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-06-12
+
+### Added
+
+- **Retirement in the decision guide** — sunsetting a feature, service,
+  or data store is routed like any other change: an ADR decides it
+  (irreversible by definition, §11), the sunset walks deprecate → dark →
+  remove, the removal PR updates `docs/architecture.md` and retires the
+  feature's tests deliberately, and the frozen spec is marked `Retired`
+  (the spec/plan status enums gain the value). Fills the lifecycle gap a
+  completeness audit found: the guide covered create, change, refactor,
+  and incident — but not removal. (ADR 0019) *Adoption: reference-only;
+  optionally re-sync the spec templates for the status enum.*
+- **User-facing docs ride along** — the same-PR honesty rule now
+  explicitly binds user-facing documentation (usage, API reference,
+  runbooks): a user-visible behavior change updates the docs it
+  invalidates in the same PR. The artifact map gains a row naming the
+  conventional home (`README.md` usage + `docs/`; an external docs site
+  is a project tooling ADR), and `CONTRIBUTING.md`'s definition of done
+  and review checklist gain the check. (ADR 0020) *Adoption:
+  per-project action (optional) — re-sync `CONTRIBUTING.md`.*
+
+### Fixed
+
+- **Stale changelog compare links** — `[0.8.0]` and `[0.9.0]` link
+  definitions were missing and `[Unreleased]` still compared from
+  `v0.7.0`.
+
 ## [0.9.0] - 2026-06-09
 
 ### Added
@@ -234,7 +262,10 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/vpciii/methodology/compare/v0.9.0...v0.10.0
+[0.9.0]: https://github.com/vpciii/methodology/compare/v0.8.0...v0.9.0
+[0.8.0]: https://github.com/vpciii/methodology/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/vpciii/methodology/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/vpciii/methodology/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/vpciii/methodology/compare/v0.4.0...v0.5.0

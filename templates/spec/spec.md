@@ -1,6 +1,6 @@
 # Spec: <Feature name>
 
-- **Status:** Draft | Under review | Approved | Implemented | Superseded | Withdrawn
+- **Status:** Draft | Under review | Approved | Implemented | Superseded | Withdrawn | Retired
 - **Date:** YYYY-MM-DD
 - **Author:** name
 - **Related ADRs:** ADR-NNNN, ADR-NNNN
@@ -8,7 +8,9 @@
 > This spec is editable while `Draft` / `Under review` / `Approved`.
 > When it reaches `Implemented` it **freezes** into a historical record;
 > a contradiction found later goes to a test, a new spec, or an ADR —
-> not back into this file (methodology §2, §8).
+> not back into this file (methodology §2, §8). If the feature is later
+> sunset, only the status flips to `Retired` (ADR 0019) — the content
+> stays frozen.
 
 ## Problem
 
