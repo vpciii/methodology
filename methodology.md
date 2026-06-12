@@ -85,6 +85,7 @@ To get oriented in any project, in order:
 | Change the system's structure (a component, boundary, store, or external dependency) | an update to the current-state overview, in the same PR | `docs/architecture.md` |
 | Add or upgrade a dependency | weigh it; record non-trivial ones as an ADR (§10) | `docs/adr/` |
 | Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout |
+| Retire a feature, service, or data store | an ADR deciding the sunset (irreversible by definition, §11): deprecation window → dark → removal; update `docs/architecture.md` and retire its tests in the removal PR; mark the frozen spec `Retired` | `docs/adr/` |
 | Resolve an incident | at least one of: regression test, ADR, spec update; a short blameless postmortem if user-visible (§8) | `tests/`, `docs/adr/`, `specs/`, `docs/postmortems/` |
 | Make a trivial, throwaway, or five-minute change | nothing — a good commit message is enough | the commit |
 
@@ -137,7 +138,10 @@ consistent diff (see ADR 0008):
 
 - **Docs change in the same PR as the behavior they describe.** No
   "docs later." A change that makes the glossary, an ADR, a spec, or
-  the README wrong must fix it in the same change.
+  the README wrong must fix it in the same change. User-facing
+  documentation is bound the same way: a user-visible behavior change
+  updates the usage docs, API reference, or runbook it invalidates in
+  the same PR (ADR 0020).
 - **ADRs are append-only** — supersede, never rewrite history.
 - **Automate what is checkable.** Anything a machine can verify —
   tests, type-checks, lint, commit-message format, spec-criterion
@@ -161,6 +165,7 @@ table to find what's where without hunting.
 | Ubiquitous language / glossary | `docs/glossary.md` | The project's domain terms. Template: `$METHODOLOGY_HOME/templates/glossary.md`. |
 | Twelve-Factor checklist | `docs/twelve-factor.md` | Status table for deployable services. Template in `templates/`. |
 | Postmortems | `docs/postmortems/YYYY-MM-DD-<slug>.md` | Blameless record of a user-visible incident; links its §8 follow-through (regression test, ADR, or spec update). Template: `$METHODOLOGY_HOME/templates/postmortem.md`. |
+| User-facing documentation | `README.md` usage + `docs/` (an external docs site is a project tooling ADR) | What users and operators rely on — usage, API reference, runbooks. Updated in the same PR as the user-visible behavior change that invalidates it (ADR 0020). |
 | Feature specifications | `specs/<slug>/{spec,plan,tasks}.md` | Spec-first workflow. Templates in `$METHODOLOGY_HOME/templates/spec/`. |
 | AI agent orientation | `CLAUDE.md` | Points the active AI tool at the artifacts above. Template: `templates/project-CLAUDE.md`. |
 | Contributor guide | `CONTRIBUTING.md` | Operational rules: PR flow, commit labels, definition of ready/done, review scope. Template: `templates/project-CONTRIBUTING.md`. |
@@ -429,6 +434,13 @@ undo.
   in-place change in one irreversible step.
 - **Evolve APIs backward-compatibly:** additive first; deprecate with a
   transition window before removing.
+- **Retire with a transition, not a deletion.** Sunsetting a feature,
+  service, or data store is this section's irreversible case par
+  excellence: decide it in an ADR (§1), then walk it down — deprecate
+  with a transition window, ship dark (disabled behind its flag), then
+  remove. The removal PR updates `docs/architecture.md` and retires the
+  feature's tests deliberately, citing the ADR; the spec stays frozen
+  as history, its status flipped to `Retired` (ADR 0019).
 - **Every non-trivial change has a known undo** — a flag flip, a
   revert, or a documented rollback in `plan.md`. A genuinely
   irreversible action (data deletion, an external side effect) is

@@ -1,6 +1,6 @@
 # Plan: <Feature name>
 
-- **Status:** Draft | Under review | Approved | Implemented | Superseded | Withdrawn
+- **Status:** Draft | Under review | Approved | Implemented | Superseded | Withdrawn | Retired
 - **Date:** YYYY-MM-DD
 - **Author:** name
 - **Spec:** ./spec.md

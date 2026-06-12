@@ -70,6 +70,9 @@ first rather than starting to code.
   with the lockfile committed (methodology §10).
 - Any new domain term used in code or tests appears in
   `docs/glossary.md` (methodology §3).
+- Any user-visible behavior change updates the user-facing docs it
+  invalidates — README usage, API reference, runbook — in this PR
+  (methodology "keep the artifacts honest", ADR 0020).
 - Any significant decision made during implementation has an ADR
   (methodology §1).
 - If the task resolved an incident, the operational feedback rule is
@@ -125,8 +128,9 @@ ADR 0015 — kept short on purpose):
   invented synonyms.
 - **Boundaries and reversibility** — no secrets; input validated at
   trust boundaries; anything irreversible called out.
-- **Artifacts ride along** — docs, ADR, glossary, and
-  `architecture.md` updates are in this PR, not promised for later.
+- **Artifacts ride along** — docs (user-facing included), ADR,
+  glossary, and `architecture.md` updates are in this PR, not promised
+  for later (ADR 0020).
 
 ## Commits and versioning
 

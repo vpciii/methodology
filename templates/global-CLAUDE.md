@@ -36,6 +36,7 @@ precedence over this file. An accepted ADR beats both.
 | Use an undefined domain term | a `docs/glossary.md` entry (don't invent synonyms) |
 | Change the system's structure (component / boundary / store / dependency) | update `docs/architecture.md`, same PR |
 | Add/upgrade a dependency | weigh it; ADR for non-trivial ones |
+| Retire a feature / service / data store | an ADR with the sunset plan (deprecate → dark → remove); update `architecture.md`, retire its tests, mark the spec `Retired` |
 | Resolve an incident | ≥1 of: regression test, ADR, spec update; postmortem in `docs/postmortems/` if user-visible |
 | Trivial / throwaway change | nothing but a clear commit message |
 
@@ -69,9 +70,10 @@ precedence over this file. An accepted ADR beats both.
   code, tests, and docs.
 - **Conventional Commits + SemVer.** `feat: fix: docs: refactor: test:
   chore: perf: build: ci:`; `!` for breaking changes.
-- **Keep artifacts honest.** Docs change in the **same PR** as the
-  behavior; ADRs are append-only (supersede, never edit); whatever is
-  machine-checkable is enforced in CI, not left to memory.
+- **Keep artifacts honest.** Docs — user-facing docs included — change
+  in the **same PR** as the behavior; ADRs are append-only (supersede,
+  never edit); whatever is machine-checkable is enforced in CI, not
+  left to memory.
 - **Operational feedback.** An incident produces ≥1 of: a now-passing
   regression test, a new/updated ADR, or a spec update.
 
