@@ -47,9 +47,11 @@ jobs:
           claude_args: ${{ inputs.claude_args }}
           prompt: |
             Review this pull request against THIS project's own standards, not
-            generic best practices. Read the repo's CLAUDE.md, docs/adr/,
-            docs/glossary.md, and any specs/<feature>/ files this PR touches,
-            and judge it against the Definition of Done in CONTRIBUTING.md.
+            generic best practices. Read whichever of the repo's governing
+            artifacts exist — CLAUDE.md, ADRs (docs/adr/ or adr/), the glossary,
+            methodology.md, CONTRIBUTING.md, and any specs/<feature>/ files this
+            PR touches — and judge the change against them and the project's
+            Definition of Done.
 
             Flag, with file and line, anything that is:
             - Incorrect — real bugs, broken edge cases, idempotency /

@@ -31,6 +31,12 @@ each PR against the project's own CLAUDE.md, ADRs, glossary, specs, and
 Definition of Done. Projects adopt it with a ~12-line caller workflow
 (template: `templates/github/claude-review.yml`).
 
+- **This repo dogfoods it.** The methodology repo adopts its own reusable
+  workflow via a local caller (`.github/workflows/pr-review.yml`,
+  `uses: ./...`), so ADR and methodology PRs get the same review. The
+  prompt reads whichever governing artifacts a repo has, so it fits both
+  this repo's layout (`adr/`, `methodology.md`) and a project's
+  (`docs/adr/`, `specs/`).
 - **Advisory, not a gate.** It posts review comments; deterministic CI
   stays the required merge check. Subjective findings never block a merge.
 - **The policy is the durable artifact; the Action is disposable
