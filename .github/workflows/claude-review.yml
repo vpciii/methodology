@@ -1,0 +1,70 @@
+name: Claude PR review (reusable)
+
+# Shared, methodology-aware PR reviewer (global ADR 0021). Projects adopt it
+# with a thin caller workflow — see templates/github/claude-review.yml.
+#
+# Advisory only: it posts review comments. Each project's deterministic CI
+# (lint, format, strict type-check, tests, spec coverage) stays the required
+# merge gate — this never blocks a merge.
+
+on:
+  workflow_call:
+    inputs:
+      claude_args:
+        description: >-
+          Extra args for the Claude CLI, e.g. "--model claude-opus-4-..." for a
+          deeper model. Blank uses the action's default model.
+        type: string
+        required: false
+        default: ""
+    secrets:
+      anthropic_api_key:
+        description: "Anthropic API key, supplied by the calling repo."
+        required: true
+
+jobs:
+  review:
+    # Skip drafts and explicit opt-outs to hold down cost and noise.
+    if: >-
+      github.event.pull_request.draft == false &&
+      !contains(github.event.pull_request.title, '[skip-review]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Claude review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.anthropic_api_key }}
+          track_progress: true
+          claude_args: ${{ inputs.claude_args }}
+          prompt: |
+            Review this pull request against THIS project's own standards, not
+            generic best practices. Read whichever of the repo's governing
+            artifacts exist — CLAUDE.md, ADRs (docs/adr/ or adr/), the glossary,
+            methodology.md, CONTRIBUTING.md, and any specs/<feature>/ files this
+            PR touches — and judge the change against them and the project's
+            Definition of Done.
+
+            Flag, with file and line, anything that is:
+            - Incorrect — real bugs, broken edge cases, idempotency /
+              state-machine / concurrency errors, security problems, or
+              committed secrets.
+            - Off-contract — behavior that doesn't match the relevant spec's
+              success criteria; new behavior without a test, or a bug fix
+              without a regression test; an accepted ADR contradicted; a
+              domain term used against the glossary.
+            - Process drift — docs not updated in the same PR as the behavior
+              they describe, or commits that don't follow Conventional Commits.
+
+            Prefer a few high-confidence, actionable findings over a pile of
+            nitpicks. Do not repeat what CI already enforces (lint, format,
+            strict type-check, and tests run as a separate required check).
+            If the PR is clean, say so in a sentence or two.

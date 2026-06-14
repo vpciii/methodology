@@ -1,0 +1,32 @@
+# Shared Claude PR reviewer — copy to .github/workflows/claude-review.yml in a
+# project to adopt it (methodology ADR 0021).
+#
+# Prerequisites (one-time):
+#   1. Add an ANTHROPIC_API_KEY secret to this repo:
+#        gh secret set ANTHROPIC_API_KEY -R <owner>/<repo>
+#   2. Allow the methodology repo's reusable workflows to be called from your
+#      repos (Settings -> Actions -> General -> Access), or:
+#        gh api -X PUT /repos/<owner>/methodology/actions/permissions/access \
+#          -f access_level=user
+#
+# Advisory only — keep your deterministic CI (lint/type/test) as the required
+# merge gate.
+name: Claude review
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    uses: vpciii/methodology/.github/workflows/claude-review.yml@main
+    secrets:
+      anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+    # Optional: use a deeper model for this repo's reviews
+    # with:
+    #   claude_args: "--model claude-opus-4-..."
