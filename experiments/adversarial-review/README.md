@@ -86,20 +86,31 @@ Promote to a ratified practice (a numbered methodology practice + a
 decision-guide row, recorded in an ADR, mirroring how every other
 practice was added) **only when** the log shows it catching defects the
 same-model path misses at an acceptable false-positive rate, across more
-than one repo. That ADR also decides the **automation rollout**, and —
-keeping with model-agnosticism — frames the reviewer as the *adversary
-role*, with the current adversary's tooling named only as today's
-binding. The automation path already exists:
+than one repo.
 
-- Google's [`run-gemini-cli`](https://github.com/google-github-actions/run-gemini-cli)
-  action does Gemini PR review in CI.
-- The Antigravity **`agy`** CLI runs headless with an API key.
+**That graduating ADR generalizes *both* review roles to be
+model-agnostic — by deliberate, deferred decision.** The author-model
+reviewer ([ADR 0021](../../adr/0021-shared-claude-pr-review-workflow.md))
+is today vendor-bound in CI (`anthropics/claude-code-action`, the
+`ANTHROPIC_API_KEY` secret, the Claude GitHub App); its review *prompt*
+is already model-neutral, but its *binding* is not. Rather than refactor
+that live, cross-repo CI path now — and churn it twice — the graduating
+ADR reworks both reviewers together on the same pattern:
 
-Either could become a *reusable adversary workflow* in this repo, the
-exact mirror of [ADR 0021](../../adr/0021-shared-claude-pr-review-workflow.md)'s
-shared same-model reviewer — advisory, not a gate, tuned in one place,
-with the model behind it swappable. That is a deliberate, ADR-gated step,
-**not** part of this trial.
+- **The model-neutral review policy is the shared, durable artifact** —
+  one prompt, no vendor assumptions (both the author-model prompt above
+  and the adversary prompt already meet this).
+- **Each provider is a thin, swappable binding** that feeds that policy
+  to a concrete action — today an *author-model binding* (Claude,
+  `claude-code-action`) and an *adversary-model binding* (Gemini,
+  [`run-gemini-cli`](https://github.com/google-github-actions/run-gemini-cli)
+  or the Antigravity **`agy`** CLI headless with an API key). Swapping or
+  upgrading either model is a one-binding edit; the policy is untouched.
+
+The result is the exact mirror of ADR 0021's shared reviewer — advisory,
+not a gate, tuned in one place — for both roles, with the model behind
+each one swappable. That is a deliberate, ADR-gated step, **not** part of
+this trial.
 
 If the log shows weak signal or heavy noise after a fair run, delete this
 directory and record the negative result in an ADR — a defended "no" is
