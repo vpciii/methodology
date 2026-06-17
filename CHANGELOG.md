@@ -11,6 +11,18 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+### Added
+
+- **Cross-model adversarial review (trial)** — `experiments/adversarial-review/`:
+  a manual process under evaluation where a *second, different* model
+  (Google Antigravity / Gemini) adversarially refutes work Claude
+  produced, complementing the same-model Claude PR reviewer (ADR 0021).
+  Includes the adversary prompt and a trial log; covers code review and
+  design decisions. Explicitly **not** a ratified practice — absent from
+  the numbered practices and the decision guide, no merge gate.
+  *Adoption: none — a trial with no obligation; graduates to an ADR only
+  if the log shows it earns its keep, otherwise it is deleted.*
+
 ## [0.10.0] - 2026-06-12
 
 ### Added
