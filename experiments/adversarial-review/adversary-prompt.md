@@ -1,10 +1,15 @@
 # Adversary prompt — cross-model review
 
-Paste this into the second model (Google Antigravity / Gemini today; any
-model other than the one that produced the work). It is deliberately
-skeptical: its job is to **find what is wrong**, not to bless the work.
-Use the **Code review** block for a diff/PR, the **Design decision**
-block for an ADR, spec, or planning option.
+Paste this into the **adversary model** — whichever model currently fills
+that role (see *Current roster* in the [trial README](./README.md)). It
+must be a *different* model from the one that produced the work. The
+prompt is written in terms of **roles**, not vendors: it never needs to
+know which model is on either side, so a new or updated model drops in
+without editing a word here.
+
+It is deliberately skeptical: its job is to **find what is wrong**, not
+to bless the work. Use the **Code review** block for a diff/PR, the
+**Design decision** block for an ADR, spec, or planning option.
 
 The human is the author of record and adjudicates every finding — the
 adversary advises, it does not decide.
@@ -82,7 +87,7 @@ adversary advises, it does not decide.
 
 ---
 
-**Then bring the verdict back to Claude.** The two models disagreeing in
-front of the human is the point — the human resolves it, and the
-resolution becomes a test, an ADR, a spec edit, or a defended "no
-change."
+**Then bring the verdict back to the author model.** The two models
+disagreeing in front of the human is the point — the human resolves it,
+and the resolution becomes a test, an ADR, a spec edit, or a defended
+"no change."

@@ -9,13 +9,17 @@
 
 ## What we're testing
 
-A *second, different* model reviews work the first model produced —
-Claude implements and reviews its own work (the existing Claude PR
-reviewer, [ADR 0021](../../adr/0021-shared-claude-pr-review-workflow.md));
-Google Antigravity (Gemini 3) plays the adversary. The bet: a same-model
-reviewer shares the author's blind spots, so it systematically misses a
-class of defect that a different model — with different training,
-priors, and failure modes — would catch.
+Two **roles**, never two specific vendors:
+
+- The **author model** produces the work and reviews its own output (the
+  existing same-model PR reviewer,
+  [ADR 0021](../../adr/0021-shared-claude-pr-review-workflow.md)).
+- The **adversary model** — a *different* model — is prompted to refute
+  it.
+
+The bet: a same-model reviewer shares the author's blind spots, so it
+systematically misses a class of defect that a different model — with
+different training, priors, and failure modes — would catch.
 
 The relationship is **adversarial by design**. The adversary is prompted
 to refute, not to bless: find the missing test, break the unstated case,
@@ -28,18 +32,36 @@ Scope is both halves of the lifecycle this methodology already names:
 **code review** (a diff against its spec) and **design decisions** (an
 ADR, spec, or planning option before sign-off).
 
+## Current roster — the one place to swap models
+
+Everything else in this directory is written in terms of the *roles*
+above, so switching or upgrading a model means editing **only this
+table** — the guide and the [adversary prompt](./adversary-prompt.md)
+stay untouched. That is the whole point: the methodology is model-
+agnostic; this roster is its single, disposable binding to today's
+models.
+
+| Role | Filled today by | How it's invoked |
+|---|---|---|
+| **Author model** | Claude (Claude Code) | Normal development; produces the PR or ADR/spec draft. |
+| **Adversary model** | Google Antigravity / Gemini 3 | Antigravity IDE, or the `agy` CLI headless with `GEMINI_API_KEY` / `ANTIGRAVITY_API_KEY` in the environment. |
+
+To swap (e.g. a newer Gemini, or a different vendor entirely as the
+adversary): change the cells above and, if invocation differs, the *How
+to run it* mechanics below. No prompt edits, no role rewrites.
+
 ## How to run it (manual)
 
-1. Claude produces the work (a PR, or an ADR/spec draft) as usual.
-2. Open the work in **Antigravity** (IDE) or via the **`agy` CLI**, with
-   a `GEMINI_API_KEY` / `ANTIGRAVITY_API_KEY` in the environment.
+1. The **author model** produces the work (a PR, or an ADR/spec draft) as
+   usual.
+2. Open the work in the **adversary model** (per the roster above).
 3. Paste [`adversary-prompt.md`](./adversary-prompt.md) — the shared
    framing plus the **Code review** or **Design decision** block — and
    give it the inputs that block lists (the diff/draft, the spec, the
    relevant ADRs, the glossary, the Definition of Done).
 4. Take the adversary's verdict (**BLOCK** / **PUSH BACK** / **NO STRONG
-   OBJECTION**) back to Claude. Resolve each finding into one of: a test,
-   an ADR, a spec edit, or a *defended* "no change."
+   OBJECTION**) back to the author model. Resolve each finding into one
+   of: a test, an ADR, a spec edit, or a *defended* "no change."
 5. Log the round (below).
 
 ## Trial log — the evidence the eventual ADR needs
@@ -47,7 +69,7 @@ ADR, spec, or planning option before sign-off).
 Keep a running [`log.md`](./log.md) (create on first use), one row per
 review, so the graduate-or-kill decision rests on data, not vibe:
 
-| Date | Repo / PR or ADR | Mode | Adversary verdict | Did it catch something Claude's reviewer + CI missed? | False positives | Friction notes |
+| Date | Repo / PR or ADR | Mode | Adversary verdict | Did it catch something the author model + CI missed? | False positives | Friction notes |
 |---|---|---|---|---|---|---|
 
 The questions the trial must answer:
@@ -64,8 +86,10 @@ Promote to a ratified practice (a numbered methodology practice + a
 decision-guide row, recorded in an ADR, mirroring how every other
 practice was added) **only when** the log shows it catching defects the
 same-model path misses at an acceptable false-positive rate, across more
-than one repo. That ADR also decides the **automation rollout**, for
-which the path already exists:
+than one repo. That ADR also decides the **automation rollout**, and —
+keeping with model-agnosticism — frames the reviewer as the *adversary
+role*, with the current adversary's tooling named only as today's
+binding. The automation path already exists:
 
 - Google's [`run-gemini-cli`](https://github.com/google-github-actions/run-gemini-cli)
   action does Gemini PR review in CI.
@@ -73,8 +97,9 @@ which the path already exists:
 
 Either could become a *reusable adversary workflow* in this repo, the
 exact mirror of [ADR 0021](../../adr/0021-shared-claude-pr-review-workflow.md)'s
-shared Claude reviewer — advisory, not a gate, tuned in one place. That
-is a deliberate, ADR-gated step, **not** part of this trial.
+shared same-model reviewer — advisory, not a gate, tuned in one place,
+with the model behind it swappable. That is a deliberate, ADR-gated step,
+**not** part of this trial.
 
 If the log shows weak signal or heavy noise after a fair run, delete this
 directory and record the negative result in an ADR — a defended "no" is
