@@ -11,6 +11,22 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+### Added
+
+- **Cross-model adversarial review (trial)** — `experiments/adversarial-review/`:
+  a manual process under evaluation where an *adversary model* — a
+  different model from the *author model* that produced the work —
+  adversarially refutes it, complementing the same-model PR reviewer
+  (ADR 0021). Written in terms of **roles**, not vendors: a single
+  *Current roster* names today's models (Claude as author, Antigravity /
+  Gemini as adversary), so swapping or upgrading a model is a one-table
+  edit and the rest stays model-agnostic. Includes the adversary prompt
+  and a trial log; covers code review and design decisions. Explicitly
+  **not** a ratified practice — absent from the numbered practices and
+  the decision guide, no merge gate. *Adoption: none — a trial with no
+  obligation; graduates to an ADR only if the log shows it earns its
+  keep, otherwise it is deleted.*
+
 ## [0.10.0] - 2026-06-12
 
 ### Added
