@@ -11,7 +11,20 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-06-20
+
 ### Added
+
+- **Single source of truth named in the honesty rules** — a fact lives
+  in one place; if it must exist in two (a generated artifact, a mirrored
+  summary, a copy a tool requires) the copy is generated from or
+  machine-checked against the source, never kept in sync by memory.
+  Duplication of a hand-maintained fact is now a named review smell.
+  Closes the blind spot behind a real drift incident: the same-PR rule
+  binds code↔doc, so two hand-maintained copies of one fact drifted
+  unnoticed by the rule, the same-model reviewer, and CI. (ADR 0022)
+  *Adoption: reference-only; optionally add an equality/codegen check
+  where a project has known duplication.*
 
 - **Cross-model adversarial review (trial)** — `experiments/adversarial-review/`:
   a manual process under evaluation where an *adversary model* — a
@@ -278,7 +291,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/vpciii/methodology/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/vpciii/methodology/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/vpciii/methodology/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/vpciii/methodology/compare/v0.7.0...v0.8.0
