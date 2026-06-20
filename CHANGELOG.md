@@ -11,6 +11,34 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-06-20
+
+### Added
+
+- **Cross-model adversarial review, ratified** — a second model, *different*
+  from the one that produced the work, adversarially reviews substantial
+  changes and hard design decisions (refute-don't-bless, advisory, human
+  adjudicates). Graduated from the trial on its log: 4 rounds / 2 repos /
+  2 real BLOCKs / 0 false positives — including a self-consistency flaw it
+  caught in this methodology's *own* ADR 0022 that a same-model review would
+  have merged. Adds a decision-guide row; the `experiments/adversarial-review/`
+  trial becomes a ratified practice (`adversary-prompt.md` is the shared
+  model-neutral review policy). (ADR 0023) *Adoption: per-project (optional)
+  — run an adversary-model pass on substantial changes / design decisions
+  and record it (e.g. `docs/reviews/`).*
+
+### Changed
+
+- **Both review roles made model-agnostic** — review is now expressed as
+  two roles, *author-model review* (the existing same-model reviewer,
+  ADR 0021) and *adversary-model review* (a different model), over a shared
+  model-neutral policy with thin, swappable per-provider bindings. This
+  supersedes the vendor-specific *framing* of ADR 0021 (its "Claude PR
+  reviewer" → "author-model reviewer"); its mechanism stands. The CI
+  generalization (role-based shared workflow + adversary workflow) is a
+  scoped rollout, not yet implemented. (ADR 0023) *Adoption: reference-only
+  until the reusable adversary workflow ships.*
+
 ## [0.11.0] - 2026-06-20
 
 ### Added
@@ -292,7 +320,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/vpciii/methodology/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/vpciii/methodology/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/vpciii/methodology/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/vpciii/methodology/compare/v0.8.0...v0.9.0

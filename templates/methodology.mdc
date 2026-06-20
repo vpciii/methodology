@@ -38,6 +38,7 @@ skip the ceremony — a good commit message is enough.
 | Add/upgrade a dependency | weigh it; ADR for non-trivial ones |
 | Retire a feature / service / data store | an ADR with the sunset plan (deprecate → dark → remove); update `architecture.md`, retire its tests, mark the spec `Retired` |
 | Resolve an incident | ≥1 of: regression test, ADR, spec update; postmortem in `docs/postmortems/` if user-visible |
+| Independently check a substantial change / hard design decision | an adversary-model review — a *different* model refutes it; advisory, human adjudicates; record in `docs/reviews/` (ADR 0023) |
 | Trivial / throwaway change | nothing but a clear commit message |
 
 ## Hard rules

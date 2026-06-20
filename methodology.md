@@ -87,6 +87,7 @@ To get oriented in any project, in order:
 | Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout |
 | Retire a feature, service, or data store | an ADR deciding the sunset (irreversible by definition, §11): deprecation window → dark → removal; update `docs/architecture.md` and retire its tests in the removal PR; mark the frozen spec `Retired` | `docs/adr/` |
 | Resolve an incident | at least one of: regression test, ADR, spec update; a short blameless postmortem if user-visible (§8) | `tests/`, `docs/adr/`, `specs/`, `docs/postmortems/` |
+| Independently check a substantial change or a hard design decision | an **adversary-model review** — a *different* model than the one that produced the work refutes it; advisory, the human adjudicates (ADR 0023) | a review record (`docs/reviews/`) |
 | Make a trivial, throwaway, or five-minute change | nothing — a good commit message is enough | the commit |
 
 ### Operating rules for AI agents

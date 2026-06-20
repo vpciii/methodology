@@ -1,13 +1,17 @@
-# Experiment: cross-model adversarial review
+# Cross-model adversarial review
 
-> **Status: TRIAL — not a ratified practice.** This is a manual process
-> being evaluated. It is deliberately *not* in `methodology.md`'s numbered
-> practices or the decision guide, and it carries **no adoption
-> obligation** for any project. If it proves out, it graduates to an ADR
-> (the trigger below); if it doesn't, this directory is deleted. Nothing
-> here gates a merge.
+> **Status: RATIFIED — ADR 0023.** This began as a trial and graduated on
+> the evidence in [`log.md`](./log.md) (4 rounds, 2 repos, 2 real BLOCKs,
+> 0 false positives — including a flaw caught in the methodology's own ADR
+> 0022 that a same-model review would have merged). It is now a practice
+> with a decision-guide row. It remains **advisory — never a merge gate**;
+> deterministic CI stays the required check and the human adjudicates every
+> finding. The [`adversary-prompt.md`](./adversary-prompt.md) is the shared,
+> model-neutral review **policy**; the *Current roster* below is the
+> swappable model binding. CI automation of the adversary role is a scoped
+> follow-up (ADR 0023, Rollout).
 
-## What we're testing
+## What it is
 
 Two **roles**, never two specific vendors:
 
@@ -17,9 +21,10 @@ Two **roles**, never two specific vendors:
 - The **adversary model** — a *different* model — is prompted to refute
   it.
 
-The bet: a same-model reviewer shares the author's blind spots, so it
-systematically misses a class of defect that a different model — with
-different training, priors, and failure modes — would catch.
+The premise, borne out by the log: a same-model reviewer shares the
+author's blind spots, so it systematically misses a class of defect that a
+different model — with different training, priors, and failure modes —
+catches.
 
 The relationship is **adversarial by design**. The adversary is prompted
 to refute, not to bless: find the missing test, break the unstated case,
@@ -64,10 +69,11 @@ to run it* mechanics below. No prompt edits, no role rewrites.
    of: a test, an ADR, a spec edit, or a *defended* "no change."
 5. Log the round (below).
 
-## Trial log — the evidence the eventual ADR needs
+## Review log
 
-Keep a running [`log.md`](./log.md) (create on first use), one row per
-review, so the graduate-or-kill decision rests on data, not vibe:
+Keep a running [`log.md`](./log.md), one row per review. It was the
+graduate-or-kill evidence during the trial; it now stays as the running
+record of adversary passes:
 
 | Date | Repo / PR or ADR | Mode | Adversary verdict | Did it catch something the author model + CI missed? | False positives | Friction notes |
 |---|---|---|---|---|---|---|
@@ -80,38 +86,21 @@ The questions the trial must answer:
   were wrong or irrelevant?
 - **Cost:** minutes per review, context-shuffling friction, API spend.
 
-## Graduation trigger → ADR
+## Graduated → ADR 0023; the rollout that remains
 
-Promote to a ratified practice (a numbered methodology practice + a
-decision-guide row, recorded in an ADR, mirroring how every other
-practice was added) **only when** the log shows it catching defects the
-same-model path misses at an acceptable false-positive rate, across more
-than one repo.
+This practice **graduated** on the log above (4 rounds, 2 repos, 2 real
+BLOCKs, 0 false positives — including a flaw it caught in the
+methodology's own ADR 0022) and is ratified in
+[ADR 0023](../../adr/0023-cross-model-adversarial-review-ratified.md). That
+ADR also made **both** review roles model-agnostic: a shared,
+model-neutral review *policy* (this prompt plus ADR 0021's) with thin,
+swappable per-provider *bindings* — author = Claude (`claude-code-action`);
+adversary = Gemini (`run-gemini-cli` / the Antigravity **`agy`** CLI).
+Swapping or upgrading either model is a one-binding edit; the policy is
+untouched.
 
-**That graduating ADR generalizes *both* review roles to be
-model-agnostic — by deliberate, deferred decision.** The author-model
-reviewer ([ADR 0021](../../adr/0021-shared-claude-pr-review-workflow.md))
-is today vendor-bound in CI (`anthropics/claude-code-action`, the
-`ANTHROPIC_API_KEY` secret, the Claude GitHub App); its review *prompt*
-is already model-neutral, but its *binding* is not. Rather than refactor
-that live, cross-repo CI path now — and churn it twice — the graduating
-ADR reworks both reviewers together on the same pattern:
-
-- **The model-neutral review policy is the shared, durable artifact** —
-  one prompt, no vendor assumptions (both the author-model prompt above
-  and the adversary prompt already meet this).
-- **Each provider is a thin, swappable binding** that feeds that policy
-  to a concrete action — today an *author-model binding* (Claude,
-  `claude-code-action`) and an *adversary-model binding* (Gemini,
-  [`run-gemini-cli`](https://github.com/google-github-actions/run-gemini-cli)
-  or the Antigravity **`agy`** CLI headless with an API key). Swapping or
-  upgrading either model is a one-binding edit; the policy is untouched.
-
-The result is the exact mirror of ADR 0021's shared reviewer — advisory,
-not a gate, tuned in one place — for both roles, with the model behind
-each one swappable. That is a deliberate, ADR-gated step, **not** part of
-this trial.
-
-If the log shows weak signal or heavy noise after a fair run, delete this
-directory and record the negative result in an ADR — a defended "no" is
-also a result worth keeping.
+**What remains is the CI rollout** (ADR 0023, Rollout — a follow-up, *not*
+done): generalize ADR 0021's `claude-review.yml` into the role-based shared
+workflow, add an adversary-review workflow and caller template, and update
+consuming projects' callers. Until then, the manual pass above is the
+ratified practice and the existing same-model workflow keeps running.
