@@ -52,7 +52,7 @@ skip the ceremony — a good commit message is enough.
 - **Dependencies are decisions:** weigh maintenance/license/supply-chain; commit lockfiles; ADR non-trivial deps.
 - **Ubiquitous language:** use the project's domain terms exactly.
 - **Conventional Commits + SemVer** (`feat: fix: docs: refactor: test: chore: perf: build: ci:`; `!` for breaking).
-- **Keep artifacts honest:** docs — user-facing docs included — change in the same PR as the behavior; ADRs append-only; enforce machine-checkable rules in CI.
+- **Keep artifacts honest:** docs — user-facing docs included — change in the same PR as the behavior; a fact lives in one place (don't hand-sync two verbatim copies by memory — generate or equality-check; curated summaries and per-project template copies are derivatives kept honest by the same-PR rule); ADRs append-only; enforce machine-checkable rules in CI.
 
 ## Author of record
 

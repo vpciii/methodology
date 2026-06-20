@@ -11,7 +11,21 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-06-20
+
 ### Added
+
+- **Single source of truth named in the honesty rules** — the hazard is
+  two hand-maintained *verbatim* copies of a fact kept in sync only by
+  memory (they drift); single-source it, generate the copy, or
+  machine-check for equality. Deliberate derivatives — a curated summary
+  (this repo's own global summary, ADR 0018) or an instantiated
+  per-project template (ADR 0009) — are kept honest by the same-PR rule,
+  not equality. Closes the blind spot behind a real drift incident the
+  same-PR rule, same-model reviewer, and CI all missed; the scope was
+  itself sharpened by an adversarial review of the first draft. (ADR 0022)
+  *Adoption: reference-only; optionally add an equality/codegen check
+  where a project has known verbatim duplication.*
 
 - **Cross-model adversarial review (trial)** — `experiments/adversarial-review/`:
   a manual process under evaluation where an *adversary model* — a
@@ -278,7 +292,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/vpciii/methodology/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/vpciii/methodology/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/vpciii/methodology/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/vpciii/methodology/compare/v0.7.0...v0.8.0

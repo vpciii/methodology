@@ -71,9 +71,12 @@ precedence over this file. An accepted ADR beats both.
 - **Conventional Commits + SemVer.** `feat: fix: docs: refactor: test:
   chore: perf: build: ci:`; `!` for breaking changes.
 - **Keep artifacts honest.** Docs — user-facing docs included — change
-  in the **same PR** as the behavior; ADRs are append-only (supersede,
-  never edit); whatever is machine-checkable is enforced in CI, not
-  left to memory.
+  in the **same PR** as the behavior; a fact lives in one place (don't
+  hand-sync two *verbatim* copies by memory — generate or equality-check
+  them; curated summaries and per-project template copies are derivatives
+  kept honest by the same-PR rule); ADRs are append-only (supersede,
+  never edit); whatever is machine-checkable is enforced in CI, not left
+  to memory.
 - **Operational feedback.** An incident produces ≥1 of: a now-passing
   regression test, a new/updated ADR, or a spec update.
 
