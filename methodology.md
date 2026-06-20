@@ -142,12 +142,14 @@ consistent diff (see ADR 0008):
   documentation is bound the same way: a user-visible behavior change
   updates the usage docs, API reference, or runbook it invalidates in
   the same PR (ADR 0020).
-- **Single source of truth.** A fact lives in one place. If it must
-  exist in two — a generated artifact, a mirrored summary, a copy some
-  tool requires — the copy is *generated from* or *machine-checked
-  against* the source, never kept in sync by memory. Duplication of a
-  hand-maintained fact is a review smell: single-source it, generate it,
-  or add an equality check (ADR 0022).
+- **Single source of truth.** A fact lives in one place. The hazard is
+  two hand-maintained *verbatim* copies kept in sync only by memory —
+  they drift. Single-source it, generate the copy, or machine-check the
+  copies for equality. Deliberate *derivatives* are not this hazard: a
+  curated **summary** (this document's global summary, kept honest in the
+  same PR — ADR 0018) and an **instantiated template** customized in a
+  consuming project (versioned-dependency model — ADR 0009) are kept
+  honest by the same-PR rule, not equality (ADR 0022).
 - **ADRs are append-only** — supersede, never rewrite history.
 - **Automate what is checkable.** Anything a machine can verify —
   tests, type-checks, lint, commit-message format, spec-criterion

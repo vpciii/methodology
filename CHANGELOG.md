@@ -15,16 +15,17 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ### Added
 
-- **Single source of truth named in the honesty rules** — a fact lives
-  in one place; if it must exist in two (a generated artifact, a mirrored
-  summary, a copy a tool requires) the copy is generated from or
-  machine-checked against the source, never kept in sync by memory.
-  Duplication of a hand-maintained fact is now a named review smell.
-  Closes the blind spot behind a real drift incident: the same-PR rule
-  binds code↔doc, so two hand-maintained copies of one fact drifted
-  unnoticed by the rule, the same-model reviewer, and CI. (ADR 0022)
+- **Single source of truth named in the honesty rules** — the hazard is
+  two hand-maintained *verbatim* copies of a fact kept in sync only by
+  memory (they drift); single-source it, generate the copy, or
+  machine-check for equality. Deliberate derivatives — a curated summary
+  (this repo's own global summary, ADR 0018) or an instantiated
+  per-project template (ADR 0009) — are kept honest by the same-PR rule,
+  not equality. Closes the blind spot behind a real drift incident the
+  same-PR rule, same-model reviewer, and CI all missed; the scope was
+  itself sharpened by an adversarial review of the first draft. (ADR 0022)
   *Adoption: reference-only; optionally add an equality/codegen check
-  where a project has known duplication.*
+  where a project has known verbatim duplication.*
 
 - **Cross-model adversarial review (trial)** — `experiments/adversarial-review/`:
   a manual process under evaluation where an *adversary model* — a
