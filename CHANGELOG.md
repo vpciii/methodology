@@ -11,6 +11,20 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-06-21
+
+### Added
+
+- **One-command onboarding** — §10 gains a bullet: a substantial project
+  bootstraps from clone to a working environment with one documented,
+  reproducible command; "works on my machine" is a defect in the
+  onboarding path. The developer entry point is the one thing §6/§10's
+  reproducible-build guidance left unsaid. Added as a sub-bullet, not a
+  new practice — the one idea from the (withdrawn) PR #22/#24 expansion
+  exchange that cleared the bar, captured at the right scale. *Adoption:
+  reference-only; optionally add a one-command setup where a substantial
+  project lacks one.*
+
 ## [0.11.0] - 2026-06-20
 
 ### Added
@@ -292,7 +306,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/vpciii/methodology/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/vpciii/methodology/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/vpciii/methodology/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/vpciii/methodology/compare/v0.8.0...v0.9.0

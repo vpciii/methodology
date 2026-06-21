@@ -423,6 +423,12 @@ licensing obligation, and supply-chain surface.
   sparsely maintained ones.
 - **Lockfiles are committed.** Builds are reproducible; versions are
   pinned and updated deliberately, never drifting silently.
+- **One-command onboarding.** A substantial project bootstraps from a
+  clone to a working environment with a single documented, reproducible
+  command (`make setup`, a devcontainer, a Nix flake — the tool is the
+  project's choice). Reproducible builds aren't reproducible if the setup
+  isn't: "works on my machine" is a defect in the onboarding path, fixed
+  like any other.
 - **Updates are deliberate** — normal `chore:` work, reviewed like any
   change; a behavior-changing major bump may warrant its own ADR.
 
