@@ -23,7 +23,7 @@ to your shell profile for terminal use.
 
 | Path | What |
 |---|---|
-| `methodology.md` | The canonical development methodology (11 practices + the reasoning + a decision guide). |
+| `methodology.md` | The canonical development methodology (12 practices + the reasoning + a decision guide). |
 | `planning.md` | The planning methodology — the pre-spec phase (problem framing → betting), sibling to `methodology.md`. Converges to a `spec.md`. (ADR 0010) |
 | `adopting.md` | Bringing an **existing** codebase onto the methodology — the forward-only bootstrap path. (ADR 0012) |
 | `CHANGELOG.md` | Human-facing record of changes to the methodology, under SemVer (ADR 0009). |

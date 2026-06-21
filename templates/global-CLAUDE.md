@@ -50,6 +50,10 @@ precedence over this file. An accepted ADR beats both.
   `$METHODOLOGY_HOME/templates/adr/_template.md`.
 - **Small PRs, trunk-based.** Short branches to `main`; split past ~300
   lines of diff.
+- **Deterministic onboarding.** A substantial project bootstraps with one
+  documented, reproducible command; "works on my machine" is a defect.
+  The tool (Make / devcontainer / Nix) is a per-project choice, not a
+  mandate.
 - **Reversible by default.** Prefer flags / expand-contract migrations
   / backward-compatible APIs. Every non-trivial change has a known undo;
   genuinely irreversible actions are called out and decided with an ADR.
@@ -75,8 +79,9 @@ precedence over this file. An accepted ADR beats both.
   hand-sync two *verbatim* copies by memory — generate or equality-check
   them; curated summaries and per-project template copies are derivatives
   kept honest by the same-PR rule); ADRs are append-only (supersede,
-  never edit); whatever is machine-checkable is enforced in CI, not left
-  to memory.
+  never edit); whatever is machine-checkable (tests, types, lint,
+  formatting) is enforced in CI, not left to memory — and if a machine
+  settles it, review spends its attention on behavior, not style.
 - **Operational feedback.** An incident produces ≥1 of: a now-passing
   regression test, a new/updated ADR, or a spec update.
 

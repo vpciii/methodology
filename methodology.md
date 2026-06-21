@@ -56,7 +56,7 @@ both.
 
 To get oriented in any project, in order:
 
-1. **This document** — the practices (§1–§11) and why they exist.
+1. **This document** — the practices (§1–§12) and why they exist.
 2. The project's **`docs/architecture.md`** — the current shape of the
    system at a glance (components, boundaries, data stores, external
    dependencies). It tells you *how the system is now*; the ADRs tell
@@ -152,9 +152,11 @@ consistent diff (see ADR 0008):
   honest by the same-PR rule, not equality (ADR 0022).
 - **ADRs are append-only** — supersede, never rewrite history.
 - **Automate what is checkable.** Anything a machine can verify —
-  tests, type-checks, lint, commit-message format, spec-criterion
-  coverage (§5) — is enforced in CI, not left to memory or review
-  diligence.
+  tests, type-checks, lint, formatting/style, commit-message format,
+  spec-criterion coverage (§5) — is enforced in CI, not left to memory
+  or review diligence. **If a machine can settle it, human review should
+  not spend attention on it:** style and formatting are the tool's job,
+  so review goes to behavior, intent, and the artifacts (ADR 0015).
 
 ---
 
@@ -456,6 +458,35 @@ undo.
 
 Why this lasts: cheap, fast recovery is what makes continuous delivery
 viable. The principle is independent of any flag system or platform.
+
+### 12. Deterministic onboarding
+
+A substantial project bootstraps locally with **one documented,
+reproducible command** — the same inputs produce the same working
+environment for any contributor, human or agent. The point is a
+known-good entry path, not a particular tool.
+
+- **One command, written down.** `make setup`, `bin/setup`, a
+  devcontainer, a Nix flake — the mechanism is a project tooling choice
+  (recorded where the project records such choices; a non-trivial one is
+  its own ADR, §1, §10). The *principle* is that onboarding is one
+  reproducible step, not a tribal-knowledge checklist.
+- **"Works on my machine" is a defect.** If the setup path fails or
+  depends on undocumented global state, the onboarding is broken and is
+  fixed like any other defect — not worked around per person.
+- **Scale to the work.** A throwaway script needs none of this; it earns
+  its keep on work someone — a teammate, a future you, an agent — will
+  set up again.
+
+- Reference: the [DORA](https://dora.dev/) / *Accelerate* research
+  (Forsgren et al., 2018) ties low-friction environments to delivery
+  performance.
+- Lives in: the project's setup command + a short note in `README.md`.
+
+Why this lasts: reproducible builds (§10) and config-in-the-environment
+(§6) already make the *running* system deterministic; this extends the
+same determinism to the *developer's* entry point — independent of any
+specific environment manager.
 
 ---
 

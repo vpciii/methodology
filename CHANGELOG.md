@@ -11,6 +11,30 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-06-21
+
+### Added
+
+- **§12 Deterministic onboarding** — a substantial project bootstraps with
+  one documented, reproducible command; "works on my machine" is a defect;
+  the tool (Make / devcontainer / Nix / script) is a per-project choice, not
+  a mandate. The one genuinely-new idea with no existing home (running-system
+  determinism is §6/§10; the developer's entry path was not stated). The
+  methodology-consistent answer to PR #22's six-practice expansion, which an
+  adversarial review BLOCKed for duplicating ADR 0014/0020 (violating ADR
+  0022), contradicting the no-premature-tooling exclusion, and inverting
+  scale-to-work. (ADR 0023) *Adoption: reference-only; optionally add a
+  one-command setup where a substantial project lacks one.*
+
+### Changed
+
+- **"Automate what is checkable" sharpened** — names formatting/style among
+  the machine-enforced checks and adds the review principle: if a machine can
+  settle it, human review spends its attention on behavior, intent, and the
+  artifacts, not style (folds in the useful core of PR #22's automated-gates /
+  code-review ideas without a new practice). Summaries synced (ADR 0018).
+  (ADR 0023) *Adoption: reference-only.*
+
 ## [0.11.0] - 2026-06-20
 
 ### Added
@@ -292,7 +316,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/vpciii/methodology/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/vpciii/methodology/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/vpciii/methodology/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/vpciii/methodology/compare/v0.8.0...v0.9.0

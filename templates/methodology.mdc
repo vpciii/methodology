@@ -45,6 +45,7 @@ skip the ceremony — a good commit message is enough.
 - **Spec-first for non-trivial work:** `spec.md` → `plan.md` → `tasks.md`, sign-off between stages.
 - **Decisions get ADRs** (expensive to reverse / multi-component / future-constraining).
 - **Small PRs, trunk-based;** split past ~300 lines of diff.
+- **Deterministic onboarding:** one documented, reproducible setup command; "works on my machine" is a defect; the tool is a per-project choice, not a mandate.
 - **Reversible by default:** flags / expand-contract migrations / backward-compatible APIs; call out and ADR anything irreversible.
 - **Tests as specification:** new behavior ships with tests; fixes ship a regression test (fails before, passes after — failing run cited in the PR). Test behavior, not implementation. Spec success criteria carry stable ids traced to tests, CI-checked for coverage.
 - **Current-state & spec freeze:** keep `docs/architecture.md` honest (the system's shape *now*) in the same PR as any structural change; a spec freezes at `Implemented` (a historical record) — later contradictions go to a test, a new spec, or an ADR.
@@ -52,7 +53,7 @@ skip the ceremony — a good commit message is enough.
 - **Dependencies are decisions:** weigh maintenance/license/supply-chain; commit lockfiles; ADR non-trivial deps.
 - **Ubiquitous language:** use the project's domain terms exactly.
 - **Conventional Commits + SemVer** (`feat: fix: docs: refactor: test: chore: perf: build: ci:`; `!` for breaking).
-- **Keep artifacts honest:** docs — user-facing docs included — change in the same PR as the behavior; a fact lives in one place (don't hand-sync two verbatim copies by memory — generate or equality-check; curated summaries and per-project template copies are derivatives kept honest by the same-PR rule); ADRs append-only; enforce machine-checkable rules in CI.
+- **Keep artifacts honest:** docs — user-facing docs included — change in the same PR as the behavior; a fact lives in one place (don't hand-sync two verbatim copies by memory — generate or equality-check; curated summaries and per-project template copies are derivatives kept honest by the same-PR rule); ADRs append-only; enforce machine-checkable rules (tests, types, lint, formatting) in CI — and if a machine settles it, review spends attention on behavior, not style.
 
 ## Author of record
 
