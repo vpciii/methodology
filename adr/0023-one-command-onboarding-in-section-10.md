@@ -1,6 +1,6 @@
 # ADR 0023: One-command onboarding added to §10
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-06-21
 - **Deciders:** vpc
 
