@@ -16,14 +16,13 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 ### Added
 
 - **One-command onboarding** — §10 gains a bullet: a substantial project
-  bootstraps from clone to a working environment with one documented,
+  bootstraps from a clone to a working environment with one documented,
   reproducible command; "works on my machine" is a defect in the
-  onboarding path. The developer entry point is the one thing §6/§10's
-  reproducible-build guidance left unsaid. Added as a sub-bullet, not a
-  new practice — the one idea from the (withdrawn) PR #22/#24 expansion
-  exchange that cleared the bar, captured at the right scale. *Adoption:
-  reference-only; optionally add a one-command setup where a substantial
-  project lacks one.*
+  onboarding path. The tool stays the project's choice (no mandate). The
+  developer entry point is the one thing §6/§10's reproducible-build
+  guidance left unsaid; recorded as a sub-bullet, not a new practice
+  (ADR 0023). *Adoption: reference-only; optionally add a one-command
+  setup where a substantial project lacks one.*
 
 ## [0.11.0] - 2026-06-20
 
