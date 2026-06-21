@@ -11,6 +11,17 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+### Added
+
+- **Expanded methodology with 6 new modern delivery practices** (ADR 0023):
+  - Deterministic Dev Environments (One-Command Onboarding)
+  - Automated Quality Gates (Strict linting/formatting in CI)
+  - Continuous Deployment (Zero-touch automated releases)
+  - Continuous Refactoring (The Boy Scout Rule)
+  - Code Review Culture (Blameless, behavior-focused)
+  - Documentation as Code (Treating docs like code)
+  - *Adoption impact:* Per-project action. Projects must verify they have a deterministic setup command, automated style checks in CI, and automated deployment pipelines.
+
 ## [0.11.0] - 2026-06-20
 
 ### Added

@@ -457,6 +457,56 @@ undo.
 Why this lasts: cheap, fast recovery is what makes continuous delivery
 viable. The principle is independent of any flag system or platform.
 
+### 12. Deterministic Dev Environments
+
+A project must be bootstrappable locally with a single, deterministic command (e.g., `bin/setup`, `make install`, or via DevContainers/Nix). Onboarding should take minutes, not days.
+- **No unrecorded global state** — Avoid dependencies that require undocumented global installations.
+- **"It works on my machine" is a bug** — If the setup command fails, the onboarding process itself is broken and must be fixed as a priority.
+
+Why this lasts: A zero-friction entry point is essential for both human contributors and AI agents. Frictionless onboarding supports high-velocity trunk-based development.
+
+### 13. Automated Quality Gates
+
+Formatting, linting, and static analysis must be completely automated, configured out-of-the-box, and enforced in CI.
+- **Zero-configuration formatters** — Use tools like Prettier, Black, or GoFmt. 
+- **If a machine can catch it, a human shouldn't review it** — Code reviews should never involve debates over style, syntax, or formatting.
+- **Enforced, not just suggested** — PRs cannot be merged if they fail style checks.
+
+Why this lasts: It eliminates bikeshedding, speeds up code review, and ensures codebase consistency regardless of the contributor (human or AI).
+
+### 14. Continuous Deployment (CD)
+
+Trunk-based development (§4) is made safe by automating the release process. `main` must not only be shippable, it should be deployed automatically.
+- **Zero-touch automated releases** — Merging to `main` triggers a pipeline that deploys to production (or a staging equivalent).
+- **Fast feedback** — Deployments must be fast and frequent to minimize the delta between code written and code running in production.
+
+Why this lasts: CD removes the fear of releasing, shrinks batch sizes, and forces the team to build robust testing (§5) and reversible changes (§11).
+
+### 15. Continuous Refactoring
+
+Refactoring is a continuous, daily habit, not a scheduled sprint task or a separate phase. Apply the "Boy Scout Rule" — always leave the code cleaner than you found it.
+- **Protected by tests** — The robust executable specifications (§5) provide the safety net required to refactor aggressively.
+- **Small, incremental improvements** — Pay down technical debt continuously rather than waiting for a massive rewrite.
+
+Why this lasts: Codebases naturally rot. Continuous refactoring ensures the architecture remains malleable and the code remains readable over time.
+
+### 16. Code Review Culture
+
+Code reviews should be fast, asynchronous-first, and blameless. The focus should be on architecture, intent, and verifiable behavior.
+- **Review for behavior, not style** — Rely on the automated quality gates (§13) for formatting.
+- **Assume positive intent** — Collaboration should be constructive.
+- **Approve with suggestions** — Do not block a PR for trivial changes; use non-blocking suggestions or follow-up commits.
+
+Why this lasts: A healthy review culture prevents PR bottlenecks and maintains high team velocity and psychological safety.
+
+### 17. Documentation as Code
+
+Technical documentation is treated as a first-class citizen alongside code and tests.
+- **Lives in the repository** — Runbooks, API specs, and usage guides live in the same repository as the code they describe.
+- **Same review process** — Documentation changes go through the same PR and review process. A feature is not complete until its documentation is updated (§2).
+
+Why this lasts: Docs kept in separate wikis or external tools inevitably drift. Keeping them close to the code ensures they evolve together.
+
 ---
 
 ## The artifacts as a durable semantic interface
