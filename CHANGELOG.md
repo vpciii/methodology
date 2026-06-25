@@ -11,6 +11,17 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+### Added
+
+- **Personal memex pointer in the global summary** —
+  `templates/global-CLAUDE.md` gains a clearly-labeled *personal tooling*
+  section wiring AI agents to the memex MCP memory server (search at the
+  start of substantial work, write at the end), with the guardrail that
+  durable decisions stay in the repo artifacts, not memex (ADR 0022). **Not
+  a methodology change** — `methodology.md` stays tool-agnostic. *Adoption:
+  none — personal wiring; consuming projects copy `project-CLAUDE.md`, not
+  the global summary.*
+
 ## [0.12.0] - 2026-06-21
 
 ### Added
