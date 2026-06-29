@@ -9,7 +9,7 @@ alwaysApply: true
 These are the standing development practices for all projects, followed
 by humans and AI agents alike. Full canonical document:
 `~/Developer/methodology/methodology.md`
-(private mirror: github.com/vpciii/methodology). **For substantial or
+(also on GitHub: github.com/vpciii/methodology). **For substantial or
 long-lived work, read it first.** A project's own `.cursor/rules/` and
 its ADRs add project-specific rules and take precedence.
 
