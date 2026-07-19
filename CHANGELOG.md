@@ -13,6 +13,21 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ### Added
 
+- **Planning skills (trial)** — `experiments/planning-skills/`: Claude
+  Code skills driving the `planning.md` practices, one command per
+  canonical artifact (`plan-brief`, `plan-prfaq`, `plan-options`,
+  `plan-bet`, `plan-premortem`, `plan-handoff`). Each reads and writes
+  only `planning/<slug>/` (plus the drafted spec at handoff) — an
+  optional, disposable planning tool in exactly the sense `planning.md`
+  allows; the human stays author of record throughout. `plan-options`
+  fans out blind, opposed divergers (boring / reuse / structural /
+  contrarian); `plan-premortem` red-teams through technical / adoption /
+  external lenses. **Not a methodology change** — `planning.md` is
+  untouched. The bet and evaluation criteria live in
+  `agent-framework/planning/planning-orchestration/`. *Adoption: none —
+  a trial with no obligation; graduates to `templates/` + an ADR if the
+  trial log shows it earns its keep, otherwise deleted.*
+
 - **Personal memex pointer in the global summary** —
   `templates/global-CLAUDE.md` gains a clearly-labeled *personal tooling*
   section wiring AI agents to the memex MCP memory server (search at the

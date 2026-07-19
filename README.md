@@ -39,6 +39,7 @@ to your shell profile for terminal use.
 | `templates/project-CONTRIBUTING.md` | Drop-in `CONTRIBUTING.md` (PR flow, commit labels, DoR/DoD, review scope). |
 | `templates/methodology.mdc` | Cursor rule — paste into Cursor User Rules (global) or drop into a project's `.cursor/rules/`. |
 | `templates/ci/check-spec-coverage.py` | Reference spec-criterion coverage checker (stdlib-only Python) — adapt or replace per project (ADR 0017). |
+| `experiments/planning-skills/` | **Trial** (not a ratified practice): Claude Code skills driving the `planning.md` practices — one command per artifact (`plan-brief`, `plan-prfaq`, `plan-options`, `plan-bet`, `plan-premortem`, `plan-handoff`), each reading/writing only the canonical `planning/<slug>/` artifacts. Under evaluation on 2–3 real bets; graduates to `templates/` + an ADR or gets deleted. |
 | `experiments/adversarial-review/` | **Trial** (not a ratified practice): cross-model adversarial review — an *adversary model* (different from the author model) refutes the author model's work. Role-based and model-agnostic; a single roster names today's models (currently Claude as author, Antigravity / Gemini as adversary). A manual process under evaluation; graduates to an ADR or gets deleted. |
 | `adr/NNNN-*.md` | Decisions about *this methodology itself*. |
 
