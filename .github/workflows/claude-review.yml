@@ -6,17 +6,27 @@ name: Claude PR review (reusable)
 # Advisory only: it posts review comments. Each project's deterministic CI
 # (lint, format, strict type-check, tests, spec coverage) stays the required
 # merge gate — this never blocks a merge.
+#
+# A green check means the review RAN, not that the PR is clean — and only for
+# the commits it saw. Callers trigger on opened/ready_for_review (a cost/noise
+# trade-off), so later pushes go unreviewed and the stale check drops out of
+# the rollup rather than showing as outdated. The one silent-green path the
+# action itself has is turned red below. (Found in practice in nurturepa/cif.)
 
 on:
   workflow_call:
     inputs:
       claude_args:
         description: >-
-          Extra args for the Claude CLI, e.g. "--model claude-opus-4-..." for a
-          deeper model. Blank uses the action's default model.
+          Extra args for the Claude CLI. Defaults to a pinned model so a
+          change in the action's default is a reviewable diff here, not a
+          silent shift in review quality. Override per repo, e.g.
+          '--model "claude-opus-5[1m]"'. Keep the quotes around a model id
+          with "[1m]": claude_args is tokenized with shell-quote, which would
+          otherwise read it as a glob.
         type: string
         required: false
-        default: ""
+        default: '--model "claude-opus-5[1m]"'
     secrets:
       anthropic_api_key:
         description: "Anthropic API key, supplied by the calling repo."
@@ -40,6 +50,7 @@ jobs:
           fetch-depth: 1
 
       - name: Claude review
+        id: review
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.anthropic_api_key }}
@@ -68,3 +79,21 @@ jobs:
             nitpicks. Do not repeat what CI already enforces (lint, format,
             strict type-check, and tests run as a separate required check).
             If the PR is clean, say so in a sentence or two.
+
+      # Turn the silent skip into a red check. The action exits 0 when
+      # Anthropic's OIDC exchange declines to mint a GitHub App token because
+      # the executing workflow file differs from the default branch's copy
+      # (the guard that stops a PR rewriting the review prompt to exfiltrate
+      # the API key) — so the job went green having reviewed nothing.
+      #
+      # `conclusion` is set only after Claude has run; the validation skip
+      # returns before that, leaving it empty. The action's other empty-and-
+      # green path (no trigger found) is unreachable because `prompt` above is
+      # always supplied. A thrown error already fails the job, so this step is
+      # deliberately not `always()`. Re-verify this against the action's
+      # early-return set when bumping anthropics/claude-code-action past v1.
+      - name: Fail if the review never ran
+        if: steps.review.outputs.conclusion == ''
+        run: |
+          echo "::error::Claude review did not run (workflow validation skip) — this PR was NOT reviewed"
+          exit 1

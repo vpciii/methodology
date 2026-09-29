@@ -37,6 +37,23 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
   none — personal wiring; consuming projects copy `project-CLAUDE.md`, not
   the global summary.*
 
+### Fixed
+
+- **Shared Claude reviewer no longer goes green without reviewing** —
+  `.github/workflows/claude-review.yml` (ADR 0021). The action exits 0
+  when it refuses to run a workflow file that differs from the default
+  branch's copy (its guard against a PR rewriting the prompt to exfiltrate
+  the API key), so the check passed having reviewed nothing — observed in
+  nurturepa/cif (PR #88). A final step now fails the job when the action
+  produced no `conclusion`. The default model is also **pinned**
+  (`claude-opus-5[1m]`) rather than inherited from the action, so a change
+  in review model is a reviewable diff. The caller template documents what
+  a green check does and doesn't mean (trigger is `opened` /
+  `ready_for_review` only). Ported from cif's local fixes. *Adoption:
+  callers of `@main` get it automatically; a standalone copy (a repo in
+  another account) carries over the pinned model and the "Fail if the
+  review never ran" step — per-project action.*
+
 ## [0.12.0] - 2026-06-21
 
 ### Added
