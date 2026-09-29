@@ -11,6 +11,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-09-29
+
 ### Added
 
 - **Operation records for one-off changes to production** (ADR 0025) — a
@@ -385,7 +387,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.13.0...HEAD
+[0.13.0]: https://github.com/vpciii/methodology/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/vpciii/methodology/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/vpciii/methodology/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/vpciii/methodology/compare/v0.9.0...v0.10.0
