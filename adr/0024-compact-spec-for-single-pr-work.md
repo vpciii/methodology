@@ -1,6 +1,6 @@
 # ADR 0024: A compact spec for work that fits in one PR
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-09-29
 - **Deciders:** vpc
 
