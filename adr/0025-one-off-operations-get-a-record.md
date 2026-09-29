@@ -50,7 +50,7 @@ We will treat a one-off change to a live environment as an
 existing practices. No new machinery.
 
 1. **An operation gets a record** at
-   `ops/YYYY-MM-DD-<slug>/README.md` (template
+   `operations/YYYY-MM-DD-<slug>/README.md` (template
    `templates/operation.md`), with its scripts beside it. The record
    states purpose, environment, pre-flight checks, the exact procedure,
    verification, and the undo — then, after running, what actually
@@ -58,17 +58,23 @@ existing practices. No new machinery.
    0007); a reusable procedure graduates to a runbook in `docs/`
    (user-facing docs, ADR 0020) or to a feature.
 2. **Operations follow the existing rules, applied to data:**
-   reviewed before running (a PR, like code — §4); **guarded** —
+   reviewed before running (a PR, like code — §4) — except a repair
+   made *during* an active incident, where waiting would prolong it:
+   then the record and its review follow immediately after, and the
+   operation is still recorded; **guarded** —
    the script checks its premise and refuses on anything unexpected,
    dry-runs on a non-production copy first, and defaults to a
    transaction that rolls back; **reversible by default** — an undo
    (a snapshot, an inverse script) or an explicit
    *irreversible* callout, which §11 already routes to an ADR.
-3. **An out-of-band change to a live system that bypassed its normal
+3. **An out-of-band change to production that bypassed its normal
    path is an incident** (§8) when discovered, whether or not anyone
-   noticed harm yet — so it gets at least one of a regression test, an
-   ADR, or a spec update, and a postmortem if user-visible. The repair
-   operation links it.
+   noticed harm yet. "Production" means any environment holding real
+   user or customer data — which can include a demo or training system
+   people actually use — not staging or scratch copies, where a hand
+   edit is ordinary work. Such an incident gets at least one of a
+   regression test, an ADR, or a spec update, and a postmortem if
+   user-visible. The repair operation links it.
 
 **Scale to the work:** read-only queries and reports are not
 operations; a routine, already-documented procedure (a runbook step)
@@ -93,6 +99,19 @@ change is one-off, touches real data or users, or is hard to undo.
   runbook is a *reusable* procedure kept current; an operation record
   is a *one-time* event frozen once run. The template says when one
   graduates to the other.
+- **Home under `docs/operations/`**, beside the other records —
+  rejected: an operation's scripts are part of it (the exact SQL that
+  ran is the record), and scripts under `docs/` sit badly with tooling
+  that treats `docs/` as prose. A top-level folder keeps record and
+  scripts together.
+- **Name the folder `ops/`** — rejected: the path should name the
+  artifact, as ADR 0016 chose `postmortems/` over `incidents/`, and
+  `ops/` already commonly holds infrastructure and deploy tooling in
+  adopting repos, where it would collide. `operations/` is unambiguous.
+- **Treat every out-of-band edit as an incident, in any environment** —
+  rejected: hand-editing staging or a scratch database is ordinary work;
+  making it owe a regression test or ADR contradicts "scale the ceremony
+  to the work." The evidence is all production.
 - **Require an ADR for every operation** — rejected: most repairs are
   not decisions. §11 already requires one for the genuinely
   irreversible case.
@@ -115,7 +134,7 @@ change is one-off, touches real data or users, or is hard to undo.
 ## Adoption impact
 
 **Per-project action, forward-only.** The next one-off operation on a
-live system is recorded at `ops/YYYY-MM-DD-<slug>/` from
+live system is recorded at `operations/YYYY-MM-DD-<slug>/` from
 `templates/operation.md`; existing records stay where they are. When an
 out-of-band manual change is discovered, run it through §8.
 
