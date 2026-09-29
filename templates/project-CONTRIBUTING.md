@@ -29,9 +29,9 @@ practices that predate (and outlast) any particular tool or framework.
    skip both: fill in the spec's **Approach** (and **Rollout and undo**,
    if risky) instead, and get it agreed with the spec (compact spec,
    methodology §2).
-3. **Build** — one PR per task. Trunk-based: short-lived branches,
-   merged to `main` frequently. Keep PRs under ~300 lines of diff
-   where you can.
+3. **Build** — one PR per task (for a compact spec, the one PR).
+   Trunk-based: short-lived branches, merged to `main` frequently.
+   Keep PRs under ~300 lines of diff where you can.
 4. **Decide** — write an ADR when a decision is **expensive to
    reverse**, **affects multiple components**, or **constrains
    future choices**. See `methodology.md` §1 and the template at
@@ -196,8 +196,8 @@ Two guardrails matter most because they fail quietly (methodology
 
 - **An agent must not silently rewrite an agreed contract.** Changes to
   an `Approved` / `Implemented` spec's requirements or success criteria
-  come as their own diff for your sign-off — never folded into an
-  implementation PR.
+  (or a compact spec's agreed Approach) come as their own diff for
+  your sign-off — never folded into an implementation PR.
 - **An agent shows "done," it doesn't assert it.** A criterion claimed
   met cites the passing test that proves it; a fix claimed correct
   cites the regression test failing before it (red→green evidence).

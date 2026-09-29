@@ -116,8 +116,9 @@ the ones least likely to be caught by a human skimming an internally
 consistent diff (see ADR 0008):
 
 - **Do not silently change an agreed contract.** An `Approved` or
-  `Implemented` spec's requirements and success criteria are what you
-  build against — never edit them to match code you just wrote. A
+  `Implemented` spec's requirements and success criteria — and a
+  compact spec's agreed Approach (§2) — are what you build against;
+  never edit them to match code you just wrote. A
   genuine contract change is its own diff, with rationale, for human
   sign-off; it is never folded into an implementation change.
 - **Show "done," do not assert it.** When you claim a success criterion
@@ -225,13 +226,14 @@ approval (a PR review, or an approval commit); it need not be a
 separate PR per stage.
 
 **Compact spec for one-PR work.** When the whole feature fits in one PR
-(§4, ~300 lines of diff), `spec.md` alone is enough: its optional **Approach** section
-carries the *how*, and its **Rollout and undo** section carries what
-§11 would have put in `plan.md`. The spec, Approach included, is agreed
-before code — one stage instead of three. Once agreed, the Approach is
-appended to (dated entries), not rewritten, and a material change to it
-is re-agreed like any contract change. If the work outgrows one PR, add
-`plan.md` and `tasks.md` then (ADR 0024).
+(§4, ~300 lines of diff), `spec.md` alone is enough: its optional
+**Approach** section carries the *how*, and its **Rollout and undo**
+section carries what §11 would have put in `plan.md`. The spec,
+Approach included, is agreed before code — one stage instead of three.
+Once agreed, the Approach is appended to (dated entries), not
+rewritten, and a material change to it is re-agreed like any contract
+change. If the work outgrows one PR, add `plan.md` and `tasks.md` then
+(ADR 0024).
 
 Everything *upstream* of the spec — whether to build, what, and which
 approach — is the **planning methodology**'s concern (`planning.md`, ADR
@@ -281,8 +283,9 @@ confusion.
 ### 4. Trunk-based development with small PRs
 
 Short-lived branches merged frequently to `main`. PRs kept small — as a
-rule of thumb, split past ~300 lines of diff. The discipline: keep changes reviewable, keep `main` always shippable,
-surface integration problems early.
+rule of thumb, split past ~300 lines of diff. The discipline: keep
+changes reviewable, keep `main` always shippable, surface integration
+problems early.
 
 - Reference: [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/).
 - Empirical backing: the [DORA](https://dora.dev/) research program

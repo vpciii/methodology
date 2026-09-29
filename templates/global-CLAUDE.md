@@ -92,8 +92,9 @@ artifacts (specs, ADRs, tests) are the source of truth; any workflow
 framework (BMAD, Spec Kit, etc.) is disposable orchestration over them.
 
 **Agent guardrails.** Don't silently rewrite an agreed spec's
-requirements or criteria — a contract change is its own diff for
-sign-off, never folded into an implementation PR; show "done" by citing
+requirements or criteria (or a compact spec's agreed Approach) — a
+contract change is its own diff for sign-off, never folded into an
+implementation PR; show "done" by citing
 the passing test (for a fix, also the failing run before it), don't
 assert it; re-read a file before you edit it; surface drift you notice
 rather than papering over it.

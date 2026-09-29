@@ -66,7 +66,7 @@ renumber them.
 - **SC-1** — …
 - **SC-2** — …
 
-## Approach (compact spec only)
+## Approach
 
 *Only when this spec is the whole feature (it fits in one PR, ADR 0024);
 otherwise delete this section and write `plan.md`.* The *how*, at plan
@@ -79,7 +79,7 @@ that change the approach materially.
 
 - *YYYY-MM-DD* — …
 
-## Rollout and undo (compact spec only)
+## Rollout and undo
 
 *Only for a compact spec, and required when the change is risky or hard
 to undo (methodology §11).* The flag, migration shape (expand-contract),
