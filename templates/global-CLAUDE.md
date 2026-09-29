@@ -38,6 +38,7 @@ precedence over this file. An accepted ADR beats both.
 | Add/upgrade a dependency | weigh it; ADR for non-trivial ones |
 | Retire a feature / service / data store | an ADR with the sunset plan (deprecate → dark → remove); update `architecture.md`, retire its tests, mark the spec `Retired` |
 | Resolve an incident | ≥1 of: regression test, ADR, spec update; postmortem in `docs/postmortems/` if user-visible |
+| Change production (real user data) directly — data repair, bulk send, backfill | an operation record in `operations/YYYY-MM-DD-<slug>/`: reviewed, guarded, dry-run, undo or irreversible callout; an out-of-band manual edit to production is an incident |
 | Trivial / throwaway change | nothing but a clear commit message |
 
 ## Hard rules (the durable core)

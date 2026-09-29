@@ -53,6 +53,10 @@ was made — mirroring spec-freeze (`methodology.md` §2). A contradiction
 discovered later does not get edited back into the pitch; it flows to a
 new spec, an ADR, or the operational-feedback loop.
 
+A one-off change to production (a data repair, a hand-run campaign)
+is not a bet and does not belong in `planning/` — it gets an operation
+record (`methodology.md` §11, ADR 0025).
+
 ### Decision guide — which artifact, when
 
 | If you are about to… | Produce… | Where |
