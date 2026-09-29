@@ -43,7 +43,7 @@ planning artifacts feed the spec like this:
 |---|---|---|
 | Problem brief | the problem, solution-free | `## Problem` |
 | PR-FAQ / pitch | what success looks like | `## Goals`, `## Non-goals` |
-| Options doc (the winner) | chosen approach + the rejected ones | `plan.md` + ADR "alternatives considered" |
+| Options doc (the winner) | chosen approach + the rejected ones | `plan.md` (compact spec: `## Approach`) + ADR "alternatives considered" |
 | Bet (appetite + why-now) | how much scope is worth it | `## Non-goals`, `## Out of scope` |
 | Pre-mortem + spike findings | retired or surfaced unknowns | `## Open questions` |
 

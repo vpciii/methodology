@@ -25,10 +25,13 @@ practices that predate (and outlast) any particular tool or framework.
    `specs/<feature-slug>/` and fill in `spec.md`. Discuss in a PR
    before writing code.
 2. **Plan** — once the spec is agreed, fill in `plan.md` (how) and
-   `tasks.md` (PR-sized chunks).
-3. **Build** — one PR per task. Trunk-based: short-lived branches,
-   merged to `main` frequently. Keep PRs under ~300 lines of diff
-   where you can.
+   `tasks.md` (PR-sized chunks). If the whole feature fits in one PR,
+   skip both: fill in the spec's **Approach** (and **Rollout and undo**,
+   if risky) instead, and get it agreed with the spec (compact spec,
+   methodology §2).
+3. **Build** — one PR per task (for a compact spec, the one PR).
+   Trunk-based: short-lived branches, merged to `main` frequently.
+   Keep PRs under ~300 lines of diff where you can.
 4. **Decide** — write an ADR when a decision is **expensive to
    reverse**, **affects multiple components**, or **constrains
    future choices**. See `methodology.md` §1 and the template at
@@ -56,8 +59,8 @@ first rather than starting to code.
 - The PR is merged to `main`.
 - All tests pass in CI.
 - Lint and strict type-check pass (per the project's tooling ADR).
-- The corresponding task in `tasks.md` is marked `[x]` with the
-  merged PR number or hash.
+- The corresponding task in `tasks.md` (if the spec has one) is marked
+  `[x]` with the merged PR number or hash.
 - Any new behavior is covered by at least one test; a test that
   verifies a spec success criterion cites its id (methodology §5).
 - A bug fix cites its **red→green evidence**: the regression test's
@@ -81,7 +84,7 @@ first rather than starting to code.
 
 **A feature (one spec) is done when:**
 
-- Every task in its `tasks.md` is marked `[x]`.
+- Every task in its `tasks.md` (if the spec has one) is marked `[x]`.
 - Every success criterion in `spec.md` is recorded in the spec's
   Traceability table against a passing test, and the
   spec-criterion-coverage check passes in CI (methodology §5) — not
@@ -193,8 +196,8 @@ Two guardrails matter most because they fail quietly (methodology
 
 - **An agent must not silently rewrite an agreed contract.** Changes to
   an `Approved` / `Implemented` spec's requirements or success criteria
-  come as their own diff for your sign-off — never folded into an
-  implementation PR.
+  (or a compact spec's agreed Approach) come as their own diff for
+  your sign-off — never folded into an implementation PR.
 - **An agent shows "done," it doesn't assert it.** A criterion claimed
   met cites the passing test that proves it; a fix claimed correct
   cites the regression test failing before it (red→green evidence).

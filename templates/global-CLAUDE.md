@@ -43,7 +43,9 @@ precedence over this file. An accepted ADR beats both.
 ## Hard rules (the durable core)
 
 - **Spec-first for non-trivial work.** `spec.md` (what+why) → `plan.md`
-  (how) → `tasks.md` (PR-sized). Sign-off between stages. Templates:
+  (how) → `tasks.md` (PR-sized). Sign-off between stages. Work that fits
+  in one PR may use a compact spec: `spec.md` alone, with its Approach
+  and Rollout-and-undo sections. Templates:
   `$METHODOLOGY_HOME/templates/spec/`.
 - **Decisions get ADRs.** For anything expensive to reverse, multi-
   component, or future-constraining. Template:
@@ -90,8 +92,9 @@ artifacts (specs, ADRs, tests) are the source of truth; any workflow
 framework (BMAD, Spec Kit, etc.) is disposable orchestration over them.
 
 **Agent guardrails.** Don't silently rewrite an agreed spec's
-requirements or criteria — a contract change is its own diff for
-sign-off, never folded into an implementation PR; show "done" by citing
+requirements or criteria (or a compact spec's agreed Approach) — a
+contract change is its own diff for sign-off, never folded into an
+implementation PR; show "done" by citing
 the passing test (for a fix, also the failing run before it), don't
 assert it; re-read a file before you edit it; surface drift you notice
 rather than papering over it.

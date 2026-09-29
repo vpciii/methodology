@@ -77,14 +77,14 @@ To get oriented in any project, in order:
 | If you are about to… | Produce… | Where |
 |---|---|---|
 | Take on an uncertain or expensive bet (decide *what* / *whether* to build) | plan it before the spec — problem, options, appetite (planning.md) | `planning/<slug>/` |
-| Do substantial or long-lived work (more than a function/bugfix) | a spec, then plan, then tasks | `specs/<slug>/{spec,plan,tasks}.md` |
+| Do substantial or long-lived work (more than a function/bugfix) | a spec, then plan, then tasks — or a compact spec alone if it fits in one PR (§2) | `specs/<slug>/{spec,plan,tasks}.md` (compact: `spec.md` alone) |
 | Make a decision that is expensive to reverse, cross-component, or future-constraining | an ADR | `docs/adr/NNNN-*.md` |
 | Add or change behavior | a test that fails before and passes after; in a spec, trace it to a success-criterion id (§5) | `tests/` |
 | Restructure code without changing behavior (refactor, tech-debt paydown) | no spec — keep the test suite green; an ADR only if it closes off future options (§1, §11) | the commit / `docs/adr/` |
 | Use a domain term that isn't defined | a glossary entry | `docs/glossary.md` |
 | Change the system's structure (a component, boundary, store, or external dependency) | an update to the current-state overview, in the same PR | `docs/architecture.md` |
 | Add or upgrade a dependency | weigh it; record non-trivial ones as an ADR (§10) | `docs/adr/` |
-| Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout |
+| Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout (compact spec: its Rollout and undo section) |
 | Retire a feature, service, or data store | an ADR deciding the sunset (irreversible by definition, §11): deprecation window → dark → removal; update `docs/architecture.md` and retire its tests in the removal PR; mark the frozen spec `Retired` | `docs/adr/` |
 | Resolve an incident | at least one of: regression test, ADR, spec update; a short blameless postmortem if user-visible (§8) | `tests/`, `docs/adr/`, `specs/`, `docs/postmortems/` |
 | Make a trivial, throwaway, or five-minute change | nothing — a good commit message is enough | the commit |
@@ -116,8 +116,9 @@ the ones least likely to be caught by a human skimming an internally
 consistent diff (see ADR 0008):
 
 - **Do not silently change an agreed contract.** An `Approved` or
-  `Implemented` spec's requirements and success criteria are what you
-  build against — never edit them to match code you just wrote. A
+  `Implemented` spec's requirements and success criteria — and a
+  compact spec's agreed Approach (§2) — are what you build against;
+  never edit them to match code you just wrote. A
   genuine contract change is its own diff, with rationale, for human
   sign-off; it is never folded into an implementation change.
 - **Show "done," do not assert it.** When you claim a success criterion
@@ -174,7 +175,7 @@ table to find what's where without hunting.
 | Twelve-Factor checklist | `docs/twelve-factor.md` | Status table for deployable services. Template in `templates/`. |
 | Postmortems | `docs/postmortems/YYYY-MM-DD-<slug>.md` | Blameless record of a user-visible incident; links its §8 follow-through (regression test, ADR, or spec update). Template: `$METHODOLOGY_HOME/templates/postmortem.md`. |
 | User-facing documentation | `README.md` usage + `docs/` (an external docs site is a project tooling ADR) | What users and operators rely on — usage, API reference, runbooks. Updated in the same PR as the user-visible behavior change that invalidates it (ADR 0020). |
-| Feature specifications | `specs/<slug>/{spec,plan,tasks}.md` | Spec-first workflow. Templates in `$METHODOLOGY_HOME/templates/spec/`. |
+| Feature specifications | `specs/<slug>/{spec,plan,tasks}.md` (or `spec.md` alone — compact spec, §2) | Spec-first workflow. Templates in `$METHODOLOGY_HOME/templates/spec/`. |
 | AI agent orientation | `CLAUDE.md` | Points the active AI tool at the artifacts above. Template: `templates/project-CLAUDE.md`. |
 | Contributor guide | `CONTRIBUTING.md` | Operational rules: PR flow, commit labels, definition of ready/done, review scope. Template: `templates/project-CONTRIBUTING.md`. |
 | Tests | `tests/` | Executable specification (see practice §5). |
@@ -220,7 +221,19 @@ items). The spec is reviewed and agreed before implementation.
 Sign-off sits **between the stages**: the spec is agreed before the
 plan is written against it, and the plan before the tasks are cut and
 built — each stage is the reviewed input to the next, so disagreement
-is caught at the cheapest altitude.
+is caught at the cheapest altitude. A sign-off is a recorded human
+approval (a PR review, or an approval commit); it need not be a
+separate PR per stage.
+
+**Compact spec for one-PR work.** When the whole feature fits in one PR
+(§4, ~300 lines of diff), `spec.md` alone is enough: its optional
+**Approach** section carries the *how*, and its **Rollout and undo**
+section carries what §11 would have put in `plan.md`. The spec,
+Approach included, is agreed before code — one stage instead of three.
+Once agreed, the Approach is appended to (dated entries), not
+rewritten, and a material change to it is re-agreed like any contract
+change. If the work outgrows one PR, add `plan.md` and `tasks.md` then
+(ADR 0024).
 
 Everything *upstream* of the spec — whether to build, what, and which
 approach — is the **planning methodology**'s concern (`planning.md`, ADR
@@ -269,9 +282,10 @@ confusion.
 
 ### 4. Trunk-based development with small PRs
 
-Short-lived branches merged frequently to `main`. PRs kept small. The
-discipline: keep changes reviewable, keep `main` always shippable,
-surface integration problems early.
+Short-lived branches merged frequently to `main`. PRs kept small — as a
+rule of thumb, split past ~300 lines of diff. The discipline: keep
+changes reviewable, keep `main` always shippable, surface integration
+problems early.
 
 - Reference: [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/).
 - Empirical backing: the [DORA](https://dora.dev/) research program
@@ -456,9 +470,10 @@ undo.
   feature's tests deliberately, citing the ADR; the spec stays frozen
   as history, its status flipped to `Retired` (ADR 0019).
 - **Every non-trivial change has a known undo** — a flag flip, a
-  revert, or a documented rollback in `plan.md`. A genuinely
-  irreversible action (data deletion, an external side effect) is
-  called out explicitly and decided with an ADR.
+  revert, or a documented rollback in `plan.md` (or a compact spec's
+  Rollout and undo section). A genuinely irreversible action (data
+  deletion, an external side effect) is called out explicitly and
+  decided with an ADR.
 
 Why this lasts: cheap, fast recovery is what makes continuous delivery
 viable. The principle is independent of any flag system or platform.
