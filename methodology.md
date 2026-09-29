@@ -87,6 +87,7 @@ To get oriented in any project, in order:
 | Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout (compact spec: its Rollout and undo section) |
 | Retire a feature, service, or data store | an ADR deciding the sunset (irreversible by definition, §11): deprecation window → dark → removal; update `docs/architecture.md` and retire its tests in the removal PR; mark the frozen spec `Retired` | `docs/adr/` |
 | Resolve an incident | at least one of: regression test, ADR, spec update; a short blameless postmortem if user-visible (§8) | `tests/`, `docs/adr/`, `specs/`, `docs/postmortems/` |
+| Change a live environment directly, outside the deploy path (data repair, bulk send, backfill) | an operation record: guarded, reviewed, dry-run first, with an undo or an irreversible callout (§11) | `ops/YYYY-MM-DD-<slug>/` |
 | Make a trivial, throwaway, or five-minute change | nothing — a good commit message is enough | the commit |
 
 ### Operating rules for AI agents
@@ -174,6 +175,7 @@ table to find what's where without hunting.
 | Ubiquitous language / glossary | `docs/glossary.md` | The project's domain terms. Template: `$METHODOLOGY_HOME/templates/glossary.md`. |
 | Twelve-Factor checklist | `docs/twelve-factor.md` | Status table for deployable services. Template in `templates/`. |
 | Postmortems | `docs/postmortems/YYYY-MM-DD-<slug>.md` | Blameless record of a user-visible incident; links its §8 follow-through (regression test, ADR, or spec update). Template: `$METHODOLOGY_HOME/templates/postmortem.md`. |
+| Operation records | `ops/YYYY-MM-DD-<slug>/README.md` + scripts | A one-off change to a live environment outside the deploy path — why, scope, pre-flight checks, procedure, verification, undo; frozen once run. Template: `$METHODOLOGY_HOME/templates/operation.md` (ADR 0025). |
 | User-facing documentation | `README.md` usage + `docs/` (an external docs site is a project tooling ADR) | What users and operators rely on — usage, API reference, runbooks. Updated in the same PR as the user-visible behavior change that invalidates it (ADR 0020). |
 | Feature specifications | `specs/<slug>/{spec,plan,tasks}.md` (or `spec.md` alone — compact spec, §2) | Spec-first workflow. Templates in `$METHODOLOGY_HOME/templates/spec/`. |
 | AI agent orientation | `CLAUDE.md` | Points the active AI tool at the artifacts above. Template: `templates/project-CLAUDE.md`. |
@@ -399,6 +401,10 @@ Lightweight supporting practices:
   incident and links that follow-through. It lives at
   `docs/postmortems/YYYY-MM-DD-<slug>.md` (template:
   `$METHODOLOGY_HOME/templates/postmortem.md`, ADR 0016).
+- **An out-of-band change is an incident.** A manual edit to a live
+  system that bypassed its normal path (the app, a migration, a
+  reviewed operation) goes through this loop when discovered — whether
+  or not harm has been noticed yet (ADR 0025).
 
 Why this lasts: production is a continuous, free source of information
 about how the system actually behaves. Projects that discard it
@@ -469,6 +475,13 @@ undo.
   remove. The removal PR updates `docs/architecture.md` and retires the
   feature's tests deliberately, citing the ADR; the spec stays frozen
   as history, its status flipped to `Retired` (ADR 0019).
+- **One-off operations are changes too.** A data repair, bulk send, or
+  backfill run directly against a live environment gets an operation
+  record (`ops/YYYY-MM-DD-<slug>/`): reviewed before it runs, guarded —
+  it checks its premise and refuses on anything unexpected — dry-run on
+  a non-production copy, a rollback-by-default transaction, and an undo
+  or an explicit irreversible callout (ADR 0025). Read-only queries and
+  steps of an existing runbook don't need one.
 - **Every non-trivial change has a known undo** — a flag flip, a
   revert, or a documented rollback in `plan.md` (or a compact spec's
   Rollout and undo section). A genuinely irreversible action (data
