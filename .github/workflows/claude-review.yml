@@ -12,21 +12,33 @@ name: Claude PR review (reusable)
 # trade-off), so later pushes go unreviewed and the stale check drops out of
 # the rollup rather than showing as outdated. The one silent-green path the
 # action itself has is turned red below. (Found in practice in nurturepa/cif.)
+#
+# That skip is the action's guard against a PR rewriting the review prompt to
+# exfiltrate the API key. It compares the ENTRY workflow (the caller the
+# pull_request event triggered) with the default branch's copy — so it covers
+# a project's caller, but not this reusable workflow when a caller in the same
+# repo references it by local path (this repo's pr-review.yml): a branch here
+# that edits this file still gets a run with the secret.
 
 on:
   workflow_call:
     inputs:
-      claude_args:
+      model:
         description: >-
-          Extra args for the Claude CLI. Defaults to a pinned model so a
-          change in the action's default is a reviewable diff here, not a
-          silent shift in review quality. Override per repo, e.g.
-          '--model "claude-opus-5[1m]"'. Keep the quotes around a model id
-          with "[1m]": claude_args is tokenized with shell-quote, which would
-          otherwise read it as a glob.
+          Review model. Pinned rather than inherited from the action, so a
+          change in review model is a reviewable diff here, not a silent
+          shift in review quality. Override per repo, e.g.
+          "claude-sonnet-5-5".
         type: string
         required: false
-        default: '--model "claude-opus-5[1m]"'
+        default: "claude-opus-5[1m]"
+      claude_args:
+        description: >-
+          Extra args for the Claude CLI, appended after --model (so passing
+          them never unpins the model).
+        type: string
+        required: false
+        default: ""
     secrets:
       anthropic_api_key:
         description: "Anthropic API key, supplied by the calling repo."
@@ -55,7 +67,9 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.anthropic_api_key }}
           track_progress: true
-          claude_args: ${{ inputs.claude_args }}
+          # Quote the model: claude_args is tokenized with shell-quote, which
+          # would otherwise read "[1m]" as a glob.
+          claude_args: --model "${{ inputs.model }}" ${{ inputs.claude_args }}
           prompt: |
             Review this pull request against THIS project's own standards, not
             generic best practices. Read whichever of the repo's governing
@@ -83,13 +97,14 @@ jobs:
       # Turn the silent skip into a red check. The action exits 0 when
       # Anthropic's OIDC exchange declines to mint a GitHub App token because
       # the executing workflow file differs from the default branch's copy
-      # (the guard that stops a PR rewriting the review prompt to exfiltrate
-      # the API key) — so the job went green having reviewed nothing.
+      # (see the header) — so the job went green having reviewed nothing.
       #
       # `conclusion` is set only after Claude has run; the validation skip
       # returns before that, leaving it empty. The action's other empty-and-
-      # green path (no trigger found) is unreachable because `prompt` above is
-      # always supplied. A thrown error already fails the job, so this step is
+      # green path (no trigger found) is unreachable in either mode, because
+      # `prompt` above is always supplied (track_progress puts pull_request
+      # events in tag mode, whose trigger check returns true when a prompt
+      # is set). A thrown error already fails the job, so this step is
       # deliberately not `always()`. Re-verify this against the action's
       # early-return set when bumping anthropics/claude-code-action past v1.
       - name: Fail if the review never ran
