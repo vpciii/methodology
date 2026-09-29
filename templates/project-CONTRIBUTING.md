@@ -25,7 +25,10 @@ practices that predate (and outlast) any particular tool or framework.
    `specs/<feature-slug>/` and fill in `spec.md`. Discuss in a PR
    before writing code.
 2. **Plan** — once the spec is agreed, fill in `plan.md` (how) and
-   `tasks.md` (PR-sized chunks).
+   `tasks.md` (PR-sized chunks). If the whole feature fits in one PR,
+   skip both: fill in the spec's **Approach** (and **Rollout and undo**,
+   if risky) instead, and get it agreed with the spec (compact spec,
+   methodology §2).
 3. **Build** — one PR per task. Trunk-based: short-lived branches,
    merged to `main` frequently. Keep PRs under ~300 lines of diff
    where you can.
@@ -56,8 +59,8 @@ first rather than starting to code.
 - The PR is merged to `main`.
 - All tests pass in CI.
 - Lint and strict type-check pass (per the project's tooling ADR).
-- The corresponding task in `tasks.md` is marked `[x]` with the
-  merged PR number or hash.
+- The corresponding task in `tasks.md` (if the spec has one) is marked
+  `[x]` with the merged PR number or hash.
 - Any new behavior is covered by at least one test; a test that
   verifies a spec success criterion cites its id (methodology §5).
 - A bug fix cites its **red→green evidence**: the regression test's

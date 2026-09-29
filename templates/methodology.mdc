@@ -42,7 +42,7 @@ skip the ceremony — a good commit message is enough.
 
 ## Hard rules
 
-- **Spec-first for non-trivial work:** `spec.md` → `plan.md` → `tasks.md`, sign-off between stages.
+- **Spec-first for non-trivial work:** `spec.md` → `plan.md` → `tasks.md`, sign-off between stages; one-PR work may use a compact spec (`spec.md` alone, with Approach + Rollout and undo).
 - **Decisions get ADRs** (expensive to reverse / multi-component / future-constraining).
 - **Small PRs, trunk-based;** split past ~300 lines of diff.
 - **Reversible by default:** flags / expand-contract migrations / backward-compatible APIs; call out and ADR anything irreversible.

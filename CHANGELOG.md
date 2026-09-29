@@ -37,6 +37,21 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
   none — personal wiring; consuming projects copy `project-CLAUDE.md`, not
   the global summary.*
 
+### Changed
+
+- **Compact spec for one-PR work** (ADR 0024) — when a whole feature
+  fits in one PR, `spec.md` alone is enough: the spec template gains
+  optional **Approach** and **Rollout and undo** sections, agreed with
+  the spec before code. Multi-PR work keeps `plan.md` + `tasks.md`.
+  Also clarifies that a sign-off is a recorded approval (PR review or
+  approval commit), not necessarily a separate PR per stage. Written
+  down from practice: 8 of 9 nurturepa/cif specs and 2 of 6
+  agent-framework specs were already single-file. Updates §2, §11, the
+  decision guide, the artifact map, `templates/spec/spec.md`,
+  `templates/project-CONTRIBUTING.md`, and both global summaries.
+  *Adoption: reference-only — nothing newly required; existing
+  single-file specs become conforming.*
+
 ### Fixed
 
 - **Shared Claude reviewer no longer goes green without reviewing** —

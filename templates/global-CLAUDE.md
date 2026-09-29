@@ -43,7 +43,9 @@ precedence over this file. An accepted ADR beats both.
 ## Hard rules (the durable core)
 
 - **Spec-first for non-trivial work.** `spec.md` (what+why) → `plan.md`
-  (how) → `tasks.md` (PR-sized). Sign-off between stages. Templates:
+  (how) → `tasks.md` (PR-sized). Sign-off between stages. Work that fits
+  in one PR may use a compact spec: `spec.md` alone, with its Approach
+  and Rollout-and-undo sections. Templates:
   `$METHODOLOGY_HOME/templates/spec/`.
 - **Decisions get ADRs.** For anything expensive to reverse, multi-
   component, or future-constraining. Template:
