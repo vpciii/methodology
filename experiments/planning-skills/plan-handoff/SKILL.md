@@ -45,7 +45,7 @@ Map planning → spec per planning.md's table:
 | Bet — in/out | `## Non-goals`, `## Out of scope (for now)` |
 | Bet — done looks like | seeds for `## Success criteria` |
 | Pre-mortem — escalated items; PR-FAQ unanswered questions | `## Open questions` |
-| Options — the winner | informs `plan.md` later; **not** pasted into the spec |
+| Options — the winner | informs `plan.md` later; **not** pasted into the spec — except for a compact spec (the work fits in one PR, ADR 0024), where it seeds `## Approach`, condensed |
 
 Then draft `## Requirements` (`R-…`, RFC 2119) and `## Success criteria`
 (`SC-…`) with the user — this is new authorship, not transcription:

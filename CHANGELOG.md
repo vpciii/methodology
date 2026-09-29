@@ -48,7 +48,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
   down from practice: 8 of 9 nurturepa/cif specs and 2 of 6
   agent-framework specs were already single-file. Updates §2, §11, the
   decision guide, the artifact map, `templates/spec/spec.md`,
-  `templates/project-CONTRIBUTING.md`, and both global summaries.
+  `templates/project-CONTRIBUTING.md`, `planning.md`'s handoff table,
+  the `plan-handoff` trial skill, and both global summaries.
   *Adoption: reference-only — nothing newly required; existing
   single-file specs become conforming.*
 
