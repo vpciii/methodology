@@ -48,9 +48,9 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
   produced no `conclusion`. The review model is also **pinned** via a new
   `model` input (default `claude-opus-5[1m]`) rather than inherited from
   the action, so a change in review model is a reviewable diff; extra
-  `claude_args` are appended after it and never unpin it. The caller template documents what
-  a green check does and doesn't mean (trigger is `opened` /
-  `ready_for_review` only). Ported from cif's local fixes. *Adoption:
+  `claude_args` are appended after it and never unpin it. The caller
+  template documents what a green check does and doesn't mean (trigger
+  is `opened` / `ready_for_review` only). Ported from cif's local fixes. *Adoption:
   callers of `@main` get it automatically; a standalone copy (a repo in
   another account) carries over the pinned model and the "Fail if the
   review never ran" step — per-project action.*

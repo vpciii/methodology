@@ -18,7 +18,10 @@ name: Claude PR review (reusable)
 # pull_request event triggered) with the default branch's copy — so it covers
 # a project's caller, but not this reusable workflow when a caller in the same
 # repo references it by local path (this repo's pr-review.yml): a branch here
-# that edits this file still gets a run with the secret.
+# that edits this file still gets a run with the secret. This is observed
+# behavior of Anthropic's server-side token exchange, not something the @v1
+# pin guarantees — it can change with no diff here. If it does, reviews of
+# PRs editing this file go red until merge (correct by design).
 
 on:
   workflow_call:
@@ -106,7 +109,9 @@ jobs:
       # events in tag mode, whose trigger check returns true when a prompt
       # is set). A thrown error already fails the job, so this step is
       # deliberately not `always()`. Re-verify this against the action's
-      # early-return set when bumping anthropics/claude-code-action past v1.
+      # early-return set when bumping anthropics/claude-code-action past v1 —
+      # and if a run ever skips unexpectedly, since the skip decision itself
+      # is made server-side.
       - name: Fail if the review never ran
         if: steps.review.outputs.conclusion == ''
         run: |
