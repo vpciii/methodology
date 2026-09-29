@@ -84,7 +84,7 @@ first rather than starting to code.
 
 **A feature (one spec) is done when:**
 
-- Every task in its `tasks.md` is marked `[x]`.
+- Every task in its `tasks.md` (if the spec has one) is marked `[x]`.
 - Every success criterion in `spec.md` is recorded in the spec's
   Traceability table against a passing test, and the
   spec-criterion-coverage check passes in CI (methodology §5) — not

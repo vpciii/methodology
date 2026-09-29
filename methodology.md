@@ -77,7 +77,7 @@ To get oriented in any project, in order:
 | If you are about to… | Produce… | Where |
 |---|---|---|
 | Take on an uncertain or expensive bet (decide *what* / *whether* to build) | plan it before the spec — problem, options, appetite (planning.md) | `planning/<slug>/` |
-| Do substantial or long-lived work (more than a function/bugfix) | a spec, then plan, then tasks — or a compact spec alone if it fits in one PR (§2) | `specs/<slug>/{spec,plan,tasks}.md` |
+| Do substantial or long-lived work (more than a function/bugfix) | a spec, then plan, then tasks — or a compact spec alone if it fits in one PR (§2) | `specs/<slug>/{spec,plan,tasks}.md` (compact: `spec.md` alone) |
 | Make a decision that is expensive to reverse, cross-component, or future-constraining | an ADR | `docs/adr/NNNN-*.md` |
 | Add or change behavior | a test that fails before and passes after; in a spec, trace it to a success-criterion id (§5) | `tests/` |
 | Restructure code without changing behavior (refactor, tech-debt paydown) | no spec — keep the test suite green; an ADR only if it closes off future options (§1, §11) | the commit / `docs/adr/` |
@@ -225,11 +225,13 @@ approval (a PR review, or an approval commit); it need not be a
 separate PR per stage.
 
 **Compact spec for one-PR work.** When the whole feature fits in one PR
-(§4), `spec.md` alone is enough: its optional **Approach** section
+(§4, ~300 lines of diff), `spec.md` alone is enough: its optional **Approach** section
 carries the *how*, and its **Rollout and undo** section carries what
 §11 would have put in `plan.md`. The spec, Approach included, is agreed
-before code — one stage instead of three. If the work outgrows one PR,
-add `plan.md` and `tasks.md` then (ADR 0024).
+before code — one stage instead of three. Once agreed, the Approach is
+appended to (dated entries), not rewritten, and a material change to it
+is re-agreed like any contract change. If the work outgrows one PR, add
+`plan.md` and `tasks.md` then (ADR 0024).
 
 Everything *upstream* of the spec — whether to build, what, and which
 approach — is the **planning methodology**'s concern (`planning.md`, ADR
@@ -278,8 +280,8 @@ confusion.
 
 ### 4. Trunk-based development with small PRs
 
-Short-lived branches merged frequently to `main`. PRs kept small. The
-discipline: keep changes reviewable, keep `main` always shippable,
+Short-lived branches merged frequently to `main`. PRs kept small — as a
+rule of thumb, split past ~300 lines of diff. The discipline: keep changes reviewable, keep `main` always shippable,
 surface integration problems early.
 
 - Reference: [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/).
@@ -466,9 +468,9 @@ undo.
   as history, its status flipped to `Retired` (ADR 0019).
 - **Every non-trivial change has a known undo** — a flag flip, a
   revert, or a documented rollback in `plan.md` (or a compact spec's
-  Rollout and undo section). A genuinely
-  irreversible action (data deletion, an external side effect) is
-  called out explicitly and decided with an ADR.
+  Rollout and undo section). A genuinely irreversible action (data
+  deletion, an external side effect) is called out explicitly and
+  decided with an ADR.
 
 Why this lasts: cheap, fast recovery is what makes continuous delivery
 viable. The principle is independent of any flag system or platform.

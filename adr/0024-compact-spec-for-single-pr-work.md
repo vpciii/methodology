@@ -29,8 +29,9 @@ adopting projects:
 
 So the three-file rule is not being followed for small features, and
 the rule gives no guidance for when that's legitimate. That is drift
-between the document and practice, which the methodology says to
-surface, not paper over (ADR 0008). And the ad-hoc version has a real
+between the document and practice — the kind "Changing this document"
+exists to resolve with an ADR, rather than letting the text and the
+practice go on disagreeing. And the ad-hoc version has a real
 gap: §11 puts a risky change's undo in "`plan.md` Rollout" — with no
 `plan.md`, nothing says where the undo goes.
 
@@ -42,11 +43,18 @@ what the spec and the PR already say, each adding a sign-off round-trip.
 ## Decision
 
 We will allow a **compact spec**: when the whole feature fits in **one
-PR** (the §4 ~300-line guide), `spec.md` alone is enough. It carries two
-optional sections the template gains:
+PR** — as a rule of thumb, under ~300 lines of diff — `spec.md` alone is
+enough. That number already governed PR size in every derived summary
+and template but was missing from §4 itself; this change states it
+there, so the threshold has a canonical source (ADR 0022). The spec
+carries two optional sections the template gains:
 
 - **`## Approach`** — the *how*, at plan altitude (what `plan.md` would
-  have said), including any design decisions made along the way.
+  have said). Once agreed it is not rewritten: decisions made later are
+  **appended as dated entries** beneath it (the shape cif's specs
+  already use), and one that changes the agreed approach materially is
+  re-agreed like any contract change (ADR 0008) — the same visibility a
+  `plan.md` diff would have had.
 - **`## Rollout and undo`** — required whenever §11 would have required
   a `plan.md` Rollout: the flag, migration shape, or documented undo.
 
@@ -101,9 +109,11 @@ and the reworded "How work flows" step when they next touch them.
 
 ## References
 
-- `methodology.md` §2, §11, decision guide, artifact map;
-  `templates/spec/spec.md`; `templates/project-CONTRIBUTING.md`;
-  `templates/global-CLAUDE.md` (same-PR summary rule, ADR 0018).
+- `methodology.md` §2, §4, §11, decision guide, artifact map;
+  `planning.md` Scope; `templates/spec/spec.md`;
+  `templates/project-CONTRIBUTING.md`; the curated summaries
+  `templates/global-CLAUDE.md` and `templates/methodology.mdc` (same-PR
+  rule, ADR 0018 / 0022).
 - ADR 0007 (specs freeze — unchanged here), ADR 0008 (surface drift),
   ADR 0004 (reversible by default — the §11 undo).
 - Evidence: nurturepa/cif `specs/` (8 of 9 single-file);

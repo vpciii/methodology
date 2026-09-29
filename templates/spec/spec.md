@@ -70,8 +70,14 @@ renumber them.
 
 *Only when this spec is the whole feature (it fits in one PR, ADR 0024);
 otherwise delete this section and write `plan.md`.* The *how*, at plan
-altitude — enough that a reviewer can disagree before code is written —
-plus any design decisions made along the way.
+altitude — enough that a reviewer can disagree before code is written.
+It is agreed with the spec. **After sign-off, don't rewrite it:** append
+decisions made along the way as dated entries below, and re-agree any
+that change the approach materially.
+
+### Decisions
+
+- *YYYY-MM-DD* — …
 
 ## Rollout and undo (compact spec only)
 
