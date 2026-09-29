@@ -1,6 +1,6 @@
 # ADR 0025: One-off operations on production get a record
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-09-29
 - **Deciders:** vpc
 
