@@ -13,21 +13,21 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ### Added
 
-- **Operation records for one-off changes to live systems** (ADR 0025)
-  — a data repair, bulk send, or backfill run directly against a live
-  environment gets a record at `operations/YYYY-MM-DD-<slug>/` (new
-  `templates/operation.md`): reviewed before running, guarded (checks
-  its premise, refuses on surprises), dry-run first, rollback by
-  default, and an undo or explicit irreversible callout; a repair during
-  an active incident may be recorded and reviewed straight after. And an
-  out-of-band manual change to production (real user data), once
-  discovered, is an incident under §8.
-  From nurturepa/cif, whose campaigns were filed under `planning/` for
-  want of a home and whose manual production edit behind a data repair
-  never reached §8. Updates §8, §11, the decision guide, the artifact
-  map, `planning.md` Scope, README, and both global summaries.
-  *Adoption: per-project action, forward-only — record the next
-  operation from the template; existing records stay put.*
+- **Operation records for one-off changes to production** (ADR 0025) — a
+  data repair, bulk send, or backfill run directly against production
+  (any environment holding real user data) gets a record at
+  `operations/YYYY-MM-DD-<slug>/` (new `templates/operation.md`):
+  reviewed before running, guarded (checks its premise, refuses on
+  surprises), dry-run first, rollback by default, and an undo or
+  explicit irreversible callout; a repair during an active incident may
+  be recorded and reviewed straight after. And an out-of-band manual
+  change to production (real user data), once discovered, is an incident
+  under §8. From nurturepa/cif, whose campaigns were filed under
+  `planning/` for want of a home and whose manual production edit behind
+  a data repair never reached §8. Updates §8, §11, the decision guide,
+  the artifact map, `planning.md` Scope, README, and both global
+  summaries. *Adoption: per-project action, forward-only — record the
+  next operation from the template; existing records stay put.*
 
 - **Planning skills (trial)** — `experiments/planning-skills/`: Claude
   Code skills driving the `planning.md` practices, one command per

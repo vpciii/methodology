@@ -1,18 +1,19 @@
 # Operation: <short name>
 
 - **Status:** Planned | Run | Aborted
-- **Environment:** e.g. prod / staging / demo
+- **Environment:** e.g. prod, or a demo/training system with real users
 - **Planned:** YYYY-MM-DD
 - **Run:** YYYY-MM-DD (by whom)
 - **Reversible:** Yes — see Undo | **No** — see ADR-NNNN
 
-> A one-off change to a live environment outside the normal deploy path
-> (methodology §11, ADR 0025). File as
-> `operations/YYYY-MM-DD-<slug>/README.md` with its scripts beside it. Reviewed before it runs; **frozen once
-> run** — append to "What happened", never rewrite. A repair made during
-> an active incident may run first and be recorded and reviewed
-> immediately after. If you run this more
-> than once, graduate it to a runbook in `docs/` or build the feature.
+> A one-off change to production — any environment holding real user or
+> customer data — outside the normal deploy path (methodology §11, ADR
+> 0025). File as `operations/YYYY-MM-DD-<slug>/README.md`, dated when
+> planned, with its scripts beside it. Reviewed before it runs; a repair
+> made during an active incident may run first and be recorded and
+> reviewed immediately after. **Frozen once run** — append to "What
+> happened", never rewrite. If you run this more than once, graduate it
+> to a runbook in `docs/` or build the feature.
 
 ## Why
 

@@ -1,4 +1,4 @@
-# ADR 0025: One-off operations on live systems get a record
+# ADR 0025: One-off operations on production get a record
 
 - **Status:** Proposed
 - **Date:** 2026-09-29
@@ -8,7 +8,7 @@
 
 The methodology covers changes that ship through code: a feature gets a
 spec, a decision an ADR, behavior a test, a release a deploy. It says
-nothing about a change made **directly to a live environment outside the
+nothing about a change made **directly to production outside the
 normal deploy path** — a data repair, a bulk send, a backfill, a
 one-time account cleanup. These are real, recurring, and often
 irreversible, and the one live adopter does them regularly.
@@ -45,12 +45,14 @@ fell through a gap between §8 and §11.
 
 ## Decision
 
-We will treat a one-off change to a live environment as an
+We will treat a one-off change to **production** — any environment
+holding real user or customer data (spelled out in rule 3) — as an
 **operation**, with a lightweight record and three rules drawn from
 existing practices. No new machinery.
 
 1. **An operation gets a record** at
-   `operations/YYYY-MM-DD-<slug>/README.md` (template
+   `operations/YYYY-MM-DD-<slug>/README.md` — dated when planned, since
+   the record exists before the run (template
    `templates/operation.md`), with its scripts beside it. The record
    states purpose, environment, pre-flight checks, the exact procedure,
    verification, and the undo — then, after running, what actually
@@ -134,7 +136,7 @@ change is one-off, touches real data or users, or is hard to undo.
 ## Adoption impact
 
 **Per-project action, forward-only.** The next one-off operation on a
-live system is recorded at `operations/YYYY-MM-DD-<slug>/` from
+production system is recorded at `operations/YYYY-MM-DD-<slug>/` from
 `templates/operation.md`; existing records stay where they are. When an
 out-of-band manual change is discovered, run it through §8.
 

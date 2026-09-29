@@ -32,7 +32,7 @@ to your shell profile for terminal use.
 | `templates/planning/{brief,pr-faq,options,bet,premortem}.md` | Planning artifacts for the pre-spec phase (ADR 0010). |
 | `templates/glossary.md` | Ubiquitous-language glossary seed. |
 | `templates/postmortem.md` | Blameless postmortem for a user-visible incident → `docs/postmortems/` (ADR 0016). |
-| `templates/operation.md` | Record for a one-off change to a live environment → `operations/YYYY-MM-DD-<slug>/` (ADR 0025). |
+| `templates/operation.md` | Record for a one-off change to production → `operations/YYYY-MM-DD-<slug>/` (ADR 0025). |
 | `templates/architecture.md` | Current-state architecture overview (kept-honest system shape). |
 | `templates/twelve-factor.md` | Twelve-Factor status checklist (deployable services). |
 | `templates/global-CLAUDE.md` | Canonical source of the always-loaded `~/.claude/CLAUDE.md` summary (ADR 0018). |
