@@ -11,6 +11,19 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+### Changed
+
+- **Global summary: memex is mothballed** — the *personal tooling*
+  section of `templates/global-CLAUDE.md` no longer wires agents to the
+  memex MCP server: memex is mothballed (ADR 0006 in
+  `~/Developer/personal/memex`), so there is no server or hook to look
+  for, and cross-session recall uses Claude Code's built-in auto-memory.
+  The guardrail stays: durable decisions, terms, and structure live only
+  in the repo artifacts (ADR 0022). Brings the template back in line with
+  the deployed `~/.claude/CLAUDE.md`, which had been edited in place.
+  **Not a methodology change.** *Adoption: none — personal wiring;
+  re-copy the template wherever the global summary is deployed.*
+
 ## [0.13.0] - 2026-09-29
 
 ### Added
