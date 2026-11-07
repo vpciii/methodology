@@ -100,18 +100,11 @@ the passing test (for a fix, also the failing run before it), don't
 assert it; re-read a file before you edit it; surface drift you notice
 rather than papering over it.
 
-## Personal tooling — agent memory (memex)
+## Personal tooling — agent memory
 
-*Not part of the shared methodology (`methodology.md` stays tool-agnostic);
-this is my personal wiring — drop it if you copy the methodology.* When the
-**memex** MCP server is connected, use it as cross-session working memory:
-
-- **Starting substantial work:** `mcp__memex__memory_search` (and
-  `memory_get_project`) for relevant prior context before diving in.
-- **Finishing substantial work:** `memory_write` /
-  `memory_summarize_and_store` what's worth recalling later — open threads,
-  gotchas, where things live.
-- **Guardrail — memex is recall, not the record.** Durable decisions, terms,
-  and structure still live in the repo's artifacts (ADRs, glossary, specs,
-  `architecture.md`). memex points at and recalls them; it never becomes a
-  second, un-versioned home for them (single source of truth, ADR 0022).
+*Not part of the shared methodology.* memex is mothballed (ADR 0006 in
+`~/Developer/personal/memex`): there is no memex MCP server or hook — don't
+look for one. Cross-session recall uses Claude Code's built-in auto-memory;
+durable decisions, terms, and structure still live only in the repo's
+artifacts (ADRs, glossary, specs, `architecture.md`) — memory points at
+them, never replaces them (single source of truth, ADR 0022).
