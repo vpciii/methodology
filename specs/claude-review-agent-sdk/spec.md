@@ -49,10 +49,8 @@ to keep in step, which is the drift ADR 0021 exists to prevent.
   that have one keep it on the action.
 - Making the review a required check, or re-reviewing on `synchronize`.
 - Inline (line-anchored) comments: one summary comment per run.
-- Migrating cif onto the shared reviewer. cif is owned by a different
-  account (`nurturepa-vpc`) and cannot call this reusable workflow
-  across accounts (template, prerequisite 3); it keeps its standalone
-  copy.
+- Migrating cif onto the shared reviewer. cif shipped its own copy
+  today and keeps it; moving it onto this one is cif's decision.
 
 ## Requirements
 
@@ -66,8 +64,10 @@ to keep in step, which is the drift ADR 0021 exists to prevent.
   with `permission_mode="dontAsk"`: no shell, no write, no network, no
   GitHub access.
 - **R-4 (MUST)** The agent never posts to GitHub. A separate step posts
-  its final text as one PR comment with the job's `GITHUB_TOKEN`, and no
-  other step receives that token.
+  its final text as one PR comment with the job's `GITHUB_TOKEN`. No
+  other step is passed that token explicitly, and it is never left
+  where the agent can read it (the checkout steps, which receive it by
+  default, do not persist it).
 - **R-5 (MUST)** The job fails when the agent did not produce a
   successful result: an SDK error, an error result subtype (including
   `error_max_turns`, `error_max_budget_usd`), or empty review text.
@@ -232,6 +232,17 @@ comment, and the long header explaining the action's skip behavior.
   - R-14: CI and the review start in parallel, so CI stops a broken
     reviewer reaching callers only if `CI` is a required check on
     `main`. That is a repository setting, outside this spec.
+- *2026-11-09* — From PR #33's third review (run 42692966435,
+  `total_cost_usd` 1.007), with vpc's sign-off on the two wording
+  changes:
+  - R-4 reworded to what is enforced. It said "no other step receives
+    that token", which the checkout steps' default made untrue.
+  - The cif Non-goal no longer gives the cross-account reason, which
+    was wrong (this repo is public). The non-goal itself is unchanged.
+  - New guard, under R-5: the script refuses to write a review that
+    contains the API key. `Read` is not confined to the checkout, so an
+    injected PR could ask for `/proc/self/environ`; the comment is
+    public. Tested in `test_failures_exit_nonzero`.
 - *2026-11-09* — Billing check (Rollout), on PR #33's own review run
   (42690358731, `total_cost_usd` 0.914): promotional credit went $98.87
   → $97.96; purchased credit's drop the same afternoon ($9.59 → $8.21)
