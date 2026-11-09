@@ -24,7 +24,10 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
   `github-actions[bot]`. Inputs: `claude_args` is removed; `max_turns`,
   `max_budget_usd`, `project_docs` and `reviewer_ref` are added. This
   repo gains its first CI workflow, running the reviewer's tests and the
-  spec coverage check. Ported from nurturepa/cif (its ADR 0016).
+  spec coverage check. Ported from nurturepa/cif (its ADR 0016). The
+  workflow's actions move to `actions/checkout@v7` and add
+  `actions/setup-python@v7`. The reviewer relies on this repo being
+  public, so the template's Actions access-setting prerequisite is gone.
   *Adoption: per-project action, optional — callers on `@main` change
   over with no edit; they may then drop `id-token: write` and the Claude
   GitHub App (see `templates/github/claude-review.yml`). A caller that

@@ -62,6 +62,12 @@ both.
   the tests running here on every PR are the guard.
 - Adoption gets simpler: no Claude GitHub App, no `id-token: write`.
   Comments post as `github-actions[bot]`.
+- The reviewer now depends on this repo being **public**: the job
+  checks the script out of `vpciii/methodology` with the caller's
+  token, which cannot read another private repo. ADR 0021 was written
+  when the repo was private; if it goes private again, callers in other
+  repos fail (red) at that checkout until the workflow takes a token
+  for it.
 - The action's skip-as-green failure mode, and the workaround step for
   it, go away.
 
@@ -69,8 +75,10 @@ both.
 
 Callers on `@main` change behavior on merge, with no edit needed;
 callers that pass `claude_args` must switch to the new inputs (none do
-today). The template drops two prerequisites. cif is unaffected: it is
-cross-account and keeps its own copy.
+today). The template drops its prerequisites down to the one secret (the
+Actions access setting applied only while this repo was private). cif
+is unaffected: it keeps its own copy; moving it onto the shared
+reviewer is now possible, and is cif's decision.
 
 ## References
 

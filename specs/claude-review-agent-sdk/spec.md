@@ -198,6 +198,20 @@ comment, and the long header explaining the action's skip behavior.
   `claude-code-action` and `id-token` anywhere in the reusable workflow,
   this repo's caller and the template, comments included, so the old
   runner cannot come back unnoticed.
+- *2026-11-09* — From PR #33's own review (the new reviewer's first
+  live run, `total_cost_usd` 0.914):
+  - Approach 2 says the reviewer is checked out into `$RUNNER_TEMP`. As
+    built it is `path: reviewer`, beside the repo under review (`path:
+    pr`) in the workspace, the only place `actions/checkout` can write.
+  - Trust boundary, stated explicitly: `Read` and `Glob` are not
+    confined to the agent's `cwd`, so it can also read the reviewer
+    script and the event payload. Neither holds a secret.
+  - The script runs the agent with `asyncio.run`, not `anyio`, so it
+    imports nothing that R-9's pin does not cover.
+  - The reason Non-goals gives for leaving cif alone is wrong: this repo
+    is public, so a cross-account caller works, and the reviewer
+    checkout relies on that (ADR 0026, Consequences). The non-goal
+    stands; the template's old access-setting prerequisite is removed.
 - *2026-11-09* — Billing check (Rollout) is still to be recorded: it
   needs the implementation PR's own review run. It is a manual check,
   not a criterion, so it is recorded in the PR and CHANGELOG rather than

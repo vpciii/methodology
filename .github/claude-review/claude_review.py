@@ -306,8 +306,9 @@ def main(argv=None, runner=None):
         options = build_options(args.model, repo, args.max_turns,
                                 args.max_budget_usd)
         if runner is None:
-            import anyio
-            text, cost = anyio.run(run_review, prompt, options)
+            # asyncio, not anyio: no direct import of an unpinned package.
+            import asyncio
+            text, cost = asyncio.run(run_review(prompt, options))
         else:
             text, cost = runner(prompt, options)
     except Exception as exc:  # ReviewFailed, or anything the SDK raises
