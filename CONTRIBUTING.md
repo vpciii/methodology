@@ -41,7 +41,10 @@ Two workflows run on a PR:
   opened or marked ready (ADR 0021, ADR 0026). It costs about a dollar a
   run. Put `[skip-review]` in the PR title for a change with nothing to
   review, such as a release. It does not re-run on later pushes; to run
-  it again, convert the PR to draft and mark it ready.
+  it again, convert the PR to draft and mark it ready. Triage its
+  findings in a PR comment (must fix / record / decline); a review is
+  finished when the must-fix ones are closed, and one re-review is the
+  default (ADR 0028).
 
 ## Changing a practice
 
