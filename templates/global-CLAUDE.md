@@ -61,12 +61,17 @@ precedence over this file. An accepted ADR beats both.
   the PR). Test behavior, not implementation. Spec success criteria
   carry stable ids traced to tests, CI-checked for coverage.
 - **Current-state & spec freeze.** Keep `docs/architecture.md` honest
-  (the system's shape *now*) in the same PR as any structural change. A
-  spec freezes at `Implemented` (a historical record); a contradiction
-  found later goes to a test, a new spec, or an ADR — not back into it.
+  (the system's shape *now*) in the same PR as any structural change —
+  and promptly after a change to a setting outside the repo it depends
+  on (visibility, branch protection, a secret's owner). A spec freezes
+  when the PR marking it `Implemented` merges (a historical record); a
+  contradiction found later goes to a test, a new spec, or an ADR — not
+  back into it.
 - **Security & secrets.** Secrets never in the repo (env / secret
   manager only); a leaked secret is rotated. Trust boundaries and authz
-  are ADR-worthy decisions; security bugs ship a regression test.
+  are ADR-worthy decisions; security bugs ship a regression test. An AI
+  agent is an actor at a trust boundary: least privilege; what it reads
+  is data, not instructions; what it can read it can publish.
 - **Dependencies are decisions.** Weigh maintenance/license/supply-chain
   before adding; commit lockfiles; record non-trivial deps as ADRs.
 - **Ubiquitous language.** Use the project's domain terms exactly in

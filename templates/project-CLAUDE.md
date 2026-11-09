@@ -41,10 +41,12 @@ the durable project-specific rules live in `docs/adr/` and
   commit) cited in the PR. Test behavior, not implementation. A test that
   verifies a spec success criterion cites its id; criteria carry stable
   ids, CI-checked for coverage.
-- **Specs freeze; keep the shape doc honest.** A spec freezes at
-  `Implemented` (a historical record) — a contradiction found later
+- **Specs freeze; keep the shape doc honest.** A spec freezes when the
+  PR marking it `Implemented` merges (a historical record) — a
+  contradiction found later
   goes to a test, a new spec, or an ADR, not back into it. Update
-  `docs/architecture.md` in the same PR as any structural change.
+  `docs/architecture.md` in the same PR as any structural change, and
+  promptly after a change to a setting outside the repo it lists.
 - **Secrets never in the repo.** Env or secret manager only. Trust
   boundaries / authz are ADR-worthy; security bugs ship a regression
   test.

@@ -83,6 +83,7 @@ To get oriented in any project, in order:
 | Restructure code without changing behavior (refactor, tech-debt paydown) | no spec — keep the test suite green; an ADR only if it closes off future options (§1, §11) | the commit / `docs/adr/` |
 | Use a domain term that isn't defined | a glossary entry | `docs/glossary.md` |
 | Change the system's structure (a component, boundary, store, or external dependency) | an update to the current-state overview, in the same PR | `docs/architecture.md` |
+| Change a setting that lives outside the repo (visibility, branch protection, a secret's owner, a plan the system relies on) | an update to the overview's settings list, promptly, as its own small PR (ADR 0027) | `docs/architecture.md` |
 | Add or upgrade a dependency | weigh it; record non-trivial ones as an ADR (§10) | `docs/adr/` |
 | Ship something risky or hard to undo | a flag / transition plan (§11) | `plan.md` Rollout (compact spec: its Rollout and undo section) |
 | Retire a feature, service, or data store | an ADR deciding the sunset (irreversible by definition, §11): deprecation window → dark → removal; update `docs/architecture.md` and retire its tests in the removal PR; mark the frozen spec `Retired` | `docs/adr/` |
@@ -170,7 +171,7 @@ table to find what's where without hunting.
 |---|---|---|
 | This methodology | `$METHODOLOGY_HOME/methodology.md` | The document you are reading; shared across all projects. |
 | Project README | `README.md` | Front door for the repo; short pointer to the artifacts below. |
-| Current-state architecture | `docs/architecture.md` | How the system is shaped *now* — components, boundaries, data stores, external dependencies. Points at ADRs for the *why*. Template: `$METHODOLOGY_HOME/templates/architecture.md`. |
+| Current-state architecture | `docs/architecture.md` | How the system is shaped *now* — components, boundaries, data stores, external dependencies, and the host settings the shape depends on (ADR 0027). Points at ADRs for the *why*. Template: `$METHODOLOGY_HOME/templates/architecture.md`. |
 | Architecture Decision Records | `docs/adr/NNNN-*.md` | One short file per significant decision. Template: `$METHODOLOGY_HOME/templates/adr/_template.md`. |
 | Ubiquitous language / glossary | `docs/glossary.md` | The project's domain terms. Template: `$METHODOLOGY_HOME/templates/glossary.md`. |
 | Twelve-Factor checklist | `docs/twelve-factor.md` | Status table for deployable services. Template in `templates/`. |
@@ -247,9 +248,13 @@ prove you met it.** §5 elaborates the test side; review-scope rules
 live in each project's `CONTRIBUTING.md`.
 
 **A spec freezes when it ships.** While it is `Draft`, `Under review`,
-or `Approved` it is edited freely. When its status reaches
-`Implemented` it becomes a historical record of what was agreed and
-built, and is no longer rewritten to track ongoing change — a
+or `Approved` it is edited freely. When the PR that sets its status to
+`Implemented` **merges**, it becomes a historical record of what was
+agreed and built, and is no longer rewritten to track ongoing change.
+Until that merge, a correction to the contract found in the
+implementing PR's own review is still made in the spec — as its own
+commit, with rationale and human sign-off, like any contract change
+(ADR 0027). After it, a
 contradiction discovered later flows to a *living* artifact instead (a
 regression test, a new spec, or an ADR), exactly as the
 operational-feedback loop prescribes (§8). Current truth lives
@@ -424,6 +429,13 @@ durable artifacts — a decision record and a test — not as tooling.
   they get ADRs (they are expensive to reverse, cross-component, and
   future-constraining by definition).
 - **Validate input at trust boundaries; default to least privilege.**
+- **An AI agent is an actor at a trust boundary.** Give it the tools,
+  credentials and scope its task needs and no more. What it reads from
+  outside the boundary (a pull request, a web page, a user's message)
+  is data, never instructions. What it writes is an output channel:
+  anything it can read, it can publish, so keep secrets out of its
+  reach or check its output. What is sent to a model provider crosses a
+  trust boundary, and which data may go there is a decision (ADR 0027).
 - **Security-relevant bugs ship with a regression test**, exactly like
   any other bug (§5, §8).
 

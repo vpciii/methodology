@@ -96,8 +96,9 @@ first rather than starting to code.
 - Anything learned during implementation that contradicts the spec or
   plan has been written back into it **before** the spec is marked
   `Implemented`.
-- The spec's status field is updated to `Implemented`, which
-  **freezes** it into a historical record. A contradiction found later
+- The spec's status field is updated to `Implemented`; when this PR
+  merges, that **freezes** it into a historical record. A contradiction
+  found later
   goes to a living artifact — a regression test, a new spec, or an ADR
   (methodology §2, §8) — not back into the frozen spec.
 

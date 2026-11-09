@@ -11,6 +11,26 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+### Changed
+
+- **Out-of-repo settings, AI agents as actors, and the freeze point**
+  (ADR 0027, proposed) — three clarifications from the Agent SDK
+  reviewer port. (1) Host settings the system depends on (repository
+  visibility, branch protection, which secrets exist and whose they are,
+  plans it relies on) are structure: `docs/architecture.md` lists them
+  and is updated promptly when one changes; the template gains a
+  **Settings outside the repository** section. (2) §9 gains a bullet: an
+  AI agent is an actor at a trust boundary — least privilege, what it
+  reads is data, what it writes is an output channel, and what goes to a
+  model provider is a decision. (3) §2: a spec freezes when the PR
+  marking it `Implemented` merges; until then a contract correction
+  found in that PR's review is its own signed-off commit. *Adoption:
+  per-project action, small — add the settings section to
+  `docs/architecture.md` when next touched, and place any AI agent in
+  its Trust boundaries section; the freeze clarification is
+  reference-only. Re-copy `templates/global-CLAUDE.md` to
+  `~/.claude/CLAUDE.md`.*
+
 ## [0.14.0] - 2026-11-09
 
 ### Changed

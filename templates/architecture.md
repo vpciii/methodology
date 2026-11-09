@@ -55,9 +55,25 @@ on. Each significant one should trace to a dependency ADR
 ## Trust boundaries
 
 Where untrusted input enters and where authorization is enforced
-(methodology §9). Each boundary should trace to an ADR.
+(methodology §9). Each boundary should trace to an ADR. Include any AI
+agent that runs against the system: what it can reach, what it reads
+from outside the boundary, and where its output goes (ADR 0027).
 
 - … — ADR-NNNN.
+
+## Settings outside the repository
+
+Host and platform settings the system's shape or safety depends on.
+No PR carries a change to one, so update this list promptly when one
+changes (methodology ADR 0027). Names and ownership only — never a
+secret's value.
+
+| Setting | Current value | Depends on it |
+|---|---|---|
+| Repository visibility | public / private | … |
+| Branch protection on `main` | required checks, who may bypass | … |
+| Secrets | which exist, whose account each belongs to | … |
+| Plans / billing the system relies on | … | … |
 
 ## Shape-defining decisions
 
