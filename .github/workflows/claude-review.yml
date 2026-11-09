@@ -84,8 +84,10 @@ jobs:
           # The pull_request merge commit and its base parent, so the script
           # can diff HEAD^1..HEAD without a token.
           fetch-depth: 2
-          # Keep the job token out of .git/config, where the agent's Read
-          # tool could otherwise reach it.
+          # actions/checkout is handed the job token by default (its `token`
+          # input), here and in the next step. Keep it out of .git/config,
+          # where the agent's Read tool could otherwise reach it: with this
+          # off, the token is used for the fetch and never written to disk.
           persist-credentials: false
 
       - name: Checkout the reviewer

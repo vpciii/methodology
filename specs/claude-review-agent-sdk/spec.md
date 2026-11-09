@@ -3,7 +3,7 @@
 - **Status:** Implemented
 - **Date:** 2026-11-09
 - **Author:** vpc (author of record); drafted with Claude
-- **Related ADRs:** ADR 0026 (this decision, proposed), ADR 0021 (the
+- **Related ADRs:** ADR 0026 (this decision), ADR 0021 (the
   shared reviewer), ADR 0024 (compact spec), ADR 0003 (dependencies)
 
 > Compact spec (ADR 0024): the Approach and Rollout sections below
@@ -219,6 +219,19 @@ comment, and the long header explaining the action's skip behavior.
   `reviewer_ref` cost. Not taken up: giving `reviewer_ref` its own
   requirement id, and dropping `docs/conventions.md` from the default
   docs (a missing doc is skipped).
+- *2026-11-09* — From PR #33's second review (run 42691718938, which
+  also confirmed the `asyncio` change live, `total_cost_usd` 1.095):
+  - R-4 as built: `actions/checkout` is given the job token by default,
+    so the two checkout steps receive it as well as the posting step.
+    It is never written to disk (`persist-credentials: false`), so the
+    agent still cannot reach it. SC-5's test checks the token is not
+    passed explicitly to any other step; it cannot see that default.
+  - Approach 6: this repo's caller uses the PR head's script only for
+    same-repo branches. A fork PR gets `main`'s, so the script that
+    refuses to run without the key is the trusted one.
+  - R-14: CI and the review start in parallel, so CI stops a broken
+    reviewer reaching callers only if `CI` is a required check on
+    `main`. That is a repository setting, outside this spec.
 - *2026-11-09* — Billing check (Rollout), on PR #33's own review run
   (42690358731, `total_cost_usd` 0.914): promotional credit went $98.87
   → $97.96; purchased credit's drop the same afternoon ($9.59 → $8.21)

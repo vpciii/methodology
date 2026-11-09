@@ -219,6 +219,13 @@ def test_workflow_shape():
         assert "types: [opened, ready_for_review]" in body, caller.name
         assert "id-token" not in body, caller.name
         assert "claude-review.yml" in body, caller.name
+    # This repo's caller runs a PR's own script only for same-repo
+    # branches; a fork PR gets main's.
+    self_caller = SELF_CALLER.read_text(encoding="utf-8")
+    assert re.search(r"head\.repo\.fork == false\s+&& "
+                     r"github\.event\.pull_request\.head\.sha \|\| 'main'",
+                     self_caller), "fork PRs are not sent to main's script"
+
     # R-15: the template's prerequisites and its billing caveat.
     template = TEMPLATE.read_text(encoding="utf-8")
     assert "apps/claude" not in template, "GitHub App prerequisite is back"
