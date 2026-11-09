@@ -1,7 +1,8 @@
 # Deterministic checks for the methodology repo itself (ADR 0026, R-14).
 # The shared reviewer's tests run here, so a change that breaks the reviewer
-# fails this check before the broken reviewer is called by anyone; the spec
-# coverage check holds this repo's own specs to methodology §5.
+# fails this check before the broken reviewer is called by anyone; the ADR
+# check catches two ADRs taking the same number; the spec coverage check
+# holds this repo's own specs to methodology §5.
 name: CI
 
 on:
@@ -26,6 +27,12 @@ jobs:
 
       - name: Shared reviewer tests
         run: python .github/claude-review/test_claude_review.py
+
+      - name: ADR check tests
+        run: python .github/checks/test_check_adrs.py
+
+      - name: ADR numbers and titles
+        run: python .github/checks/check_adrs.py
 
       - name: Spec coverage
         run: python templates/ci/check-spec-coverage.py

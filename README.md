@@ -43,7 +43,9 @@ to your shell profile for terminal use.
 | `templates/github/claude-review.yml` | Caller workflow a project copies to adopt the shared Claude PR reviewer (ADR 0021). |
 | `.github/workflows/claude-review.yml` | The shared, reusable PR reviewer that callers run (ADR 0021), driven by the Claude Agent SDK (ADR 0026). |
 | `.github/claude-review/` | The reviewer's script and its tests (`specs/claude-review-agent-sdk/`). |
-| `.github/workflows/ci.yml` | This repo's own checks: the reviewer's tests and spec coverage. |
+| `.github/workflows/ci.yml` | This repo's own checks: the reviewer's tests, the ADR checks, and spec coverage. |
+| `.github/checks/` | The ADR number-and-title check and its tests. |
+| `CONTRIBUTING.md` | How changes to *this repo* are made: PR flow, proposing an ADR, releasing. Commit labels, ready/done and review scope come from `templates/project-CONTRIBUTING.md`. |
 | `specs/<slug>/` | Specs for work on *this repo itself*. |
 | `experiments/planning-skills/` | **Trial** (not a ratified practice): Claude Code skills driving the `planning.md` practices — one command per artifact (`plan-brief`, `plan-prfaq`, `plan-options`, `plan-bet`, `plan-premortem`, `plan-handoff`), each reading/writing only the canonical `planning/<slug>/` artifacts. Under evaluation on 2–3 real bets; graduates to `templates/` + an ADR or gets deleted. |
 | `experiments/adversarial-review/` | **Trial** (not a ratified practice): cross-model adversarial review — an *adversary model* (different from the author model) refutes the author model's work. Role-based and model-agnostic; a single roster names today's models (currently Claude as author, Antigravity / Gemini as adversary). A manual process under evaluation; graduates to an ADR or gets deleted. |
