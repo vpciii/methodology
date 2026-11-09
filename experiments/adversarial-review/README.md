@@ -91,8 +91,9 @@ than one repo.
 **That graduating ADR generalizes *both* review roles to be
 model-agnostic — by deliberate, deferred decision.** The author-model
 reviewer ([ADR 0021](../../adr/0021-shared-claude-pr-review-workflow.md))
-is today vendor-bound in CI (`anthropics/claude-code-action`, the
-`ANTHROPIC_API_KEY` secret, the Claude GitHub App); its review *prompt*
+is today vendor-bound in CI (the Claude Agent SDK since
+[ADR 0026](../../adr/0026-shared-reviewer-on-agent-sdk.md), and the
+`ANTHROPIC_API_KEY` secret); its review *prompt*
 is already model-neutral, but its *binding* is not. Rather than refactor
 that live, cross-repo CI path now — and churn it twice — the graduating
 ADR reworks both reviewers together on the same pattern:
@@ -101,8 +102,8 @@ ADR reworks both reviewers together on the same pattern:
   one prompt, no vendor assumptions (both the author-model prompt above
   and the adversary prompt already meet this).
 - **Each provider is a thin, swappable binding** that feeds that policy
-  to a concrete action — today an *author-model binding* (Claude,
-  `claude-code-action`) and an *adversary-model binding* (Gemini,
+  to a concrete runner — today an *author-model binding* (Claude, the
+  Agent SDK script in `.github/claude-review/`) and an *adversary-model binding* (Gemini,
   [`run-gemini-cli`](https://github.com/google-github-actions/run-gemini-cli)
   or the Antigravity **`agy`** CLI headless with an API key). Swapping or
   upgrading either model is a one-binding edit; the policy is untouched.

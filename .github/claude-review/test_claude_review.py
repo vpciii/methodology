@@ -168,6 +168,27 @@ def test_failures_exit_nonzero():
         assert code != 0, label
         assert text is None, label
 
+    # A review that contains the API key is never written (so never
+    # posted), and the error does not echo it.
+    leaked = "Looks fine.\nANTHROPIC_API_KEY=sk-test-secret-123\n"
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "review.md"
+        argv = ["--model", MODEL_1M, "--repo", str(REPO_ROOT),
+                "--docs", "README.md", "--event", str(write_event(tmp)),
+                "--out", str(out)]
+        real_read_diff, stderr = cr.read_diff, io.StringIO()
+        cr.read_diff = lambda root: "d"
+        try:
+            with api_key("sk-test-secret-123"), \
+                    contextlib.redirect_stderr(stderr), \
+                    contextlib.redirect_stdout(io.StringIO()):
+                code = cr.main(argv, runner=lambda p, o: cr.check_result(
+                    good_result(leaked), MODEL_1M))
+        finally:
+            cr.read_diff = real_read_diff
+        assert code != 0 and not out.exists(), "leaked key was written"
+        assert "sk-test-secret-123" not in stderr.getvalue()
+
     def sdk_raises(prompt, options):
         raise RuntimeError("CLI process exited with code 1")
 

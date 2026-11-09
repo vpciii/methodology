@@ -206,6 +206,19 @@ def check_result(message, model):
     return text, getattr(message, "total_cost_usd", None)
 
 
+def check_no_secret(text, secret):
+    """Refuse to post a review that contains the API key.
+
+    Read is not confined to the checkout, and on Linux a process's
+    environment is a file (/proc/self/environ), so an injected PR could
+    ask the agent to print the key. The review is posted as a comment,
+    where log masking does not apply. The error never echoes the text.
+    """
+    if secret and secret in text:
+        raise ReviewFailed("the review text contains the API key; not"
+                           " posting it. Rotate the key")
+
+
 def read_pr(event_path):
     """Title, body, number and refs from the pull_request event payload."""
     event = json.loads(Path(event_path).read_text(encoding="utf-8"))
@@ -311,6 +324,7 @@ def main(argv=None, runner=None):
             text, cost = asyncio.run(run_review(prompt, options))
         else:
             text, cost = runner(prompt, options)
+        check_no_secret(text, os.environ["ANTHROPIC_API_KEY"])
     except Exception as exc:  # ReviewFailed, or anything the SDK raises
         print("::error::Claude review did not run: %s: %s — this PR was"
               " NOT reviewed" % (type(exc).__name__, exc), file=sys.stderr)
