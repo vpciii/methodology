@@ -1,7 +1,9 @@
 # Architecture — <Project name>
 
 - **Updated:** YYYY-MM-DD — changes in the **same PR** as the structure
-  it describes (methodology §2; ADR 0005, 0007).
+  it describes (methodology §2; ADR 0005, 0007). The one exception is
+  *Settings outside the repository* below: no PR carries those changes,
+  so that section is updated promptly after one (ADR 0027).
 
 A short, current-state overview of how the system is shaped **now**.
 This is a *navigational* document, not a decision log: it says *what*
@@ -55,9 +57,25 @@ on. Each significant one should trace to a dependency ADR
 ## Trust boundaries
 
 Where untrusted input enters and where authorization is enforced
-(methodology §9). Each boundary should trace to an ADR.
+(methodology §9). Each boundary should trace to an ADR. Include any AI
+agent that runs against the system: what it can reach, what it reads
+from outside the boundary, and where its output goes (ADR 0027).
 
 - … — ADR-NNNN.
+
+## Settings outside the repository
+
+Host and platform settings the system's shape or safety depends on.
+No PR carries a change to one, so update this list promptly when one
+changes (methodology ADR 0027). Names and ownership only — never a
+secret's value.
+
+| Setting | Current value | Depends on it |
+|---|---|---|
+| Repository visibility | public / private | … |
+| Branch protection on `main` | required checks, who may bypass | … |
+| Secrets | which exist, whose account each belongs to | … |
+| Plans / billing the system relies on | … | … |
 
 ## Shape-defining decisions
 

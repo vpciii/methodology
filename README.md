@@ -49,6 +49,19 @@ to your shell profile for terminal use.
 | `experiments/adversarial-review/` | **Trial** (not a ratified practice): cross-model adversarial review — an *adversary model* (different from the author model) refutes the author model's work. Role-based and model-agnostic; a single roster names today's models (currently Claude as author, Antigravity / Gemini as adversary). A manual process under evaluation; graduates to an ADR or gets deleted. |
 | `adr/NNNN-*.md` | Decisions about *this methodology itself*. |
 
+## Settings outside the repository
+
+Host settings this repo's shape depends on (ADR 0027). No PR carries a
+change to one, so this list is updated promptly after it. This repo is
+documents and one CI workflow, so the list lives here rather than in a
+`docs/architecture.md`.
+
+| Setting | Current value (as of 2026-11-09) | Depends on it |
+|---|---|---|
+| Repository visibility | Public | Any repo, in any account, can call the shared reviewer, and its job checks the review script out of this repo without a token (ADR 0026). |
+| Branch protection on `main` | Requires the `checks` status (the `CI` workflow); applies to admins; no force pushes or deletions | Every change, releases included, goes through a PR. A broken reviewer cannot merge past its tests. |
+| Secret `ANTHROPIC_API_KEY` | From vpc's individual Anthropic org, the one that receives the Max plan's monthly promotional API credit | This repo's reviews are paid from that credit, not purchased credit (ADR 0026). |
+
 ## How it's wired in globally
 
 - **Claude:** `~/.claude/CLAUDE.md` (global memory, loaded in every

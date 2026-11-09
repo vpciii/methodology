@@ -94,10 +94,13 @@ first rather than starting to code.
   least one success criterion, so it inherits a test; the Traceability
   table records the `R-… → SC-… → test` chain (methodology §5, ADR 0011).
 - Anything learned during implementation that contradicts the spec or
-  plan has been written back into it **before** the spec is marked
-  `Implemented`.
-- The spec's status field is updated to `Implemented`, which
-  **freezes** it into a historical record. A contradiction found later
+  plan has been written back into it **before this PR merges**. A
+  change to a requirement, a success criterion, or an agreed Approach is
+  its own commit, with rationale and the human's sign-off — never folded
+  into an implementation commit (methodology §2, ADR 0027).
+- The spec's status field is updated to `Implemented`; when this PR
+  merges, that **freezes** it into a historical record. A contradiction
+  found later
   goes to a living artifact — a regression test, a new spec, or an ADR
   (methodology §2, §8) — not back into the frozen spec.
 
@@ -123,7 +126,8 @@ ADR 0015 — kept short on purpose):
 
 - **Spec conformance** — the diff does what the spec/task says, and no
   more; requirements and success criteria were not quietly rewritten
-  to match the code (methodology "agent guardrails").
+  to match the code (methodology "agent guardrails"). A contract
+  correction made in this PR is its own signed-off commit (ADR 0027).
 - **Test honesty** — new behavior is covered; a bug fix shows its
   red→green evidence (below); tests assert behavior, not
   implementation, and would actually fail if the behavior broke.
