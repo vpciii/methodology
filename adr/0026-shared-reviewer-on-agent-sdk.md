@@ -1,6 +1,6 @@
 # ADR 0026: The shared Claude PR reviewer runs on the Agent SDK
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-09
 - **Deciders:** vpc
 - **Supersedes (in part):** ADR 0021 — its choice of
@@ -62,15 +62,32 @@ both.
   the tests running here on every PR are the guard.
 - Adoption gets simpler: no Claude GitHub App, no `id-token: write`.
   Comments post as `github-actions[bot]`.
+- The reviewer now depends on this repo being **public**: the job
+  checks the script out of `vpciii/methodology` with the caller's
+  token, which cannot read another private repo. ADR 0021 was written
+  when the repo was private; if it goes private again, callers in other
+  repos fail (red) at that checkout until the workflow takes a token
+  for it.
 - The action's skip-as-green failure mode, and the workaround step for
-  it, go away.
+  it, go away. So does the guard behind it: the action refused to run
+  when a PR changed the caller workflow, which kept a same-repo branch
+  from rewriting the review to leak the key. Now such a PR runs its own
+  copy with the key in the environment. This repo's local-path caller
+  was never covered; for other callers it is a real reduction, bounded
+  only by who can push branches to their repo.
+- `reviewer_ref` defaults to `main`, so a caller that pins the workflow
+  to a tag still runs `main`'s script unless it passes the same tag as
+  `reviewer_ref`. Accepted (spec, Open questions): callers use `@main`
+  today, and the template says to keep the two in step.
 
 ## Adoption impact
 
 Callers on `@main` change behavior on merge, with no edit needed;
 callers that pass `claude_args` must switch to the new inputs (none do
-today). The template drops two prerequisites. cif is unaffected: it is
-cross-account and keeps its own copy.
+today). The template drops its prerequisites down to the one secret (the
+Actions access setting applied only while this repo was private). cif
+is unaffected: it keeps its own copy; moving it onto the shared
+reviewer is now possible, and is cif's decision.
 
 ## References
 

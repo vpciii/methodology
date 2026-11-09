@@ -1,6 +1,7 @@
 # ADR 0021: A shared, methodology-aware Claude PR review workflow
 
-- **Status:** Accepted
+- **Status:** Accepted — superseded in part by ADR 0026 (the runner:
+  the Agent SDK replaces `anthropics/claude-code-action`)
 - **Date:** 2026-06-11
 - **Deciders:** vpc
 

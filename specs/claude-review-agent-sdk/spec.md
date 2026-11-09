@@ -1,9 +1,9 @@
 # Spec: The shared Claude PR reviewer runs on the Agent SDK
 
-- **Status:** Approved
+- **Status:** Implemented
 - **Date:** 2026-11-09
 - **Author:** vpc (author of record); drafted with Claude
-- **Related ADRs:** ADR 0026 (this decision, proposed), ADR 0021 (the
+- **Related ADRs:** ADR 0026 (this decision), ADR 0021 (the
   shared reviewer), ADR 0024 (compact spec), ADR 0003 (dependencies)
 
 > Compact spec (ADR 0024): the Approach and Rollout sections below
@@ -49,10 +49,8 @@ to keep in step, which is the drift ADR 0021 exists to prevent.
   that have one keep it on the action.
 - Making the review a required check, or re-reviewing on `synchronize`.
 - Inline (line-anchored) comments: one summary comment per run.
-- Migrating cif onto the shared reviewer. cif is owned by a different
-  account (`nurturepa-vpc`) and cannot call this reusable workflow
-  across accounts (template, prerequisite 3); it keeps its standalone
-  copy.
+- Migrating cif onto the shared reviewer. cif shipped its own copy
+  today and keeps it; moving it onto this one is cif's decision.
 
 ## Requirements
 
@@ -66,8 +64,10 @@ to keep in step, which is the drift ADR 0021 exists to prevent.
   with `permission_mode="dontAsk"`: no shell, no write, no network, no
   GitHub access.
 - **R-4 (MUST)** The agent never posts to GitHub. A separate step posts
-  its final text as one PR comment with the job's `GITHUB_TOKEN`, and no
-  other step receives that token.
+  its final text as one PR comment with the job's `GITHUB_TOKEN`. No
+  other step is passed that token explicitly, and it is never left
+  where the agent can read it (the checkout steps, which receive it by
+  default, do not persist it).
 - **R-5 (MUST)** The job fails when the agent did not produce a
   successful result: an SDK error, an error result subtype (including
   `error_max_turns`, `error_max_budget_usd`), or empty review text.
@@ -190,6 +190,64 @@ comment, and the long header explaining the action's skip behavior.
 - *2026-11-09* — Port from cif rather than redesign: cif's version has
   run live, with its billing verified on the Billing page (the Console's
   "Claude Code usage" analytics counts SDK runs as Claude Code anyway).
+- *2026-11-09* — Approved by vpc with the three open questions resolved
+  as proposed.
+- *2026-11-09* — As built: the tests are ten plain-python functions (the
+  nine criteria plus cif's long-diff cost guard), run by the new
+  `.github/workflows/ci.yml`. The SC-5 test also forbids the strings
+  `claude-code-action` and `id-token` anywhere in the reusable workflow,
+  this repo's caller and the template, comments included, so the old
+  runner cannot come back unnoticed.
+- *2026-11-09* — From PR #33's own review (the new reviewer's first
+  live run, `total_cost_usd` 0.914):
+  - Approach 2 says the reviewer is checked out into `$RUNNER_TEMP`. As
+    built it is `path: reviewer`, beside the repo under review (`path:
+    pr`) in the workspace, the only place `actions/checkout` can write.
+  - Trust boundary, stated explicitly: `Read` and `Glob` are not
+    confined to the agent's `cwd`, so it can also read the reviewer
+    script and the event payload. Neither holds a secret.
+  - The script runs the agent with `asyncio.run`, not `anyio`, so it
+    imports nothing that R-9's pin does not cover.
+  - The reason Non-goals gives for leaving cif alone is wrong: this repo
+    is public, so a cross-account caller works, and the reviewer
+    checkout relies on that (ADR 0026, Consequences). The non-goal
+    stands; the template's old access-setting prerequisite is removed.
+- *2026-11-09* — From PR #32's review (the last run of the old
+  action): the tests also assert the template's prerequisites and
+  billing caveat (R-15) and the `reviewer_ref` input and its default;
+  ADR 0026's Consequences records the lost caller-edit guard and the
+  `reviewer_ref` cost. Not taken up: giving `reviewer_ref` its own
+  requirement id, and dropping `docs/conventions.md` from the default
+  docs (a missing doc is skipped).
+- *2026-11-09* — From PR #33's second review (run 42691718938, which
+  also confirmed the `asyncio` change live, `total_cost_usd` 1.095):
+  - R-4 as built: `actions/checkout` is given the job token by default,
+    so the two checkout steps receive it as well as the posting step.
+    It is never written to disk (`persist-credentials: false`), so the
+    agent still cannot reach it. SC-5's test checks the token is not
+    passed explicitly to any other step; it cannot see that default.
+  - Approach 6: this repo's caller uses the PR head's script only for
+    same-repo branches. A fork PR gets `main`'s, so the script that
+    refuses to run without the key is the trusted one.
+  - R-14: CI and the review start in parallel, so CI stops a broken
+    reviewer reaching callers only if `CI` is a required check on
+    `main`. That is a repository setting, outside this spec.
+- *2026-11-09* — From PR #33's third review (run 42692966435,
+  `total_cost_usd` 1.007), with vpc's sign-off on the two wording
+  changes:
+  - R-4 reworded to what is enforced. It said "no other step receives
+    that token", which the checkout steps' default made untrue.
+  - The cif Non-goal no longer gives the cross-account reason, which
+    was wrong (this repo is public). The non-goal itself is unchanged.
+  - New guard, under R-5: the script refuses to write a review that
+    contains the API key. `Read` is not confined to the checkout, so an
+    injected PR could ask for `/proc/self/environ`; the comment is
+    public. Tested in `test_failures_exit_nonzero`.
+- *2026-11-09* — Billing check (Rollout), on PR #33's own review run
+  (42690358731, `total_cost_usd` 0.914): promotional credit went $98.87
+  → $97.96; purchased credit's drop the same afternoon ($9.59 → $8.21)
+  matches PR #32's review, which ran on the old action. So this repo's
+  key belongs to the credited org, and Goal 1 holds here.
 
 ## Rollout and undo
 
@@ -232,16 +290,14 @@ irreversible.
 
 ## Traceability
 
-Filled in by the implementation PR.
-
 | Criterion | Requirement(s) | Verified by (test) |
 |---|---|---|
-| SC-1 | R-2, R-3, R-6 | — |
-| SC-2 | R-4, R-10 | — |
-| SC-3 | R-5 | — |
-| SC-4 | R-1 | — |
-| SC-5 | R-4, R-6, R-7, R-8, R-9, R-15 | — |
-| SC-6 | R-11 | — |
-| SC-7 | R-12 | — |
-| SC-8 | R-13 | — |
-| SC-9 | R-14 | — |
+| SC-1 | R-2, R-3, R-6 | `.github/claude-review/test_claude_review.py::test_options_are_locked_down` |
+| SC-2 | R-4, R-10 | `.github/claude-review/test_claude_review.py::test_success_writes_review` |
+| SC-3 | R-5 | `.github/claude-review/test_claude_review.py::test_failures_exit_nonzero` |
+| SC-4 | R-1 | `.github/claude-review/test_claude_review.py::test_requires_api_key` |
+| SC-5 | R-4, R-6, R-7, R-8, R-9, R-15 | `.github/claude-review/test_claude_review.py::test_workflow_shape` |
+| SC-6 | R-11 | `.github/claude-review/test_claude_review.py::test_prompt_includes_project_docs` |
+| SC-7 | R-12 | `.github/claude-review/test_claude_review.py::test_unexpected_tools_abort` |
+| SC-8 | R-13 | `.github/claude-review/test_claude_review.py::test_small_context_window_fails` |
+| SC-9 | R-14 | `.github/claude-review/test_claude_review.py::test_ci_runs_reviewer_tests_and_coverage` |
