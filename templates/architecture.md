@@ -1,7 +1,9 @@
 # Architecture — <Project name>
 
 - **Updated:** YYYY-MM-DD — changes in the **same PR** as the structure
-  it describes (methodology §2; ADR 0005, 0007).
+  it describes (methodology §2; ADR 0005, 0007). The one exception is
+  *Settings outside the repository* below: no PR carries those changes,
+  so that section is updated promptly after one (ADR 0027).
 
 A short, current-state overview of how the system is shaped **now**.
 This is a *navigational* document, not a decision log: it says *what*

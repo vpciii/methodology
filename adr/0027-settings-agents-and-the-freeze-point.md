@@ -3,6 +3,11 @@
 - **Status:** Proposed
 - **Date:** 2026-11-09
 - **Deciders:** vpc
+- **Supersedes (in part):** ADR 0007 — its freeze point (the status
+  edit; now the merge of the PR that makes it) and, for settings
+  outside the repository only, its rule that `docs/architecture.md`
+  changes in the same PR as the structure it describes. The rest of
+  ADR 0007 stands.
 
 ## Context
 

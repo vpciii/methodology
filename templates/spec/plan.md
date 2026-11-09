@@ -7,8 +7,8 @@
 - **Related ADRs:** ADR-NNNN
 
 > This plan freezes with its spec: editable while `Draft` / `Under
-> review` / `Approved`, and a historical record once `Implemented`
-> (methodology §2, ADR 0007). A contradiction found later goes to a test,
+> review` / `Approved`, and a historical record once the PR that marks
+> the spec `Implemented` merges (methodology §2, ADR 0007, ADR 0027). A contradiction found later goes to a test,
 > a new spec, or an ADR — not back into this file.
 
 ## Approach
