@@ -1,6 +1,6 @@
 # ADR 0026: The shared Claude PR reviewer runs on the Agent SDK
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-09
 - **Deciders:** vpc
 - **Supersedes (in part):** ADR 0021 — its choice of

@@ -13,6 +13,22 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ### Changed
 
+- **The shared Claude PR reviewer runs on the Claude Agent SDK** (ADR
+  0026, `specs/claude-review-agent-sdk/`; supersedes ADR 0021's choice
+  of runner). The reusable workflow now runs a script from this repo
+  (`.github/claude-review/`) instead of `anthropics/claude-code-action`,
+  so reviews are billed as Agent SDK traffic, which a Max plan's monthly
+  promotional API credit covers. The agent is read-only (`Read`, `Grep`,
+  `Glob`, checked at runtime), never holds a GitHub token, and every
+  failure to review is a red check. The review is one comment posted by
+  `github-actions[bot]`. Inputs: `claude_args` is removed; `max_turns`,
+  `max_budget_usd`, `project_docs` and `reviewer_ref` are added. This
+  repo gains its first CI workflow, running the reviewer's tests and the
+  spec coverage check. Ported from nurturepa/cif (its ADR 0016).
+  *Adoption: per-project action, optional — callers on `@main` change
+  over with no edit; they may then drop `id-token: write` and the Claude
+  GitHub App (see `templates/github/claude-review.yml`). A caller that
+  passed `claude_args` must switch to the new inputs.*
 - **Global summary: memex is mothballed** — the *personal tooling*
   section of `templates/global-CLAUDE.md` no longer wires agents to the
   memex MCP server: memex is mothballed (ADR 0006 in

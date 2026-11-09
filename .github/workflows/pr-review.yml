@@ -1,6 +1,8 @@
 # The methodology repo dogfoods its own reviewer (ADR 0021): it adopts the
-# reusable workflow the same way projects do, but via the local path. Advisory
-# — review comments only. Requires an ANTHROPIC_API_KEY secret in this repo.
+# reusable workflow the same way projects do, but via the local path, and
+# takes the review script from the PR's own head, so a PR that edits the
+# reviewer is reviewed by its own copy (ADR 0026). Advisory — one review
+# comment. Requires an ANTHROPIC_API_KEY secret in this repo.
 name: Claude review
 
 on:
@@ -10,10 +12,13 @@ on:
 permissions:
   contents: read
   pull-requests: write
-  id-token: write
 
 jobs:
   review:
     uses: ./.github/workflows/claude-review.yml
+    with:
+      reviewer_ref: ${{ github.event.pull_request.head.sha }}
+      # This repo has no CLAUDE.md; its governing docs are these.
+      project_docs: "README.md methodology.md"
     secrets:
       anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}

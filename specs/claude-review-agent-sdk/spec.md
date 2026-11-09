@@ -1,6 +1,6 @@
 # Spec: The shared Claude PR reviewer runs on the Agent SDK
 
-- **Status:** Approved
+- **Status:** Implemented
 - **Date:** 2026-11-09
 - **Author:** vpc (author of record); drafted with Claude
 - **Related ADRs:** ADR 0026 (this decision, proposed), ADR 0021 (the
@@ -190,6 +190,18 @@ comment, and the long header explaining the action's skip behavior.
 - *2026-11-09* — Port from cif rather than redesign: cif's version has
   run live, with its billing verified on the Billing page (the Console's
   "Claude Code usage" analytics counts SDK runs as Claude Code anyway).
+- *2026-11-09* — Approved by vpc with the three open questions resolved
+  as proposed.
+- *2026-11-09* — As built: the tests are ten plain-python functions (the
+  nine criteria plus cif's long-diff cost guard), run by the new
+  `.github/workflows/ci.yml`. The SC-5 test also forbids the strings
+  `claude-code-action` and `id-token` anywhere in the reusable workflow,
+  this repo's caller and the template, comments included, so the old
+  runner cannot come back unnoticed.
+- *2026-11-09* — Billing check (Rollout) is still to be recorded: it
+  needs the implementation PR's own review run. It is a manual check,
+  not a criterion, so it is recorded in the PR and CHANGELOG rather than
+  here once this spec is frozen.
 
 ## Rollout and undo
 
@@ -232,16 +244,14 @@ irreversible.
 
 ## Traceability
 
-Filled in by the implementation PR.
-
 | Criterion | Requirement(s) | Verified by (test) |
 |---|---|---|
-| SC-1 | R-2, R-3, R-6 | — |
-| SC-2 | R-4, R-10 | — |
-| SC-3 | R-5 | — |
-| SC-4 | R-1 | — |
-| SC-5 | R-4, R-6, R-7, R-8, R-9, R-15 | — |
-| SC-6 | R-11 | — |
-| SC-7 | R-12 | — |
-| SC-8 | R-13 | — |
-| SC-9 | R-14 | — |
+| SC-1 | R-2, R-3, R-6 | `.github/claude-review/test_claude_review.py::test_options_are_locked_down` |
+| SC-2 | R-4, R-10 | `.github/claude-review/test_claude_review.py::test_success_writes_review` |
+| SC-3 | R-5 | `.github/claude-review/test_claude_review.py::test_failures_exit_nonzero` |
+| SC-4 | R-1 | `.github/claude-review/test_claude_review.py::test_requires_api_key` |
+| SC-5 | R-4, R-6, R-7, R-8, R-9, R-15 | `.github/claude-review/test_claude_review.py::test_workflow_shape` |
+| SC-6 | R-11 | `.github/claude-review/test_claude_review.py::test_prompt_includes_project_docs` |
+| SC-7 | R-12 | `.github/claude-review/test_claude_review.py::test_unexpected_tools_abort` |
+| SC-8 | R-13 | `.github/claude-review/test_claude_review.py::test_small_context_window_fails` |
+| SC-9 | R-14 | `.github/claude-review/test_claude_review.py::test_ci_runs_reviewer_tests_and_coverage` |
