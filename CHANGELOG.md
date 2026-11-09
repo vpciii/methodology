@@ -13,7 +13,7 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ### Added
 
-- **When a review is finished** (ADR 0028, proposed) — the review
+- **When a review is finished** (ADR 0028) — the review
   guidance in `templates/project-CONTRIBUTING.md` gains a stopping rule:
   a review is finished when its must-fix findings are closed, not when a
   reviewer returns nothing. Findings are triaged in the PR (must fix /

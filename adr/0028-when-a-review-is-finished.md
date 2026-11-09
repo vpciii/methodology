@@ -1,6 +1,6 @@
 # ADR 0028: A review is finished when its must-fix findings are closed
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-09
 - **Deciders:** vpc
 
