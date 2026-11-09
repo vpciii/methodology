@@ -24,6 +24,6 @@ jobs:
         ${{ github.event.pull_request.head.repo.fork == false
         && github.event.pull_request.head.sha || 'main' }}
       # This repo has no CLAUDE.md; its governing docs are these.
-      project_docs: "README.md methodology.md"
+      project_docs: "README.md CONTRIBUTING.md methodology.md"
     secrets:
       anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}

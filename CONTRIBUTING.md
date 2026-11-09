@@ -8,6 +8,11 @@ contributor guide, start from
 The human (vpc) is the author of record. AI assistants may draft; the
 human accepts.
 
+This file covers only what is specific to this repo. Commit type labels
+and how to choose between them, the definitions of ready and done, and
+what a review covers and checks are those of
+`templates/project-CONTRIBUTING.md`, applied here unchanged.
+
 ## Every change goes through a pull request
 
 `main` requires the `checks` status and applies that to admins, so a
@@ -22,7 +27,8 @@ Branch names follow the commit type: `docs/<slug>`, `fix/<slug>`,
 Two workflows run on a PR:
 
 - **`CI`** (required): the shared reviewer's tests, the ADR checks
-  (`.github/checks/`), and spec coverage. Run them locally with:
+  (`.github/checks/`), and spec coverage. Run them locally, from the
+  repo root, with:
 
   ```
   python3 .github/claude-review/test_claude_review.py
@@ -53,7 +59,9 @@ methodology). In one PR:
    impact.
 4. When vpc accepts it, a commit `docs: accept ADR NNNN (human sign-off)`
    sets the status to **Accepted** and, if it supersedes part of an
-   earlier ADR, annotates that ADR's status line. ADRs are otherwise
+   earlier ADR, annotates that ADR's status line, and drops "proposed"
+   from the changelog entry. This happens in the same PR, before merge:
+   an ADR never merges or is released as Proposed. ADRs are otherwise
    append-only.
 
 Work on the repo's own tooling (the reviewer, CI) that is substantial

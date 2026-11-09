@@ -54,9 +54,15 @@ def test_this_repo_is_consistent():
     assert check_adrs.problems(HERE.parents[1] / "adr") == []
 
 
+def test_ci_runs_the_check():
+    ci = (HERE.parent / "workflows" / "ci.yml").read_text(encoding="utf-8")
+    assert "python .github/checks/check_adrs.py" in ci
+    assert "python .github/checks/test_check_adrs.py" in ci
+
+
 TESTS = [test_consistent_directory_passes, test_duplicate_number_fails,
          test_title_must_match_filename_number, test_bad_filename_fails,
-         test_this_repo_is_consistent]
+         test_this_repo_is_consistent, test_ci_runs_the_check]
 
 
 def main():
