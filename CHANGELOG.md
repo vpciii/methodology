@@ -11,6 +11,19 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+### Added
+
+- **When a review is finished** (ADR 0028) — the review
+  guidance in `templates/project-CONTRIBUTING.md` gains a stopping rule:
+  a review is finished when its must-fix findings are closed, not when a
+  reviewer returns nothing. Findings are triaged in the PR (must fix /
+  record / decline), a re-review follows a fix that changed behavior or
+  the contract (one by default), commits made after the last review are
+  named as unreviewed, and the human ends it. From PR #33, where three
+  runs of the shared reviewer each raised new findings. *Adoption:
+  per-project action, optional — copy the subsection into the project's
+  `CONTRIBUTING.md`.*
+
 ## [0.15.0] - 2026-11-09
 
 ### Changed

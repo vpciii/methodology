@@ -139,6 +139,23 @@ ADR 0015 — kept short on purpose):
   glossary, and `architecture.md` updates are in this PR, not promised
   for later (ADR 0020).
 
+### When a review is finished
+
+A review is finished when its **must-fix** findings are closed, not when
+a reviewer returns nothing. A fresh pass, by a person or an AI reviewer,
+will usually find something new (methodology ADR 0028).
+
+- **Triage every finding in the PR:** *must fix* (incorrect, breaks the
+  spec / an accepted ADR / the glossary, a security hole, or makes an
+  artifact false) is fixed here; *record* (true, but not caused by this
+  PR or out of its scope) goes to the artifact that owns it, and the PR
+  says where; *decline* gets a one-line reason.
+- **Re-review when a fix changed behavior or the contract**, not for
+  wording. One re-review is the default; more is the human's call.
+- **Name what was not reviewed:** commits made after the last review.
+- **The human ends it.** An advisory AI reviewer never gates a merge,
+  and neither does the lack of a clean pass.
+
 ## Commits and versioning
 
 - [Conventional Commits](https://www.conventionalcommits.org/) for
