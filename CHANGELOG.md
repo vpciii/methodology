@@ -14,7 +14,7 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 ### Changed
 
 - **Out-of-repo settings, AI agents as actors, and the freeze point**
-  (ADR 0027, proposed) — three clarifications from the Agent SDK
+  (ADR 0027) — three clarifications from the Agent SDK
   reviewer port. (1) Host settings the system depends on (repository
   visibility, branch protection, which secrets exist and whose they are,
   plans it relies on) are structure: `docs/architecture.md` lists them

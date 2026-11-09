@@ -1,6 +1,6 @@
 # ADR 0027: Out-of-repo settings, AI agents as actors, and when a spec freezes
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-09
 - **Deciders:** vpc
 - **Supersedes (in part):** ADR 0007 — its freeze point (the status

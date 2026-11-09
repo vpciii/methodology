@@ -1,6 +1,7 @@
 # ADR 0007: Specs freeze at implementation; current state lives in tests and an architecture overview
 
-- **Status:** Accepted
+- **Status:** Accepted — superseded in part by ADR 0027 (the freeze
+  point; `architecture.md` and settings outside the repository)
 - **Date:** 2026-06-06
 - **Deciders:** vpc
 
