@@ -11,6 +11,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-09
+
 ### Changed
 
 - **The shared Claude PR reviewer runs on the Claude Agent SDK** (ADR
@@ -419,7 +421,8 @@ See [ADR 0009](./adr/0009-methodology-as-versioned-dependency.md).
 Decisions made before this changelog are recorded in git history and in
 `adr/0001`–`adr/0005`.
 
-[Unreleased]: https://github.com/vpciii/methodology/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/vpciii/methodology/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/vpciii/methodology/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/vpciii/methodology/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/vpciii/methodology/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/vpciii/methodology/compare/v0.10.0...v0.11.0
