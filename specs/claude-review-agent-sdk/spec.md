@@ -219,10 +219,11 @@ comment, and the long header explaining the action's skip behavior.
   `reviewer_ref` cost. Not taken up: giving `reviewer_ref` its own
   requirement id, and dropping `docs/conventions.md` from the default
   docs (a missing doc is skipped).
-- *2026-11-09* — Billing check (Rollout) is still to be recorded: it
-  needs the implementation PR's own review run. It is a manual check,
-  not a criterion, so it is recorded in the PR and CHANGELOG rather than
-  here once this spec is frozen.
+- *2026-11-09* — Billing check (Rollout), on PR #33's own review run
+  (42690358731, `total_cost_usd` 0.914): promotional credit went $98.87
+  → $97.96; purchased credit's drop the same afternoon ($9.59 → $8.21)
+  matches PR #32's review, which ran on the old action. So this repo's
+  key belongs to the credited org, and Goal 1 holds here.
 
 ## Rollout and undo
 
