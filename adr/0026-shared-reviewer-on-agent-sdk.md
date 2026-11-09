@@ -69,7 +69,16 @@ both.
   repos fail (red) at that checkout until the workflow takes a token
   for it.
 - The action's skip-as-green failure mode, and the workaround step for
-  it, go away.
+  it, go away. So does the guard behind it: the action refused to run
+  when a PR changed the caller workflow, which kept a same-repo branch
+  from rewriting the review to leak the key. Now such a PR runs its own
+  copy with the key in the environment. This repo's local-path caller
+  was never covered; for other callers it is a real reduction, bounded
+  only by who can push branches to their repo.
+- `reviewer_ref` defaults to `main`, so a caller that pins the workflow
+  to a tag still runs `main`'s script unless it passes the same tag as
+  `reviewer_ref`. Accepted (spec, Open questions): callers use `@main`
+  today, and the template says to keep the two in step.
 
 ## Adoption impact
 

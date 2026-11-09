@@ -212,6 +212,13 @@ comment, and the long header explaining the action's skip behavior.
     is public, so a cross-account caller works, and the reviewer
     checkout relies on that (ADR 0026, Consequences). The non-goal
     stands; the template's old access-setting prerequisite is removed.
+- *2026-11-09* — From PR #32's review (the last run of the old
+  action): the tests also assert the template's prerequisites and
+  billing caveat (R-15) and the `reviewer_ref` input and its default;
+  ADR 0026's Consequences records the lost caller-edit guard and the
+  `reviewer_ref` cost. Not taken up: giving `reviewer_ref` its own
+  requirement id, and dropping `docs/conventions.md` from the default
+  docs (a missing doc is skipped).
 - *2026-11-09* — Billing check (Rollout) is still to be recorded: it
   needs the implementation PR's own review run. It is a manual check,
   not a criterion, so it is recorded in the PR and CHANGELOG rather than

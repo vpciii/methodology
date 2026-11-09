@@ -219,7 +219,14 @@ def test_workflow_shape():
         assert "types: [opened, ready_for_review]" in body, caller.name
         assert "id-token" not in body, caller.name
         assert "claude-review.yml" in body, caller.name
-    assert "apps/claude" not in TEMPLATE.read_text(encoding="utf-8")
+    # R-15: the template's prerequisites and its billing caveat.
+    template = TEMPLATE.read_text(encoding="utf-8")
+    assert "apps/claude" not in template, "GitHub App prerequisite is back"
+    assert "promotional API credit" in template, "billing caveat missing"
+    assert "reviewer_ref" in template, "template does not mention reviewer_ref"
+    # The script's ref: present, defaulting to main (spec, Open questions).
+    assert re.search(r'\n      reviewer_ref:\n(.*\n)*?        default: "main"\n',
+                     text), "reviewer_ref default"
 
 
 def test_prompt_includes_project_docs():
