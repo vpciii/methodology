@@ -53,14 +53,15 @@ must-fix findings are closed, not when a reviewer returns nothing.**
    - **Record** — true, but not caused by this PR or not in its scope.
      It goes to the artifact that owns it (an issue, a follow-up PR, a
      dated entry in the spec's Decisions); it does not block the merge.
-   - **Decline** — with a one-line reason, where the reviewer can be
-     read.
+   - **Decline** — with a one-line reason, posted in the PR beside the
+     finding it declines.
 2. **Re-review when a fix changed behavior or the contract**, not for
    wording. One re-review is the default; more is the human's call, made
    knowing that a fresh pass will find fresh things.
 3. **Say what was not reviewed.** Commits made after the last review are
-   named as unreviewed in the PR (ADR 0015 already requires citing the
-   range a review covered).
+   named as unreviewed in the PR (the Reviews section of
+   `templates/project-CONTRIBUTING.md` already requires each review to
+   cite the range it covered).
 4. **The human ends it.** An advisory reviewer never gates a merge
    (ADR 0021), and neither does the absence of a clean pass.
 
