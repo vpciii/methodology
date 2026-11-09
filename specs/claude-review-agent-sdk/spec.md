@@ -1,6 +1,6 @@
 # Spec: The shared Claude PR reviewer runs on the Agent SDK
 
-- **Status:** Draft
+- **Status:** Approved
 - **Date:** 2026-11-09
 - **Author:** vpc (author of record); drafted with Claude
 - **Related ADRs:** ADR 0026 (this decision, proposed), ADR 0021 (the
@@ -209,16 +209,20 @@ irreversible.
 
 ## Open questions
 
-- [ ] **`reviewer_ref` default.** A reusable workflow can't reliably
+- [x] **`reviewer_ref` default.** A reusable workflow can't reliably
   name the ref it was called at, so a caller on `@v0.14.0` would still
   get `main`'s script. Accept `main` (callers today use `@main`), or
   have the template pass `reviewer_ref` explicitly alongside its `@ref`?
   Proposed: default `main`; template documents keeping the two in step.
-- [ ] **Caps.** Same as cif: `max_turns=40`, `max_budget_usd=3.00`?
-- [ ] **Whose key.** This repo's `ANTHROPIC_API_KEY` must be a key from
+  *Resolved 2026-11-09:* approved as proposed.
+- [x] **Caps.** Same as cif: `max_turns=40`, `max_budget_usd=3.00`?
+  *Resolved 2026-11-09:* approved.
+- [x] **Whose key.** This repo's `ANTHROPIC_API_KEY` must be a key from
   the org that receives the Max plan's credit for Goal 1 to hold here.
   Confirm it is (or rotate it to one that is) before the implementation
   PR's billing check.
+  *Resolved 2026-11-09:* approved as proposed; the implementation PR's
+  billing check (Rollout) verifies it.
 
 ## Out of scope (for now)
 
